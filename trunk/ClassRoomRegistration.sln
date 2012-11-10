@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassRoomRegistration", "ClassRoomRegistration\ClassRoomRegistration.csproj", "{B1503FB9-559D-45D3-B85B-CB478884EDD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B1503FB9-559D-45D3-B85B-CB478884EDD3}.Debug|x86.ActiveCfg = Debug|x86
+		{B1503FB9-559D-45D3-B85B-CB478884EDD3}.Debug|x86.Build.0 = Debug|x86
+		{B1503FB9-559D-45D3-B85B-CB478884EDD3}.Release|x86.ActiveCfg = Release|x86
+		{B1503FB9-559D-45D3-B85B-CB478884EDD3}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
