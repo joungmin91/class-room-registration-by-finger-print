@@ -58,9 +58,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(18, 13);
+            this.label1.Size = new System.Drawing.Size(26, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "ID";
+            this.label1.Text = "รหัส";
             // 
             // txtStdID
             // 
@@ -74,9 +74,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(13, 38);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.Size = new System.Drawing.Size(20, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Name";
+            this.label2.Text = "ชื่อ";
             // 
             // txtStdName
             // 
@@ -97,9 +97,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(13, 64);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(33, 13);
+            this.label3.Size = new System.Drawing.Size(29, 13);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Major";
+            this.label3.Text = "สาขา";
             // 
             // txtFinger
             // 
@@ -114,9 +114,9 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(13, 107);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(36, 13);
+            this.label8.Size = new System.Drawing.Size(34, 13);
             this.label8.TabIndex = 19;
-            this.label8.Text = "Finger";
+            this.label8.Text = "นิ้วมือ";
             // 
             // btnFingerEnroll
             // 
@@ -134,9 +134,9 @@
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(27, 265);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(101, 13);
+            this.label15.Size = new System.Drawing.Size(93, 13);
             this.label15.TabIndex = 29;
-            this.label15.Text = "Required to fill data.";
+            this.label15.Text = "จำเป็นต้องใส่ข้อมูล";
             // 
             // label14
             // 
@@ -156,7 +156,7 @@
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 27;
-            this.btnOK.Text = "OK";
+            this.btnOK.Text = "ตกลง";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
@@ -167,7 +167,7 @@
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 26;
-            this.btnCancel.Text = "Cancel";
+            this.btnCancel.Text = "ยกเลิก";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -218,27 +218,27 @@
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(64, 167);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(55, 13);
+            this.label17.Size = new System.Drawing.Size(58, 13);
             this.label17.TabIndex = 36;
-            this.label17.Text = "No. stamp";
+            this.label17.Text = "จำนวนครั้ง";
             // 
             // txtFPStatus
             // 
             this.txtFPStatus.AutoSize = true;
             this.txtFPStatus.Location = new System.Drawing.Point(123, 142);
             this.txtFPStatus.Name = "txtFPStatus";
-            this.txtFPStatus.Size = new System.Drawing.Size(38, 13);
+            this.txtFPStatus.Size = new System.Drawing.Size(34, 13);
             this.txtFPStatus.TabIndex = 35;
-            this.txtFPStatus.Text = "Ready";
+            this.txtFPStatus.Text = "พร้อม";
             // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(64, 142);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(37, 13);
+            this.label16.Size = new System.Drawing.Size(38, 13);
             this.label16.TabIndex = 34;
-            this.label16.Text = "Status";
+            this.label16.Text = "สถานะ";
             // 
             // picFP
             // 
@@ -278,7 +278,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddEditStudentFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Student";
+            this.Text = "ข้อมูลนิสิต";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddEditStudentFrm_FormClosed);
             this.Load += new System.EventHandler(this.AddEditStudentFrm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picFP)).EndInit();

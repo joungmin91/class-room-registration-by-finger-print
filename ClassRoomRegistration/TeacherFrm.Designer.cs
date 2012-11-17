@@ -53,6 +53,7 @@
             this.dgv.Name = "dgv";
             this.dgv.Size = new System.Drawing.Size(760, 437);
             this.dgv.TabIndex = 0;
+            this.dgv.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseDown);
             // 
             // btnDelete
             // 
@@ -99,18 +100,15 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(13, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.Size = new System.Drawing.Size(34, 13);
             this.label1.TabIndex = 5;
-            this.label1.Text = "Search";
+            this.label1.Text = "ค้นหา";
             // 
             // cmbType
             // 
             this.cmbType.FormattingEnabled = true;
             this.cmbType.Items.AddRange(new object[] {
-            "First Name",
-            "Last Name",
-            "Address",
-            "Phone",
+            "Name",
             "Username"});
             this.cmbType.Location = new System.Drawing.Point(60, 14);
             this.cmbType.Name = "cmbType";
@@ -123,6 +121,7 @@
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(201, 20);
             this.txtSearch.TabIndex = 7;
+            this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
             // 
             // btnClear
             // 
@@ -150,10 +149,9 @@
             this.Controls.Add(this.dgv);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TeacherFrm";
-            this.Text = "Teacher";
+            this.Text = "ข้อมูลอาจารย์";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.TeacherFrm_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TeacherFrm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDelete)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnEdit)).EndInit();

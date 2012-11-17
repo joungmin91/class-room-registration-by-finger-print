@@ -17,10 +17,7 @@ namespace ClassRoomRegistration
         public bool EditMode { get; set; }
         public string TechID { get; set; }
         private MySQLDatabase _db = null;
-        private AxZKFPEngX _fpEngine = null;
-        private int _cntFPEnroll = 0;
-        private bool _enrollMode = false;
-
+        private List<Branch> _lstBrch = new List<Branch>();
 
         public AddEditTeacherFrm()
         {
@@ -37,17 +34,13 @@ namespace ClassRoomRegistration
             // Init database
             _db = ((MainFrm)Parent)._db;
 
-            // Init FP engine
-            _fpEngine = new AxZKFPEngX();
-            _fpEngine.BeginInit();
-            _fpEngine.OnEnroll += new IZKFPEngXEvents_OnEnrollEventHandler(_fpEngine_OnEnroll);
-            _fpEngine.OnImageReceived += new IZKFPEngXEvents_OnImageReceivedEventHandler(_fpEngine_OnImageReceived);
-            this.Controls.Add(_fpEngine);
-
-            if (_fpEngine.InitEngine() != 0)
+            // For branch combobox
+            _db.SQLCommand = "SELECT * FROM teacher_branch";
+            _db.Query();
+            while (_db.Result.Read())
             {
-                MessageBox.Show("Cannot connect to finger scan device.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                cmbBrch.Items.Add((string)_db.Result.GetValue(1));
+                _lstBrch.Add(new Branch { BranchID = (string)_db.Result.GetValue(0), BranchName = (string)_db.Result.GetValue(1) });
             }
             
             // For Edit mode
@@ -58,95 +51,106 @@ namespace ClassRoomRegistration
                 if (_db.Result.HasRows)
                 {
                     _db.Result.Read();
-                    txtFName.Text = (string)_db.Result.GetValue(1);
-                    txtLName.Text = (string)_db.Result.GetValue(2);
-                    txtAddr.Text = (string)_db.Result.GetValue(3);
-                    txtPhone.Text = (string)_db.Result.GetValue(4);
-                    txtUsername.Text = (string)_db.Result.GetValue(5);
-                    txtPassword.Text = (string)_db.Result.GetValue(6);
-                    txtFinger.Text = (string)_db.Result.GetValue(7);
-                    cmbType.Text = (string)_db.Result.GetValue(8);
+                    txtName.Text = (string)_db.Result.GetValue(1);
+                    txtBrchID.Text = (string)_db.Result.GetValue(2);
+                    cmbBrch.Text = LookupBranchName((string)_db.Result.GetValue(2));
+                    txtUsername.Text = (string)_db.Result.GetValue(3);
+                    txtPassword.Text = (string)_db.Result.GetValue(4);
+                    cmbQuestion.Text = (string)_db.Result.GetValue(7);
+                    txtAnswer.Text = (string)_db.Result.GetValue(8);
                 }
             }
         }
 
-        void _fpEngine_OnImageReceived(object sender, IZKFPEngXEvents_OnImageReceivedEvent e)
+        private string LookupBranchName(string brchID)
         {
-            if (_enrollMode == true)
+            foreach (Branch item in _lstBrch)
             {
-                _fpEngine.PrintImageAt((int)picFP.CreateGraphics().GetHdc().ToInt64(), 0, 0, 100, 100);
-                _cntFPEnroll++;
-                txtFPNo.Text = _cntFPEnroll.ToString(); 
+                if (item.BranchID == brchID)
+                {
+                    return item.BranchName;
+                }
             }
+            return "";
         }
 
-        void _fpEngine_OnEnroll(object sender, IZKFPEngXEvents_OnEnrollEvent e)
+        private string LookupBrachID(string brchName)
         {
-            txtFinger.Text = _fpEngine.GetTemplateAsString();
-            txtFPStatus.Text = "Completed";
-            _cntFPEnroll = 0;
-            _enrollMode = false;
+            foreach (Branch item in _lstBrch)
+            {
+                if (item.BranchName == brchName)
+                {
+                    return item.BranchID;
+                }
+            }
+            return "";
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
             // Check required field.
-            if (txtFName.Text == "" || txtLName.Text == "" || txtUsername.Text == "" || txtPassword.Text == "" || cmbType.Text == "")
+            if (txtName.Text == "" || txtUsername.Text == "" || txtPassword.Text == "" || txtBrchID.Text == "" || cmbQuestion.Text == "" || txtAnswer.Text == "")
             {
-                MessageBox.Show("You must fill all required field.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("ข้อมูลไม่ครบ", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (EditMode == true)
             {
                 // Update the record.
                 _db.SQLCommand = "UPDATE teacher SET ";
-                _db.SQLCommand += "tech_fname='" + txtFName.Text + "', ";
-                _db.SQLCommand += "tech_lname='" + txtLName.Text +"', ";
-                _db.SQLCommand += "tech_addr='" + txtAddr.Text +"', ";
-                _db.SQLCommand += "tech_phone='" + txtPhone.Text +"', ";
+                _db.SQLCommand += "tech_name='" + txtName.Text + "', ";
+                _db.SQLCommand += "tech_branch='" + txtBrchID.Text +"', ";
                 _db.SQLCommand += "tech_username='" + txtUsername.Text +"', ";
                 _db.SQLCommand += "tech_password='" + txtPassword.Text +"', ";
-                _db.SQLCommand += "tech_fp_key='" + txtFinger.Text +"', ";
-                _db.SQLCommand += "tech_type='" + cmbType.Text +"' ";
+                _db.SQLCommand += "tech_type='user', ";
+                _db.SQLCommand += "tech_question='" + cmbQuestion.Text + "', ";
+                _db.SQLCommand += "tech_answer='" + txtAnswer.Text + "' ";
                 _db.SQLCommand += "WHERE tech_id='" + TechID + "' ";
                 if (_db.Query() == true)
                 {
-                    MessageBox.Show("Record has been updated into database.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("บันทึกข้อมูลเรียบร้อย", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Record cannot be updated into database. SQL = " + _db.SQLCommand, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("ไม่สามารถบันทึกข้อมูลได้, SQL = " + _db.SQLCommand, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
                 // Insert the record.
-                _db.SQLCommand = "INSERT INTO teacher (tech_fname, tech_lname, tech_addr, tech_phone, tech_username, tech_password, tech_fp_key, tech_type) VALUES ('" + txtFName.Text + "', '" + txtLName.Text + "', '" + txtAddr.Text + "', '" + txtPhone.Text + "', '" + txtUsername.Text + "', '" + txtPassword.Text + "', '', '" + cmbType.Text + "')";
+                string mode = "user";
+                if (txtName.Text == "admin")
+                {
+                    mode = "admin";
+                }
+
+                _db.SQLCommand = "INSERT INTO teacher (tech_name, tech_branch, tech_username, tech_password, tech_fp_key, tech_type, tech_question, tech_answer) VALUES ('" + txtName.Text + "', '" + txtBrchID.Text + "', '" + txtUsername.Text + "', '" + txtPassword.Text + "', '', '" + mode + "', '" + cmbQuestion.Text + "', '" + txtAnswer.Text + "')";
                 if (_db.Query() == true)
                 {
-                    MessageBox.Show("Record has been inserted into database.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("บันทึกข้อมูลเรียบร้อย", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Record cannot be inserted into database. SQL = " + _db.SQLCommand, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("ไม่สามารถบันทึกข้อมูลได้, SQL = " + _db.SQLCommand, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
-        private void btnFingerEnroll_Click(object sender, EventArgs e)
-        {
-            _fpEngine.BeginEnroll();
-            _enrollMode = true;
-            txtFPStatus.Text = "Stamp 3 times";
-            txtFPNo.Text = _cntFPEnroll.ToString();
-        }
-
         private void AddEditTeacherFrm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            _fpEngine.EndInit();
-            _fpEngine.EndEngine();
         }
+
+        private void cmbBrch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtBrchID.Text = LookupBrachID(cmbBrch.Text);
+        }
+    }
+
+    public class Branch
+    {
+        public string BranchID { get; set; }
+        public string BranchName { get; set; }
     }
 }

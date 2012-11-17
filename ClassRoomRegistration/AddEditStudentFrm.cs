@@ -20,6 +20,7 @@ namespace ClassRoomRegistration
         private AxZKFPEngX _fpEngine = null;
         private int _cntFPEnroll = 0;
         private bool _enrollMode = false;
+        private bool _fpDeviceConnect = false;
 
         public AddEditStudentFrm()
         {
@@ -36,7 +37,7 @@ namespace ClassRoomRegistration
             // Check required field.
             if (txtStdID.Text == "" || txtStdName.Text == "" || txtStdMajor.Text == "")
             {
-                MessageBox.Show("You must fill all required field.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("ใส่ข้อมูลไม่ครบ", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -50,12 +51,12 @@ namespace ClassRoomRegistration
                 _db.SQLCommand += "WHERE std_id='" + StudentID + "' ";
                 if (_db.Query() == true)
                 {
-                    MessageBox.Show("Record has been updated into database.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("บันทึกข้อมูลเรียบร้อย", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Record cannot be updated into database. SQL = " + _db.SQLCommand, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("ไม่สามารถบัทึกข้อมูลได้, SQL = " + _db.SQLCommand, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -64,12 +65,12 @@ namespace ClassRoomRegistration
                 _db.SQLCommand = "INSERT INTO student (std_id, std_name, std_major, std_fp_key) VALUES ('" + txtStdID.Text + "', '" + txtStdName.Text + "', '" + txtStdMajor.Text + "', '" + txtFinger.Text + "')";
                 if (_db.Query() == true)
                 {
-                    MessageBox.Show("Record has been inserted into database.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("บันทึกข้อมูลเรียบร้อย", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Record cannot be inserted into database. SQL = " + _db.SQLCommand, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("ไม่สามารถบัทึกข้อมูลได้, SQL = " + _db.SQLCommand, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -88,8 +89,12 @@ namespace ClassRoomRegistration
 
             if (_fpEngine.InitEngine() != 0)
             {
-                MessageBox.Show("Cannot connect to finger scan device.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                MessageBox.Show("ไม่สามารถติดต่ออุปกรณ์สแกนลายนิ้วมือได้", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _fpDeviceConnect = false;
+            }
+            else
+            {
+                _fpDeviceConnect = true;
             }
 
             // For Edit mode
@@ -128,16 +133,22 @@ namespace ClassRoomRegistration
         void _fpEngine_OnEnroll(object sender, IZKFPEngXEvents_OnEnrollEvent e)
         {
             txtFinger.Text = _fpEngine.GetTemplateAsString();
-            txtFPStatus.Text = "Completed";
+            txtFPStatus.Text = "เรียบร้อย";
             _cntFPEnroll = 0;
             _enrollMode = false;
         }
 
         private void btnFingerEnroll_Click(object sender, EventArgs e)
         {
+            if (_fpDeviceConnect == false)
+            {
+                MessageBox.Show("อุปกรณ์สแกนลายนิ้วมือไม่ได้ถูกติดตั้ง", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             _fpEngine.BeginEnroll();
             _enrollMode = true;
-            txtFPStatus.Text = "Stamp 3 times";
+            txtFPStatus.Text = "วางนิ้ว 3 ครั้ง";
             txtFPNo.Text = _cntFPEnroll.ToString();
         }
 

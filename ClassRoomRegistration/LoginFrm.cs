@@ -15,7 +15,8 @@ namespace ClassRoomRegistration
     {
         public bool LoginOK { get; set; }
         public string Username { get; set; }
-        private MySQLDatabase _db = null;
+        public string Type { get; set; }
+        public MySQLDatabase _db = null;
 
         public LoginFrm()
         {
@@ -37,30 +38,48 @@ namespace ClassRoomRegistration
             // Check empty textbox
             if (txtUsername.Text == "" || txtPassword.Text =="")
             {
-                MessageBox.Show("You must enter username and password.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("ไม่ได้ใส่ข้อมูลชื่อผู้ใช้หรือรหัสผ่าน", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             // Check login.
-            string cmd = "SELECT * FROM teacher WHERE tech_username='" + txtUsername.Text + "' AND tech_password='" + txtPassword.Text + "'";
+            string cmd = "SELECT tech_username, tech_password, tech_type, tech_id FROM teacher WHERE tech_username='" + txtUsername.Text + "' AND tech_password='" + txtPassword.Text + "'";
             _db.SQLCommand = cmd;
             _db.Query();
 
             // If no any rows return back, so login is failed.
             if (_db.Result.HasRows == false)
             {
-                MessageBox.Show("Login failed. Maybe username or password is not correct.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("ล๊อกอินผิดพลาด", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtUsername.Text = "";
                 txtPassword.Text = "";
+                txtUsername.Focus();
                 return;
             }
 
+            _db.Result.Read();
+
             LoginOK = true;
             Username = txtUsername.Text;
+            Type = (string)_db.Result.GetValue(2);
 
             // If everything is OK, close this login form.
-            ((MainFrm)this.MdiParent).AlreadyLogin(Username);
+            ((MainFrm)this.MdiParent).AlreadyLogin(_db.Result.GetValue(3).ToString(), Username, Type);
             this.Close();
+        }
+
+        private void txtForgetPassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (txtUsername.Text == "")
+            {
+                MessageBox.Show("ต้องใส่ชื่อผู้ใช้งานเพื่อถามคำถาม", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            ForgetPasswordFrm frm = new ForgetPasswordFrm();
+            frm.Parent = this;
+            frm.Username = txtUsername.Text;
+            frm.ShowDialog();
         }
     }
 }

@@ -32,8 +32,8 @@ namespace ClassRoomRegistration
             dgv.MultiSelect = false;
             dgv.ReadOnly = true;
             dgv.ColumnCount = 2;
-            dgv.Columns[0].HeaderText = "Subject ID";
-            dgv.Columns[1].HeaderText = "Subject Name";
+            dgv.Columns[0].HeaderText = "รหัสวิชา";
+            dgv.Columns[1].HeaderText = "ชื่อวิชา";
             dgv.Columns[1].Width = 610;
             
             LoadSubjectToDGV("SELECT * FROM subject");
@@ -49,7 +49,7 @@ namespace ClassRoomRegistration
 
             if (_db.Result.HasRows == false)
             {
-                MessageBox.Show("No records return from database.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("ไม่มีรายการที่ต้องแสดง", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -98,6 +98,11 @@ namespace ClassRoomRegistration
                 return;
             }
 
+            if (MessageBox.Show("ต้องการลบข้อมูลหรือมั้ย", "", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+            {
+                return;
+            }
+
             _db.SQLCommand = "DELETE FROM subject WHERE sub_id='" + dgv.CurrentRow.Cells[0].Value.ToString() + "'";
             if (_db.Query() == true)
             {
@@ -105,7 +110,7 @@ namespace ClassRoomRegistration
             }
             else
             {
-                MessageBox.Show("Record cannot be deleted.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("ไม่สามารถลบข้อมูลได้", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -119,24 +124,14 @@ namespace ClassRoomRegistration
             ShowEditFrm();
         }
 
-        private void SubjectFrm_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control == true && e.KeyCode == Keys.A)
-            {
-                ShowAddFrm();
-            }
-            else if (e.Control == true && e.KeyCode == Keys.E)
-            {
-                ShowEditFrm();
-            }
-            else if (e.KeyCode == Keys.Delete)
-            {
-                ShowDeleteFrm();
-            }
-        }
-
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            if (txtSearch.Text == "")
+            {
+                MessageBox.Show("ใส่คำที่ต้องการค้นหา", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             string sqlCmd = "SELECT * FROM subject WHERE ";
             if (cmbType.Text == "Subject ID")
             {
@@ -146,6 +141,11 @@ namespace ClassRoomRegistration
             {
                 sqlCmd += "sub_title like '%" + txtSearch.Text + "%'";
             }
+            else
+            {
+                MessageBox.Show("เลือกรายการที่ต้องการค้นหา", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             LoadSubjectToDGV(sqlCmd);
         }
 
@@ -153,6 +153,14 @@ namespace ClassRoomRegistration
         {
             txtSearch.Text = "";
             LoadSubjectToDGV("SELECT * FROM subject");
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSearch_Click(null, null);
+            }
         }
     }
 }

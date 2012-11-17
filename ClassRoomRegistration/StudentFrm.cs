@@ -31,11 +31,13 @@ namespace ClassRoomRegistration
             dgv.AllowUserToDeleteRows = false;
             dgv.MultiSelect = false;
             dgv.ReadOnly = true;
-            dgv.ColumnCount = 3;
-            dgv.Columns[0].HeaderText = "Student ID";
-            dgv.Columns[1].HeaderText = "Student Name";
-            dgv.Columns[1].Width = 480;
-            dgv.Columns[2].HeaderText = "Student Major";
+            dgv.ColumnCount = 4;
+            dgv.Columns[0].HeaderText = "";
+            dgv.Columns[0].Width = 20;
+            dgv.Columns[1].HeaderText = "รหัสนิสิต";
+            dgv.Columns[2].HeaderText = "ชื่อนิสิต";
+            dgv.Columns[2].Width = 480;
+            dgv.Columns[3].HeaderText = "สาขา";
 
             LoadStudentToDGV("SELECT * FROM student");
         }
@@ -50,14 +52,16 @@ namespace ClassRoomRegistration
 
             if (_db.Result.HasRows == false)
             {
-                MessageBox.Show("No records return from database.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("ไม่มีข้อมูลแสดงผล", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             // Insert rows to DGV
+            int i = 1;
             while (_db.Result.Read())
             {
                 dgv.Rows.Add(
+                    i++,
                     _db.Result.GetValue(0),
                     _db.Result.GetValue(1),
                     _db.Result.GetValue(2)
@@ -72,6 +76,11 @@ namespace ClassRoomRegistration
                 return;
             }
 
+            if (MessageBox.Show("ต้องการลบข้อมูลหรือมั้ย", "", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+            {
+                return;
+            }
+
             _db.SQLCommand = "DELETE FROM student WHERE std_id='" + dgv.CurrentRow.Cells[0].Value.ToString() + "'";
             if (_db.Query() == true)
             {
@@ -79,7 +88,7 @@ namespace ClassRoomRegistration
             }
             else
             {
-                MessageBox.Show("Record cannot be deleted.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("ไม่สามารถลบข้อมูลได้", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -90,6 +99,12 @@ namespace ClassRoomRegistration
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            if (txtSearch.Text == "")
+            {
+                MessageBox.Show("ใสคำที่ต้องการค้นหา", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             string sqlCmd = "SELECT * FROM student WHERE ";
             if (cmbType.Text == "Student ID")
             {
@@ -98,6 +113,11 @@ namespace ClassRoomRegistration
             else if (cmbType.Text == "Student Name")
             {
                 sqlCmd += "std_name like '%" + txtSearch.Text + "%'";
+            }
+            else
+            {
+                MessageBox.Show("เลือกประเภทการค้นหา", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
             LoadStudentToDGV(sqlCmd);
         }
@@ -131,7 +151,7 @@ namespace ClassRoomRegistration
             AddEditStudentFrm frm = new AddEditStudentFrm();
             frm.Parent = this.MdiParent;
             frm.EditMode = true;
-            frm.StudentID = (string)dgv.CurrentRow.Cells[0].Value.ToString();
+            frm.StudentID = (string)dgv.CurrentRow.Cells[1].Value.ToString();
             frm.ShowDialog();
             LoadStudentToDGV("SELECT * FROM student");
         }
@@ -139,6 +159,14 @@ namespace ClassRoomRegistration
         private void btnEdit_Click(object sender, EventArgs e)
         {
             ShowEditFrm();
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSearch_Click(null, null);
+            }
         }
     }
 }

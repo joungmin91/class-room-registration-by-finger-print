@@ -32,7 +32,7 @@ namespace ClassRoomRegistration
             // Check required field.
             if (txtSubID.Text == "" || txtSubName.Text == "")
             {
-                MessageBox.Show("You must fill all required field.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("ใส่ข้อมูลไม่ครบ", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -44,12 +44,12 @@ namespace ClassRoomRegistration
                 _db.SQLCommand += "WHERE sub_id='" + SubjectID + "' ";
                 if (_db.Query() == true)
                 {
-                    MessageBox.Show("Record has been updated into database.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("บันทึกข้อมูลเรียบร้อย", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Record cannot be updated into database. SQL = " + _db.SQLCommand, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("ไม่สามารถบันทึกข้อมูลได้, SQL = " + _db.SQLCommand, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -58,12 +58,12 @@ namespace ClassRoomRegistration
                 _db.SQLCommand = "INSERT INTO subject (sub_id, sub_title) VALUES ('" + txtSubID.Text + "', '" + txtSubName.Text + "')";
                 if (_db.Query() == true)
                 {
-                    MessageBox.Show("Record has been inserted into database.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("บันทึกข้อมูลเรียบร้อย", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Record cannot be inserted into database. SQL = " + _db.SQLCommand, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("ไม่สามารถบันทึกข้อมูลได้, SQL = " + _db.SQLCommand, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

@@ -85,10 +85,10 @@ namespace ClassRoomRegistration
             dgv.MultiSelect = false;
             dgv.ReadOnly = true;
             dgv.ColumnCount = 3;
-            dgv.Columns[0].HeaderText = "ID";
-            dgv.Columns[1].HeaderText = "Name";
+            dgv.Columns[0].HeaderText = "รหัสนิสิต";
+            dgv.Columns[1].HeaderText = "ชื่อ-นามสกุล";
             dgv.Columns[1].Width = 460;
-            dgv.Columns[2].HeaderText = "Major";
+            dgv.Columns[2].HeaderText = "สาขา";
         }
 
         private void btnImport_Click(object sender, EventArgs e)
@@ -112,7 +112,7 @@ namespace ClassRoomRegistration
 
             if (_db.Query() == false)
             {
-                MessageBox.Show("Cannot import Subject into database", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("ไม่สามารถนำเข้าข้อมูลได้", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -136,9 +136,29 @@ namespace ClassRoomRegistration
                 }
 
                 _db.Query();
+
+                // Registration
+                _db.SQLCommand = "SELECT * FROM registration WHERE std_id='" + item.ID + "' AND sub_id='" + _subjectCode + "'";
+                _db.Query();
+                if (_db.Result.HasRows)
+                {
+                    // Update
+                    _db.SQLCommand = "UPDATE registration SET ";
+                    _db.SQLCommand += "sub_id='" + _subjectCode + "', ";
+                    _db.SQLCommand += "std_id='" + item.ID + "', ";
+                    _db.SQLCommand += "year='" + _year + "' ";
+                    _db.SQLCommand += "WHERE sub_id='" + _subjectCode + "' AND std_id='" + item.ID + "' AND year='" + _year + "'";
+                }
+                else
+                {
+                    // Insert
+                    _db.SQLCommand = "INSERT INTO registration (sub_id, std_id, year) VALUES ('" + _subjectCode + "', '" + item.ID + "', '" + _year + "')";
+                }
+
+                _db.Query();
             }
 
-            MessageBox.Show("Import data into database is OK", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("นำเข้าข้อมูลเสร็จเรียบร้อย", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 
