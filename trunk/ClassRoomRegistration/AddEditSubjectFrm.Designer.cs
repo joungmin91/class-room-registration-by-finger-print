@@ -46,9 +46,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 13);
+            this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Subject ID";
+            this.label1.Text = "รหัสวิชา";
             // 
             // txtSubID
             // 
@@ -69,9 +69,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(13, 39);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 13);
+            this.label2.Size = new System.Drawing.Size(38, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Subject Name";
+            this.label2.Text = "ชื่อวิชา";
             // 
             // btnCancel
             // 
@@ -80,7 +80,7 @@
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 5;
-            this.btnCancel.Text = "Cancel";
+            this.btnCancel.Text = "ยกเลิก";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -91,7 +91,7 @@
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 4;
-            this.btnOK.Text = "OK";
+            this.btnOK.Text = "ตกลง";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
@@ -122,9 +122,9 @@
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(34, 81);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(101, 13);
+            this.label15.Size = new System.Drawing.Size(93, 13);
             this.label15.TabIndex = 27;
-            this.label15.Text = "Required to fill data.";
+            this.label15.Text = "จำเป้นต้องใส่ข้อมูล";
             // 
             // label14
             // 
@@ -156,7 +156,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddEditSubjectFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Subject";
+            this.Text = "ข้อมูลรายวิชา";
             this.Load += new System.EventHandler(this.AddEditSubjectFrm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

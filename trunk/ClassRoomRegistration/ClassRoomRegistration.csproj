@@ -43,6 +43,13 @@
     <Reference Include="Database">
       <HintPath>.\Database.dll</HintPath>
     </Reference>
+    <Reference Include="Interop.ZKFPEngXControl">
+      <HintPath>fpSDK\Interop.ZKFPEngXControl.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="MessageMgr">
+      <HintPath>.\MessageMgr.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data, Version=6.3.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
@@ -62,6 +69,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddEditRegistrationFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditRegistrationFrm.Designer.cs">
+      <DependentUpon>AddEditRegistrationFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddEditStudentFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +92,30 @@
     </Compile>
     <Compile Include="AddEditTeacherFrm.Designer.cs">
       <DependentUpon>AddEditTeacherFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdminScreenFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminScreenFrm.Designer.cs">
+      <DependentUpon>AdminScreenFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AssignTeacherToSubjectFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AssignTeacherToSubjectFrm.Designer.cs">
+      <DependentUpon>AssignTeacherToSubjectFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigFrm.Designer.cs">
+      <DependentUpon>ConfigFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ForgetPasswordFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ForgetPasswordFrm.Designer.cs">
+      <DependentUpon>ForgetPasswordFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="ImportDataFrm.cs">
       <SubType>Form</SubType>
@@ -100,6 +137,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistationFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistationFrm.Designer.cs">
+      <DependentUpon>RegistationFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScanFingerStdFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScanFingerStdFrm.Designer.cs">
+      <DependentUpon>ScanFingerStdFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="StudentFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +167,33 @@
     <Compile Include="TeacherFrm.Designer.cs">
       <DependentUpon>TeacherFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TeacherScreenFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TeacherScreenFrm.Designer.cs">
+      <DependentUpon>TeacherScreenFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TeachingFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TeachingFrm.Designer.cs">
+      <DependentUpon>TeachingFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TeachingViewFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TeachingViewFrm.Designer.cs">
+      <DependentUpon>TeachingViewFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserSettingFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserSettingFrm.Designer.cs">
+      <DependentUpon>UserSettingFrm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AddEditRegistrationFrm.resx">
+      <DependentUpon>AddEditRegistrationFrm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddEditStudentFrm.resx">
       <DependentUpon>AddEditStudentFrm.cs</DependentUpon>
     </EmbeddedResource>
@@ -126,6 +202,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddEditTeacherFrm.resx">
       <DependentUpon>AddEditTeacherFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminScreenFrm.resx">
+      <DependentUpon>AdminScreenFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AssignTeacherToSubjectFrm.resx">
+      <DependentUpon>AssignTeacherToSubjectFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigFrm.resx">
+      <DependentUpon>ConfigFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ForgetPasswordFrm.resx">
+      <DependentUpon>ForgetPasswordFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImportDataFrm.resx">
       <DependentUpon>ImportDataFrm.cs</DependentUpon>
@@ -145,6 +233,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RegistationFrm.resx">
+      <DependentUpon>RegistationFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScanFingerStdFrm.resx">
+      <DependentUpon>ScanFingerStdFrm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StudentFrm.resx">
       <DependentUpon>StudentFrm.cs</DependentUpon>
     </EmbeddedResource>
@@ -153,6 +247,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TeacherFrm.resx">
       <DependentUpon>TeacherFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TeacherScreenFrm.resx">
+      <DependentUpon>TeacherScreenFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TeachingFrm.resx">
+      <DependentUpon>TeachingFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TeachingViewFrm.resx">
+      <DependentUpon>TeachingViewFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserSettingFrm.resx">
+      <DependentUpon>UserSettingFrm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -163,6 +269,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app-config.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

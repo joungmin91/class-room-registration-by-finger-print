@@ -62,6 +62,7 @@
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(201, 20);
             this.txtSearch.TabIndex = 25;
+            this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
             // 
             // cmbType
             // 
@@ -79,9 +80,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(13, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.Size = new System.Drawing.Size(34, 13);
             this.label1.TabIndex = 23;
-            this.label1.Text = "Search";
+            this.label1.Text = "ค้นหา";
             // 
             // btnSearch
             // 
@@ -147,7 +148,7 @@
             this.Controls.Add(this.dgv);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "StudentFrm";
-            this.Text = "Student";
+            this.Text = "ข้อมูลนักเรียน";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.StudentFrm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.btnClear)).EndInit();

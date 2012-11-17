@@ -17,6 +17,7 @@ namespace ClassRoomRegistration
         private XMLConfig _config = new XMLConfig();
         private List<Form> _lstFrm = new List<Form>();
         private string _username = null;
+        private string _tech_id = null;
 
         public MainFrm()
         {
@@ -27,7 +28,7 @@ namespace ClassRoomRegistration
         {
             InitApp();
             InitDatabase();
-            //ShowLogin();
+            ShowLogin();
         }
 
         private void InitApp()
@@ -49,7 +50,7 @@ namespace ClassRoomRegistration
                 // Connect to MySQL Server
                 if (_db.Connect() == false)
                 {
-                    MessageBox.Show("Cannot connect to database server.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("ไม่สามารถติดต่อฐานข้อมูลได้", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }
@@ -63,20 +64,62 @@ namespace ClassRoomRegistration
         private void DisableMenu()
         {
             mainMenu.Enabled = false;
-            mainToolbar.Enabled = false;
+            this.Controls.Remove(mainToolbar);
+            this.Controls.Remove(teachToolbar);
         }
 
         private void EnableMenu()
         {
             mainMenu.Enabled = true;
-            mainToolbar.Enabled = true;
         }
 
-        public void AlreadyLogin(string username)
+        private void AdminLogin()
+        {
+            this.Controls.Add(mainToolbar);
+            this.Controls.Remove(teachToolbar);
+            this.Controls.Add(mainMenu);
+        }
+
+        private void TeacherLogin()
+        {
+            this.Controls.Remove(mainToolbar);
+            this.Controls.Add(teachToolbar);
+            this.Controls.Add(mainMenu);
+        }
+
+        public void AlreadyLogin(string tech_id, string username, string type)
         {
             _username = username;
+            _tech_id = tech_id;
             this.Text = this.Text + " [User: " + _username + "]";
-            EnableMenu();
+            if (type == "admin")
+            {
+                // Admin mode
+                EnableMenu();
+                AdminLogin();
+
+                AdminScreenFrm frm = new AdminScreenFrm();
+                frm.MdiParent = this;
+                frm.Server = _db.DBServer;
+                frm.Username = _db.DBUser;
+                frm.DBName = _db.DBName;
+                frm.Show();
+                _lstFrm.Add(frm);
+            }
+            else
+            {
+                // User mode
+                EnableMenu();
+                TeacherLogin();
+
+                TeacherScreenFrm frm = new TeacherScreenFrm();
+                frm.MdiParent = this;
+                frm.Server = _db.DBServer;
+                frm.Username = _db.DBUser;
+                frm.DBName = _db.DBName;
+                frm.Show();
+                _lstFrm.Add(frm);
+            }
         }
 
         private void Logout()
@@ -85,7 +128,7 @@ namespace ClassRoomRegistration
             {
                 item.Close();
             }
-            this.Text = "KU Class Room Registration";
+            this.Text = "ระบบลงทะเบียนเข้าเรียนนิสิต";
             ShowLogin();
         }
 
@@ -183,6 +226,54 @@ namespace ClassRoomRegistration
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             ShowStudentFrm();
+        }
+
+        private void ShowTeachingFrm()
+        {
+            TeachingFrm frm = new TeachingFrm();
+            frm.MdiParent = this;
+            frm.Show();
+            _lstFrm.Add(frm);
+        }
+
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            ShowTeachingFrm();
+        }
+
+        private void toolStripButtonCheckin_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("รอการพัฒนา");
+        }
+
+        private void configToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigFrm frm = new ConfigFrm();
+            frm.ShowDialog();
+        }
+
+        private void toolStripButtonRegister_Click(object sender, EventArgs e)
+        {
+            RegistationFrm frm = new RegistationFrm();
+            frm.MdiParent = this;
+            frm.Show();
+            _lstFrm.Add(frm);
+        }
+
+        private void toolStripButtonSetting_Click(object sender, EventArgs e)
+        {
+            UserSettingFrm frm = new UserSettingFrm();
+            frm.TechID = _tech_id;
+            frm.Parent = this;
+            frm.ShowDialog();
+        }
+
+        private void toolStripButtonTechSubject_Click(object sender, EventArgs e)
+        {
+            TeachingViewFrm frm = new TeachingViewFrm();
+            frm.MdiParent = this;
+            frm.TechID = _tech_id;
+            frm.Show();
         }
     }
 }

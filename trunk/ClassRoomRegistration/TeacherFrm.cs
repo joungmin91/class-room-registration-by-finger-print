@@ -13,6 +13,8 @@ namespace ClassRoomRegistration
     public partial class TeacherFrm : Form
     {
         private MySQLDatabase _db = null;
+        private ContextMenu _contextMenu = null;
+        private string _sqlShowAll = "SELECT tech_id, tech_name, tech_branch, tech_username, tech_password, tech_question, tech_answer FROM teacher";
 
         public TeacherFrm()
         {
@@ -21,9 +23,14 @@ namespace ClassRoomRegistration
 
         private void TeacherFrm_Load(object sender, EventArgs e)
         {
+            // Allow MSG Event
             this.KeyPreview = true;
 
+            // Init Database
             _db = ((MainFrm)this.MdiParent)._db;
+
+            // Init contextual menu in DGV
+            BuildContextualMenu();
 
             // Setup datagrid columns
             dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -31,21 +38,48 @@ namespace ClassRoomRegistration
             dgv.AllowUserToDeleteRows = false;
             dgv.MultiSelect = false;
             dgv.ReadOnly = true;
-            dgv.ColumnCount = 8;
-            dgv.Columns[0].HeaderText = "ID";
-            dgv.Columns[1].HeaderText = "First Name";
-            dgv.Columns[2].HeaderText = "Last Name";
-            dgv.Columns[3].HeaderText = "Address";
-            dgv.Columns[4].HeaderText = "Phone";
-            dgv.Columns[5].HeaderText = "Username";
-            dgv.Columns[6].HeaderText = "Password";
-            dgv.Columns[7].HeaderText = "Type";
+            dgv.ColumnCount = 7;
+            dgv.Columns[0].HeaderText = "รหัส";
+            dgv.Columns[1].HeaderText = "ชื่อ-นามสกุล";
+            dgv.Columns[2].HeaderText = "สาขา";
+            dgv.Columns[3].HeaderText = "ชื่อผู้ใช้";
+            dgv.Columns[4].HeaderText = "รหัสผ่าน";
+            dgv.Columns[5].HeaderText = "คำถาม";
+            dgv.Columns[6].HeaderText = "คำตอบ";
 
-            LoadTeachersToDGV("SELECT * FROM teacher");
+            LoadTeachersToDGV(_sqlShowAll);
+        }
+
+        private void BuildContextualMenu()
+        {
+            // Create Contextual Menu
+            _contextMenu = new ContextMenu();
+            // Create MenuItem
+            MenuItem assgToSubject = new MenuItem("เลือกรายวิชาที่สอน");
+            assgToSubject.Click += new EventHandler(contextualMenu_Click);
+            // Assign MenuItem to Contextual Menu
+            _contextMenu.MenuItems.Add(assgToSubject);
+        }
+
+        void contextualMenu_Click(object sender, EventArgs e)
+        {
+            if (dgv.CurrentRow == null)
+            {
+                MessageBox.Show("ไม่มีรายการที่ต้องแสดง", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            AssignTeacherToSubjectFrm frm = new AssignTeacherToSubjectFrm();
+            frm.Parent = this.MdiParent;
+            frm.TechID = dgv.CurrentRow.Cells[0].Value.ToString();
+            frm.ShowDialog();
         }
 
         private void LoadTeachersToDGV(string sqlCmd)
         {
+            // Load teacher_branch
+
+
             // Clear DGV
             dgv.Rows.Clear();
             // Query all teacher.
@@ -54,7 +88,7 @@ namespace ClassRoomRegistration
 
             if (_db.Result.HasRows == false)
             {
-                MessageBox.Show("No records return from database.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("ไม่มีรายการที่ต้องแสดง", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -66,10 +100,9 @@ namespace ClassRoomRegistration
                     _db.Result.GetValue(1),
                     _db.Result.GetValue(2),
                     _db.Result.GetValue(3),
-                    _db.Result.GetValue(4),
+                    "******",
                     _db.Result.GetValue(5),
-                    _db.Result.GetValue(6),
-                    _db.Result.GetValue(8)
+                    _db.Result.GetValue(6)
                     );
             }
         }
@@ -79,7 +112,7 @@ namespace ClassRoomRegistration
             AddEditTeacherFrm frm = new AddEditTeacherFrm();
             frm.Parent = this.MdiParent;
             frm.ShowDialog();
-            LoadTeachersToDGV("SELECT * FROM teacher");
+            LoadTeachersToDGV(_sqlShowAll);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -94,14 +127,19 @@ namespace ClassRoomRegistration
                 return;
             }
 
+            if (MessageBox.Show("ต้องการลบข้อมูลหรือมั้ย", "", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+            {
+                return;
+            }
+
             _db.SQLCommand = "DELETE FROM teacher WHERE tech_id='" + dgv.CurrentRow.Cells[0].Value.ToString() + "'";
             if (_db.Query() == true)
             {
-                LoadTeachersToDGV("SELECT * FROM teacher");
+                LoadTeachersToDGV(_sqlShowAll);
             }
             else
             {
-                MessageBox.Show("Record cannot be deleted.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("ไม่สามารถลบข้อมูลได้", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -122,7 +160,7 @@ namespace ClassRoomRegistration
             frm.EditMode = true;
             frm.TechID = (string)dgv.CurrentRow.Cells[0].Value.ToString();
             frm.ShowDialog();
-            LoadTeachersToDGV("SELECT * FROM teacher");
+            LoadTeachersToDGV(_sqlShowAll);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -130,44 +168,27 @@ namespace ClassRoomRegistration
             ShowEditFrm();
         }
 
-        private void TeacherFrm_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control == true && e.KeyCode == Keys.A)
-            {
-                ShowAddFrm();
-            }
-            else if (e.Control == true && e.KeyCode == Keys.E)
-            {
-                ShowEditFrm();
-            }
-            else if (e.KeyCode == Keys.Delete)
-            {
-                ShowDeleteFrm();
-            }
-        }
-
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            if (txtSearch.Text == "")
+            {
+                MessageBox.Show("ใส่คำที่ต้องการค้นหา", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             string sqlCmd = "SELECT * FROM teacher WHERE ";
-            if (cmbType.Text == "First Name")
+            if (cmbType.Text == "Name")
             {
-                sqlCmd += "tech_fname like '%" + txtSearch.Text + "%'";
-            }
-            else if (cmbType.Text == "Last Name")
-            {
-                sqlCmd += "tech_lname like '%" + txtSearch.Text + "%'";
-            }
-            else if (cmbType.Text == "Address")
-            {
-                sqlCmd += "tech_addr like '%" + txtSearch.Text + "%'";
-            }
-            else if (cmbType.Text == "Phone")
-            {
-                sqlCmd += "tech_phone like '%" + txtSearch.Text + "%'";
+                sqlCmd += "tech_name like '%" + txtSearch.Text + "%'";
             }
             else if (cmbType.Text == "Username")
             {
                 sqlCmd += "tech_username='" + txtSearch.Text + "'";
+            }
+            else
+            {
+                MessageBox.Show("เลือกรายการที่ต้องการค้นหา", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
             LoadTeachersToDGV(sqlCmd);
         }
@@ -175,7 +196,23 @@ namespace ClassRoomRegistration
         private void btnClear_Click(object sender, EventArgs e)
         {
             txtSearch.Text = "";
-            LoadTeachersToDGV("SELECT * FROM teacher");
+            LoadTeachersToDGV(_sqlShowAll);
+        }
+
+        private void dgv_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                _contextMenu.Show(dgv, e.Location);
+            }
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSearch_Click(null, null);
+            }
         }
     }
 }
