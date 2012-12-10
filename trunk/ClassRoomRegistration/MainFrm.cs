@@ -274,6 +274,7 @@ namespace ClassRoomRegistration
             frm.MdiParent = this;
             frm.TechID = _tech_id;
             frm.Show();
+            _lstFrm.Add(frm);
         }
     }
 }

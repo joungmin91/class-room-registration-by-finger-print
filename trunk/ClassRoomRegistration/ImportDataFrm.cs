@@ -138,7 +138,7 @@ namespace ClassRoomRegistration
                 _db.Query();
 
                 // Registration
-                _db.SQLCommand = "SELECT * FROM registration WHERE std_id='" + item.ID + "' AND sub_id='" + _subjectCode + "'";
+                _db.SQLCommand = "SELECT * FROM registration WHERE std_id='" + item.ID + "' AND sub_id='" + _subjectCode + "' AND year='" + _year + "'";
                 _db.Query();
                 if (_db.Result.HasRows)
                 {

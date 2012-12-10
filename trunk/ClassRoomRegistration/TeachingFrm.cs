@@ -81,19 +81,19 @@ namespace ClassRoomRegistration
             }
 
             string sqlCmd = _sqlShowAll + " WHERE ";
-            if (cmbType.Text == "Subject ID")
+            if (cmbType.Text == "รหัสวิชา")
             {
                 sqlCmd += "s.sub_id = '" + txtSearch.Text + "'";
             }
-            else if (cmbType.Text == "Subject Name")
+            else if (cmbType.Text == "ชื่อวิชา")
             {
                 sqlCmd += "s.sub_title like '%" + txtSearch.Text + "%'";
             }
-            else if (cmbType.Text == "Teacher")
+            else if (cmbType.Text == "ชื่ออาจารย์")
             {
                 sqlCmd += "t1.tech_name like '%" + txtSearch.Text + "%'";
             }
-            else if (cmbType.Text == "Year")
+            else if (cmbType.Text == "ปีการศึกษา")
             {
                 sqlCmd += "t2.year = '" + txtSearch.Text + "'";
             }

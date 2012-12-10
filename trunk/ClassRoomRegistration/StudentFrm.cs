@@ -106,11 +106,11 @@ namespace ClassRoomRegistration
             }
 
             string sqlCmd = "SELECT * FROM student WHERE ";
-            if (cmbType.Text == "Student ID")
+            if (cmbType.Text == "รหัสนิสิต")
             {
                 sqlCmd += "std_id='" + txtSearch.Text + "'";
             }
-            else if (cmbType.Text == "Student Name")
+            else if (cmbType.Text == "ชื่อนิสิต")
             {
                 sqlCmd += "std_name like '%" + txtSearch.Text + "%'";
             }

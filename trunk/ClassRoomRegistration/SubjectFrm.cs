@@ -133,11 +133,11 @@ namespace ClassRoomRegistration
             }
 
             string sqlCmd = "SELECT * FROM subject WHERE ";
-            if (cmbType.Text == "Subject ID")
+            if (cmbType.Text == "รหัสวิชา")
             {
                 sqlCmd += "sub_id='" + txtSearch.Text + "'";
             }
-            else if (cmbType.Text == "Subject Name")
+            else if (cmbType.Text == "ชื่อวิชา")
             {
                 sqlCmd += "sub_title like '%" + txtSearch.Text + "%'";
             }

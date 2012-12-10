@@ -68,11 +68,11 @@
             // 
             this.cmbType.FormattingEnabled = true;
             this.cmbType.Items.AddRange(new object[] {
-            "Subject ID",
-            "Subject Name",
-            "Student ID",
-            "Student Name",
-            "Year"});
+            "รหัสวิชา",
+            "ชื่อวิชา",
+            "รหัสนิสิต",
+            "ชื่อนิสิต",
+            "ปีการศึกษา"});
             this.cmbType.Location = new System.Drawing.Point(60, 15);
             this.cmbType.Name = "cmbType";
             this.cmbType.Size = new System.Drawing.Size(121, 21);

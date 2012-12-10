@@ -31,8 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddEditTeacherFrm));
             this.label1 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
-            this.txtBrchID = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
@@ -71,23 +69,6 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(351, 20);
             this.txtName.TabIndex = 1;
-            // 
-            // txtBrchID
-            // 
-            this.txtBrchID.Enabled = false;
-            this.txtBrchID.Location = new System.Drawing.Point(75, 55);
-            this.txtBrchID.Name = "txtBrchID";
-            this.txtBrchID.Size = new System.Drawing.Size(59, 20);
-            this.txtBrchID.TabIndex = 5;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 58);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(48, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "รหัสสาขา";
             // 
             // txtUsername
             // 
@@ -199,18 +180,18 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(148, 58);
+            this.label2.Location = new System.Drawing.Point(13, 57);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 13);
+            this.label2.Size = new System.Drawing.Size(28, 13);
             this.label2.TabIndex = 26;
-            this.label2.Text = "สาขา";
+            this.label2.Text = "คณะ";
             // 
             // cmbBrch
             // 
             this.cmbBrch.FormattingEnabled = true;
-            this.cmbBrch.Location = new System.Drawing.Point(183, 54);
+            this.cmbBrch.Location = new System.Drawing.Point(75, 54);
             this.cmbBrch.Name = "cmbBrch";
-            this.cmbBrch.Size = new System.Drawing.Size(243, 21);
+            this.cmbBrch.Size = new System.Drawing.Size(351, 21);
             this.cmbBrch.TabIndex = 27;
             this.cmbBrch.SelectedIndexChanged += new System.EventHandler(this.cmbBrch_SelectedIndexChanged);
             // 
@@ -319,8 +300,6 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.txtBrchID);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -339,8 +318,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.TextBox txtBrchID;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtPassword;

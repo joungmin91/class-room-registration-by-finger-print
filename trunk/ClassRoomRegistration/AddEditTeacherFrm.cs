@@ -52,7 +52,6 @@ namespace ClassRoomRegistration
                 {
                     _db.Result.Read();
                     txtName.Text = (string)_db.Result.GetValue(1);
-                    txtBrchID.Text = (string)_db.Result.GetValue(2);
                     cmbBrch.Text = LookupBranchName((string)_db.Result.GetValue(2));
                     txtUsername.Text = (string)_db.Result.GetValue(3);
                     txtPassword.Text = (string)_db.Result.GetValue(4);
@@ -89,20 +88,28 @@ namespace ClassRoomRegistration
         private void btnOK_Click(object sender, EventArgs e)
         {
             // Check required field.
-            if (txtName.Text == "" || txtUsername.Text == "" || txtPassword.Text == "" || txtBrchID.Text == "" || cmbQuestion.Text == "" || txtAnswer.Text == "")
+            if (txtName.Text == "" || txtUsername.Text == "" || txtPassword.Text == "" || cmbQuestion.Text == "" || txtAnswer.Text == "")
             {
                 MessageBox.Show("ข้อมูลไม่ครบ", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            // Insert the record.
+            string mode = "user";
+            if (txtName.Text == "admin")
+            {
+                mode = "admin";
+            }
+
             if (EditMode == true)
             {
                 // Update the record.
                 _db.SQLCommand = "UPDATE teacher SET ";
                 _db.SQLCommand += "tech_name='" + txtName.Text + "', ";
-                _db.SQLCommand += "tech_branch='" + txtBrchID.Text +"', ";
+                _db.SQLCommand += "tech_branch='" + LookupBrachID(cmbBrch.Text) + "', ";
                 _db.SQLCommand += "tech_username='" + txtUsername.Text +"', ";
                 _db.SQLCommand += "tech_password='" + txtPassword.Text +"', ";
-                _db.SQLCommand += "tech_type='user', ";
+                _db.SQLCommand += "tech_type='" + mode + "', ";
                 _db.SQLCommand += "tech_question='" + cmbQuestion.Text + "', ";
                 _db.SQLCommand += "tech_answer='" + txtAnswer.Text + "' ";
                 _db.SQLCommand += "WHERE tech_id='" + TechID + "' ";
@@ -118,14 +125,7 @@ namespace ClassRoomRegistration
             }
             else
             {
-                // Insert the record.
-                string mode = "user";
-                if (txtName.Text == "admin")
-                {
-                    mode = "admin";
-                }
-
-                _db.SQLCommand = "INSERT INTO teacher (tech_name, tech_branch, tech_username, tech_password, tech_fp_key, tech_type, tech_question, tech_answer) VALUES ('" + txtName.Text + "', '" + txtBrchID.Text + "', '" + txtUsername.Text + "', '" + txtPassword.Text + "', '', '" + mode + "', '" + cmbQuestion.Text + "', '" + txtAnswer.Text + "')";
+                _db.SQLCommand = "INSERT INTO teacher (tech_name, tech_branch, tech_username, tech_password, tech_fp_key, tech_type, tech_question, tech_answer) VALUES ('" + txtName.Text + "', '" + LookupBrachID(cmbBrch.Text) + "', '" + txtUsername.Text + "', '" + txtPassword.Text + "', '', '" + mode + "', '" + cmbQuestion.Text + "', '" + txtAnswer.Text + "')";
                 if (_db.Query() == true)
                 {
                     MessageBox.Show("บันทึกข้อมูลเรียบร้อย", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -144,7 +144,6 @@ namespace ClassRoomRegistration
 
         private void cmbBrch_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtBrchID.Text = LookupBrachID(cmbBrch.Text);
         }
     }
 
