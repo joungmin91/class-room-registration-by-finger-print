@@ -117,23 +117,23 @@ namespace ClassRoomRegistration
             }
 
             string sqlCmd = _sqlShowAll + " WHERE ";
-            if (cmbType.Text == "Subject ID")
+            if (cmbType.Text == "รหัสวิชา")
             {
                 sqlCmd += "sub.sub_id = '" + txtSearch.Text + "'";
             }
-            else if (cmbType.Text == "Subject Name")
+            else if (cmbType.Text == "ชื่อวิชา")
             {
                 sqlCmd += "sub.sub_title like '%" + txtSearch.Text + "%'";
             }
-            else if (cmbType.Text == "Student ID")
+            else if (cmbType.Text == "รหัสนิสิต")
             {
                 sqlCmd += "std.std_id = '" + txtSearch.Text + "'";
             }
-            else if (cmbType.Text == "Student Name")
+            else if (cmbType.Text == "ชื่อนิสิต")
             {
                 sqlCmd += "std.std_name like '%" + txtSearch.Text + "%'";
             }
-            else if (cmbType.Text == "Year")
+            else if (cmbType.Text == "ปีการศึกษา")
             {
                 sqlCmd += "reg.reg_year = '" + txtSearch.Text + "'";
             }

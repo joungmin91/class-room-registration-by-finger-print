@@ -177,11 +177,11 @@ namespace ClassRoomRegistration
             }
 
             string sqlCmd = "SELECT * FROM teacher WHERE ";
-            if (cmbType.Text == "Name")
+            if (cmbType.Text == "ชื่อ-นามสกุล")
             {
                 sqlCmd += "tech_name like '%" + txtSearch.Text + "%'";
             }
-            else if (cmbType.Text == "Username")
+            else if (cmbType.Text == "ชื่อผู้ใช้งาน")
             {
                 sqlCmd += "tech_username='" + txtSearch.Text + "'";
             }

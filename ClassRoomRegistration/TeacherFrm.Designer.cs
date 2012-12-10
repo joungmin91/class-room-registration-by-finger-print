@@ -108,8 +108,8 @@
             // 
             this.cmbType.FormattingEnabled = true;
             this.cmbType.Items.AddRange(new object[] {
-            "Name",
-            "Username"});
+            "ชื่อ-นามสกุล",
+            "ชื่อผู้ใช้งาน"});
             this.cmbType.Location = new System.Drawing.Point(60, 14);
             this.cmbType.Name = "cmbType";
             this.cmbType.Size = new System.Drawing.Size(121, 21);
