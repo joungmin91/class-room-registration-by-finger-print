@@ -13,7 +13,7 @@ namespace ClassRoomRegistration
     public partial class RegistationFrm : Form
     {
         private MySQLDatabase _db = null;
-        private string _sqlShowAll = "SELECT reg.reg_id, sub.sub_id, sub.sub_title, std.std_id, std.std_name, reg.year FROM subject sub JOIN registration reg ON sub.sub_id = reg.sub_id JOIN student std ON reg.std_id = std.std_id";
+        private string _sqlShowAll = "SELECT reg.reg_id, sub.sub_id, sub.sub_title, std.std_id, std.std_name, reg.year FROM subject sub JOIN registration reg ON sub.id = reg.sub_id JOIN student std ON reg.std_id = std.std_id";
 
         public RegistationFrm()
         {

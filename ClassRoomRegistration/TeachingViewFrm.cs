@@ -16,12 +16,12 @@ namespace ClassRoomRegistration
     {
         public string TechID { get; set; }
         public MySQLDatabase _db = null;
-        public MySQLDatabase _db2 = null;
         private ContextMenu _contextMenu = null;
         private bool _allowUdateRow = false;
-        private string _sqlShowAllSubject = "SELECT s.sub_id, s.sub_title, t.year FROM teaching t JOIN subject s ON t.sub_id = s.sub_id";
+        private string _sqlShowAllSubject = "SELECT s.id, s.sub_id, s.sub_title, s.sub_lec, s.sub_lab, t.year, t.id as teaching_id FROM teaching t JOIN subject s ON t.sub_id = s.id";
         private string _sqlShowAllRegister = "SELECT r.std_id, s.std_name, s.std_fp_key, r.reg_id FROM registration r JOIN student s ON r.std_id = s.std_id";
         private bool _bAlreadyRegis = false;
+        private List<int> _lstPoint = new List<int>();
 
         public TeachingViewFrm()
         {
@@ -34,24 +34,6 @@ namespace ClassRoomRegistration
 
             _db = ((MainFrm)this.MdiParent)._db;
 
-            _db2 = new MySQLDatabase();
-            _db2.DBServer = _db.DBServer;
-            _db2.DBUser = _db.DBUser;
-            _db2.DBPassword = _db.DBPassword;
-            _db2.DBName = _db.DBName;
-
-            try
-            {
-                if (_db2.Connect() == false)
-                {
-                    MessageBox.Show("ไม่สามารถติดต่อฐานข้อมูลได้", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
             // Setup datagrid columns
             AddColumnForStudentDGV();
 
@@ -61,16 +43,74 @@ namespace ClassRoomRegistration
             dgvSubject.AllowUserToDeleteRows = false;
             dgvSubject.MultiSelect = false;
             dgvSubject.ReadOnly = true;
-            dgvSubject.ColumnCount = 3;
-            dgvSubject.Columns[0].HeaderText = "รหัสวิชา";
-            dgvSubject.Columns[0].Width = 100;
-            dgvSubject.Columns[1].HeaderText = "ชื่อวิชา";
-            dgvSubject.Columns[1].Width = 450;
-            dgvSubject.Columns[2].HeaderText = "ปีการศึกษา";
-            dgvSubject.Columns[2].Width = 100;
+            dgvSubject.ColumnCount = 7;
+            dgvSubject.Columns[0].HeaderText = "ไอดีวิชา";
+            dgvSubject.Columns[0].Name = "ID";
+            dgvSubject.Columns[0].Visible = false;  
+            dgvSubject.Columns[1].HeaderText = "รหัสวิชา";
+            dgvSubject.Columns[1].Width = 100;
+            dgvSubject.Columns[1].Name = "SubID";
+            dgvSubject.Columns[2].HeaderText = "ชื่อวิชา";
+            dgvSubject.Columns[2].Width = 250;
+            dgvSubject.Columns[2].Name = "SubTitle";
+            dgvSubject.Columns[3].HeaderText = "หมู่บรรยาย";
+            dgvSubject.Columns[3].Width = 100;
+            dgvSubject.Columns[3].Name = "SubLec";
+            dgvSubject.Columns[4].HeaderText = "หมู่ปฏิบัติ";
+            dgvSubject.Columns[4].Width = 100;
+            dgvSubject.Columns[4].Name = "SubLab";
+            dgvSubject.Columns[5].HeaderText = "ปีการศึกษา";
+            dgvSubject.Columns[5].Width = 100;
+            dgvSubject.Columns[5].Name = "SubYear";
+            dgvSubject.Columns[6].HeaderText = "ไอดีสอน";
+            dgvSubject.Columns[6].Width = 100;
+            dgvSubject.Columns[6].Name = "TechID";
+            dgvSubject.Columns[6].Visible = false;
 
             string sql = _sqlShowAllSubject + " WHERE t.tech_id='" + TechID + "'";
             LoadSubjectToDGV(sql);
+
+            // Setup score datagrid
+            dgvScore.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvScore.AllowUserToAddRows = false;
+            dgvScore.AllowUserToDeleteRows = false;
+            dgvScore.MultiSelect = false;
+            //dgvScore.ReadOnly = true;
+            dgvScore.EditMode = DataGridViewEditMode.EditOnEnter;
+            dgvScore.ColumnCount = 12;
+            dgvScore.Columns[0].HeaderText = "รหัสนิสิต";
+            dgvScore.Columns[0].Width = 100;
+            dgvScore.Columns[0].ReadOnly = true;
+            dgvScore.Columns[0].Frozen = true;
+            dgvScore.Columns[1].HeaderText = "ชื่อนิสิต";
+            dgvScore.Columns[1].Width = 200;
+            dgvScore.Columns[1].ReadOnly = true;
+            dgvScore.Columns[1].Frozen = true;
+            dgvScore.Columns[2].HeaderText = "เกรด";
+            dgvScore.Columns[2].Width = 50;
+            dgvScore.Columns[2].ReadOnly = true;
+            dgvScore.Columns[2].Frozen = true;
+            dgvScore.Columns[3].HeaderText = "คะแนนรวม";
+            dgvScore.Columns[3].Width = 90;
+            dgvScore.Columns[3].ReadOnly = true;
+            dgvScore.Columns[3].Frozen = true;
+
+            dgvScore.Columns[4].HeaderText = "กลางภาค";
+            dgvScore.Columns[4].Width = 100;
+            dgvScore.Columns[5].HeaderText = "ปลายภาค";
+            dgvScore.Columns[5].Width = 100;
+            dgvScore.Columns[6].HeaderText = "จิตพิสัย";
+            dgvScore.Columns[6].Width = 100;
+            dgvScore.Columns[7].HeaderText = "คะแนนเก็บ 1";
+            dgvScore.Columns[7].Width = 100;
+            dgvScore.Columns[8].HeaderText = "คะแนนเก็บ 2";
+            dgvScore.Columns[8].Width = 100;
+            dgvScore.Columns[9].HeaderText = "คะแนนเก็บ 3";
+            dgvScore.Columns[9].Width = 100;
+            dgvScore.Columns[10].HeaderText = "คะแนนเก็บ 4";
+            dgvScore.Columns[10].Width = 100;
+            dgvScore.Columns[11].HeaderText = "คะแนนเก็บ 5";
+            dgvScore.Columns[11].Width = 100;
 
             _allowUdateRow = true;
             dgvSubject_SelectionChanged(null, null);
@@ -113,21 +153,38 @@ namespace ClassRoomRegistration
             int idx = dgvStudent.Columns.Count - 2;
             if (e.ColumnIndex == idx)
             {
-                string subID = dgvSubject.CurrentRow.Cells[0].Value as string;
+                int subID = (int)dgvSubject.CurrentRow.Cells["ID"].Value;
                 string stdID = dgvStudent.CurrentRow.Cells[0].Value as string;
-                string year = dgvSubject.CurrentRow.Cells[2].Value as string;
+                string year = dgvSubject.CurrentRow.Cells["SubYear"].Value as string;
                 string date = DateTime.Now.ToShortDateString();
                 string value = dgvStudent.Rows[e.RowIndex].Cells[idx+1].Value as string;
                 if (value == "uncheck")
                 {
+                    // if the time is over setup time then mark as late status.
+                    string status = "normal";
+                    int h = DateTime.Now.Hour;
+                    int m = DateTime.Now.Minute;
+                    int sh = Convert.ToInt16(dtLate.Text.Substring(0, 2));
+                    int sm = Convert.ToInt16(dtLate.Text.Substring(3, 2));
+                    if (h > sh || m > (sm + 15))
+                    {
+                        status = "late";
+                    }
                     // if the record is not in database, just insert.
                     _db.SQLCommand = "SELECT * FROM checkin WHERE sub_id='" + subID + "' AND std_id='" + stdID + "' AND chkin_year='" + year + "' AND chkin_date='" + date + "'";
                     _db.Query();
                     if (_db.Result.HasRows == false)
                     {
-                        _db.SQLCommand = "INSERT INTO checkin (sub_id, std_id, chkin_year, chkin_date) VALUES ('" + subID + "', '" + stdID + "', '" + year + "', '" + date + "')";
+                        _db.SQLCommand = "INSERT INTO checkin (sub_id, std_id, chkin_year, chkin_date, chkin_status) VALUES ('" + subID + "', '" + stdID + "', '" + year + "', '" + date + "', '" + status + "')";
                         _db.Query();
-                        dgvStudent.Rows[e.RowIndex].Cells[idx].Value = LoadImage("check.png");
+                        if (status == "normal")
+                        {
+                            dgvStudent.Rows[e.RowIndex].Cells[idx].Value = LoadImage("check.png");    
+                        }
+                        else
+                        {
+                            dgvStudent.Rows[e.RowIndex].Cells[idx].Value = LoadImage("late.png");
+                        }
                         dgvStudent.Rows[e.RowIndex].Cells[idx+1].Value = "check";
                     }
                 }
@@ -169,9 +226,10 @@ namespace ClassRoomRegistration
             }
 
             CheckinStdFrm frm = new CheckinStdFrm();
+            frm.TimeLate = dtLate.Value.TimeOfDay;
             frm.Parent = this;
-            frm.SubID = (string)dgvSubject.CurrentRow.Cells[0].Value;
-            frm.Year = (string)dgvSubject.CurrentRow.Cells[2].Value;
+            frm.SubID = (int)dgvSubject.CurrentRow.Cells["ID"].Value;
+            frm.Year = (string)dgvSubject.CurrentRow.Cells["SubYear"].Value;
             frm.ShowDialog();
 
             dgvSubject_SelectionChanged(null, null);
@@ -226,10 +284,163 @@ namespace ClassRoomRegistration
             while (_db.Result.Read())
             {
                 dgvSubject.Rows.Add(
-                    _db.Result.GetValue(0),
-                    _db.Result.GetValue(1),
-                    _db.Result.GetValue(2)
+                    _db.Result["id"],
+                    _db.Result["sub_id"],
+                    _db.Result["sub_title"],
+                    _db.Result["sub_lec"],
+                    _db.Result["sub_lab"],
+                    _db.Result["year"],
+                    _db.Result["teaching_id"]
                     );
+            }
+        }
+
+        private void LoadScoreToDGV()
+        {
+            if (dgvSubject.CurrentRow == null)
+            {
+                return;
+            }
+
+            // Clear DGV
+            dgvScore.Rows.Clear();
+            // Load all registered student
+            _db.SQLCommand = "SELECT s.std_id, s.std_name FROM registration r JOIN student s ON r.std_id=s.std_id WHERE r.sub_id='" + dgvSubject.CurrentRow.Cells["ID"].Value + "' AND r.year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "'";
+            _db.Query();
+
+            if (_db.Result.HasRows == false)
+            {
+                MessageBox.Show("ไม่มีรายการที่ต้องการแสดง", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Insert rows to DGV
+            while (_db.Result.Read())
+            {
+                dgvScore.Rows.Add(_db.Result["std_id"], _db.Result["std_name"]);
+            }
+
+            _lstPoint.Clear();
+
+            // Retrieve student's score
+            foreach (DataGridViewRow item in dgvScore.Rows)
+            {
+                int score = 0;
+
+                _db.SQLCommand = "SELECT s.score_point, s.score_type FROM registration r JOIN score s ON r.reg_id = s.reg_id WHERE r.sub_id='" + dgvSubject.CurrentRow.Cells["ID"].Value + "' AND r.std_id='" + item.Cells[0].Value + "' AND r.year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "' AND s.score_type='1'";
+                _db.Query();
+                if (_db.Result.Read() == false)
+                {
+                    item.Cells[3].Value = 0;
+                    item.Cells[4].Value = 0;
+                    item.Cells[5].Value = 0;
+                    item.Cells[6].Value = 0;
+                    item.Cells[7].Value = 0;
+                    item.Cells[8].Value = 0;
+                    item.Cells[9].Value = 0;
+                    item.Cells[10].Value = 0;
+                    item.Cells[11].Value = 0;
+                    continue;
+                }
+
+                item.Cells[4].Value = _db.Result["score_point"];
+                score += Convert.ToInt16(item.Cells[4].Value);
+
+                _db.SQLCommand = "SELECT s.score_point, s.score_type FROM registration r JOIN score s ON r.reg_id = s.reg_id WHERE r.sub_id='" + dgvSubject.CurrentRow.Cells["ID"].Value + "' AND r.std_id='" + item.Cells[0].Value + "' AND r.year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "' AND s.score_type='2'";
+                _db.Query();
+                _db.Result.Read();
+                item.Cells[5].Value = _db.Result["score_point"];
+                score += Convert.ToInt16(item.Cells[5].Value);
+
+                _db.SQLCommand = "SELECT s.score_point, s.score_type FROM registration r JOIN score s ON r.reg_id = s.reg_id WHERE r.sub_id='" + dgvSubject.CurrentRow.Cells["ID"].Value + "' AND r.std_id='" + item.Cells[0].Value + "' AND r.year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "' AND s.score_type='3'";
+                _db.Query();
+                _db.Result.Read();
+                item.Cells[6].Value = _db.Result["score_point"];
+                score += Convert.ToInt16(item.Cells[6].Value);
+
+                _db.SQLCommand = "SELECT s.score_point, s.score_type FROM registration r JOIN score s ON r.reg_id = s.reg_id WHERE r.sub_id='" + dgvSubject.CurrentRow.Cells["ID"].Value + "' AND r.std_id='" + item.Cells[0].Value + "' AND r.year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "' AND s.score_type='4'";
+                _db.Query();
+                _db.Result.Read();
+                item.Cells[7].Value = _db.Result["score_point"];
+                score += Convert.ToInt16(item.Cells[7].Value);
+
+                _db.SQLCommand = "SELECT s.score_point, s.score_type FROM registration r JOIN score s ON r.reg_id = s.reg_id WHERE r.sub_id='" + dgvSubject.CurrentRow.Cells["ID"].Value + "' AND r.std_id='" + item.Cells[0].Value + "' AND r.year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "' AND s.score_type='5'";
+                _db.Query();
+                _db.Result.Read();
+                item.Cells[8].Value = _db.Result["score_point"];
+                score += Convert.ToInt16(item.Cells[8].Value);
+
+                _db.SQLCommand = "SELECT s.score_point, s.score_type FROM registration r JOIN score s ON r.reg_id = s.reg_id WHERE r.sub_id='" + dgvSubject.CurrentRow.Cells["ID"].Value + "' AND r.std_id='" + item.Cells[0].Value + "' AND r.year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "' AND s.score_type='6'";
+                _db.Query();
+                _db.Result.Read();
+                item.Cells[9].Value = _db.Result["score_point"];
+                score += Convert.ToInt16(item.Cells[9].Value);
+
+                _db.SQLCommand = "SELECT s.score_point, s.score_type FROM registration r JOIN score s ON r.reg_id = s.reg_id WHERE r.sub_id='" + dgvSubject.CurrentRow.Cells["ID"].Value + "' AND r.std_id='" + item.Cells[0].Value + "' AND r.year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "' AND s.score_type='7'";
+                _db.Query();
+                _db.Result.Read();
+                item.Cells[10].Value = _db.Result["score_point"];
+                score += Convert.ToInt16(item.Cells[10].Value);
+
+                _db.SQLCommand = "SELECT s.score_point, s.score_type FROM registration r JOIN score s ON r.reg_id = s.reg_id WHERE r.sub_id='" + dgvSubject.CurrentRow.Cells["ID"].Value + "' AND r.std_id='" + item.Cells[0].Value + "' AND r.year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "' AND s.score_type='8'";
+                _db.Query();
+                _db.Result.Read();
+                item.Cells[11].Value = _db.Result["score_point"];
+                score += Convert.ToInt16(item.Cells[11].Value);
+
+                item.Cells[3].Value = score;
+                _lstPoint.Add(score);
+
+                //item.Cells[2].Value = score;
+                _db.SQLCommand = "SELECT * FROM score_rate_type WHERE tech_id='" + dgvSubject.CurrentRow.Cells["TechID"].Value + "'";
+                _db.Query();
+
+                if (_db.Result.HasRows == true)
+                {
+                    _db.Result.Read();
+                    if (_db.Result["type"].ToString() == "grade")
+                    {
+                        if (score >= Convert.ToInt16(_db.Result["F"]))
+                        {
+                            item.Cells[2].Value = "F";
+                        }
+
+                        if (score >= Convert.ToInt16(_db.Result["D"]))
+                        {
+                            item.Cells[2].Value = "D";
+                        }
+
+                        if (score >= Convert.ToInt16(_db.Result["DP"]))
+                        {
+                            item.Cells[2].Value = "D+";
+                        }
+
+                        if (score >= Convert.ToInt16(_db.Result["C"]))
+                        {
+                            item.Cells[2].Value = "C";
+                        }
+
+                        if (score >= Convert.ToInt16(_db.Result["CP"]))
+                        {
+                            item.Cells[2].Value = "C+";
+                        }
+
+                        if (score >= Convert.ToInt16(_db.Result["B"]))
+                        {
+                            item.Cells[2].Value = "B";
+                        }
+
+                        if (score >= Convert.ToInt16(_db.Result["BP"]))
+                        {
+                            item.Cells[2].Value = "B+";
+                        }
+
+                        if (score >= Convert.ToInt16(_db.Result["A"]))
+                        {
+                            item.Cells[2].Value = "A";
+                        }
+                    }
+                }
             }
         }
 
@@ -273,8 +484,8 @@ namespace ClassRoomRegistration
                 }
             }
 
-            string subID = dgvSubject.CurrentRow.Cells[0].Value as string;
-            string year = dgvSubject.CurrentRow.Cells[2].Value as string;
+            int subID = (int)dgvSubject.CurrentRow.Cells["ID"].Value;
+            string year = (string)dgvSubject.CurrentRow.Cells["SubYear"].Value;
             string date = DateTime.Now.ToShortDateString();
 
             // Load others groups
@@ -304,7 +515,15 @@ namespace ClassRoomRegistration
 
                     if (_db.Result.HasRows == true)
                     {
-                        item.Cells[i].Value = LoadImage("check.png");
+                        _db.Result.Read();
+                        if (_db.Result["chkin_status"] as string == "normal")
+                        {
+                            item.Cells[i].Value = LoadImage("check.png");
+                        }
+                        else
+                        {
+                            item.Cells[i].Value = LoadImage("late.png");
+                        }
                     }
                     else
                     {
@@ -336,8 +555,17 @@ namespace ClassRoomRegistration
 
                 if (_db.Result.HasRows == true)
                 {
-                    item.Cells[idx].Value = LoadImage("check.png");
-                    item.Cells[idx+1].Value = "check";
+                    _db.Result.Read();
+                    if (_db.Result["chkin_status"] as string == "normal")
+                    {
+                        item.Cells[idx].Value = LoadImage("check.png");
+                        item.Cells[idx + 1].Value = "check";
+                    }
+                    else
+                    {
+                        item.Cells[idx].Value = LoadImage("late.png");
+                        item.Cells[idx + 1].Value = "check";
+                    }
                 }
                 else
                 {
@@ -357,8 +585,9 @@ namespace ClassRoomRegistration
         {
             if (_allowUdateRow == true)
 	        {
-		        string sql = _sqlShowAllRegister + " WHERE r.sub_id='" + (string)dgvSubject.CurrentRow.Cells[0].Value + "' AND r.year='" + (string)dgvSubject.CurrentRow.Cells[2].Value + "'";
+		        string sql = _sqlShowAllRegister + " WHERE r.sub_id='" + dgvSubject.CurrentRow.Cells["ID"].Value + "' AND r.year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "'";
                 LoadRegisterToDGV(sql);
+                LoadScoreToDGV();
 	        }
         }
 
@@ -398,13 +627,118 @@ namespace ClassRoomRegistration
             while (bStopCheckin == false)
             {
                 CheckinStdFrm frm = new CheckinStdFrm();
+                frm.TimeLate = dtLate.Value.TimeOfDay;
                 frm.Parent = this;
-                frm.SubID = (string)dgvSubject.CurrentRow.Cells[0].Value;
-                frm.Year = (string)dgvSubject.CurrentRow.Cells[2].Value;
+                frm.SubID = (int)dgvSubject.CurrentRow.Cells["ID"].Value;
+                frm.Year = (string)dgvSubject.CurrentRow.Cells["SubYear"].Value;
                 frm.ShowDialog();
                 frm.GetStopAutoCheckin(ref bStopCheckin);
                 dgvSubject_SelectionChanged(null, null);
             }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            // Each row in DGV
+            foreach (DataGridViewRow item in dgvScore.Rows)
+            {
+                // Use sub_id, std_id and year to retrieve record from registration then index to score
+                _db.SQLCommand = "SELECT * FROM registration WHERE sub_id='" + dgvSubject.CurrentRow.Cells["ID"].Value + "' AND std_id='" + item.Cells[0].Value +"' AND year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "'";
+                _db.Query();
+                if (_db.Result.Read() == true)
+                {
+                    int reg_id = (int)_db.Result["reg_id"];
+                    _db.SQLCommand = "SELECT * FROM score WHERE reg_id='" + reg_id.ToString() + "'";
+                    _db.Query();
+                    _db.Result.Read();
+                    if (_db.Result.HasRows == true)
+                    {
+                        // Update record
+                        _db.SQLCommand = "UPDATE score SET ";
+                        _db.SQLCommand += "score_point='" + item.Cells[3].Value + "' ";
+                        _db.SQLCommand += "WHERE score_type='1' AND reg_id='" + reg_id.ToString() + "'";
+                        _db.Query();
+
+                        _db.SQLCommand = "UPDATE score SET ";
+                        _db.SQLCommand += "score_point='" + item.Cells[4].Value + "' ";
+                        _db.SQLCommand += "WHERE score_type='2' AND reg_id='" + reg_id.ToString() + "'";
+                        _db.Query();
+
+                        _db.SQLCommand = "UPDATE score SET ";
+                        _db.SQLCommand += "score_point='" + item.Cells[5].Value + "' ";
+                        _db.SQLCommand += "WHERE score_type='3' AND reg_id='" + reg_id.ToString() + "'";
+                        _db.Query();
+
+                        _db.SQLCommand = "UPDATE score SET ";
+                        _db.SQLCommand += "score_point='" + item.Cells[6].Value + "' ";
+                        _db.SQLCommand += "WHERE score_type='4' AND reg_id='" + reg_id.ToString() + "'";
+                        _db.Query();
+
+                        _db.SQLCommand = "UPDATE score SET ";
+                        _db.SQLCommand += "score_point='" + item.Cells[7].Value + "' ";
+                        _db.SQLCommand += "WHERE score_type='5' AND reg_id='" + reg_id.ToString() + "'";
+                        _db.Query();
+
+                        _db.SQLCommand = "UPDATE score SET ";
+                        _db.SQLCommand += "score_point='" + item.Cells[8].Value + "' ";
+                        _db.SQLCommand += "WHERE score_type='6' AND reg_id='" + reg_id.ToString() + "'";
+                        _db.Query();
+
+                        _db.SQLCommand = "UPDATE score SET ";
+                        _db.SQLCommand += "score_point='" + item.Cells[9].Value + "' ";
+                        _db.SQLCommand += "WHERE score_type='7' AND reg_id='" + reg_id.ToString() + "'";
+                        _db.Query();
+
+                        _db.SQLCommand = "UPDATE score SET ";
+                        _db.SQLCommand += "score_point='" + item.Cells[10].Value + "' ";
+                        _db.SQLCommand += "WHERE score_type='8' AND reg_id='" + reg_id.ToString() + "'";
+                        _db.Query();
+                    }
+                    else
+                    {
+                        // New record
+                        _db.SQLCommand = "INSERT INTO score (score_point, score_type, reg_id) VALUES ('" + item.Cells[3].Value + "', '1', '" + reg_id.ToString() + "')";
+                        _db.Query();
+
+                        _db.SQLCommand = "INSERT INTO score (score_point, score_type, reg_id) VALUES ('" + item.Cells[4].Value + "', '2', '" + reg_id.ToString() + "')";
+                        _db.Query();
+
+                        _db.SQLCommand = "INSERT INTO score (score_point, score_type, reg_id) VALUES ('" + item.Cells[5].Value + "', '3', '" + reg_id.ToString() + "')";
+                        _db.Query();
+
+                        _db.SQLCommand = "INSERT INTO score (score_point, score_type, reg_id) VALUES ('" + item.Cells[6].Value + "', '4', '" + reg_id.ToString() + "')";
+                        _db.Query();
+
+                        _db.SQLCommand = "INSERT INTO score (score_point, score_type, reg_id) VALUES ('" + item.Cells[7].Value + "', '5', '" + reg_id.ToString() + "')";
+                        _db.Query();
+
+                        _db.SQLCommand = "INSERT INTO score (score_point, score_type, reg_id) VALUES ('" + item.Cells[8].Value + "', '6', '" + reg_id.ToString() + "')";
+                        _db.Query();
+
+                        _db.SQLCommand = "INSERT INTO score (score_point, score_type, reg_id) VALUES ('" + item.Cells[9].Value + "', '7', '" + reg_id.ToString() + "')";
+                        _db.Query();
+
+                        _db.SQLCommand = "INSERT INTO score (score_point, score_type, reg_id) VALUES ('" + item.Cells[10].Value + "', '8', '" + reg_id.ToString() + "')";
+                        _db.Query();
+                    }
+                }
+            }
+            MessageBox.Show("บันทึกข้อมูลเรียบร้อย", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            LoadScoreToDGV();
+        }
+
+        private void btnScoreSetting_Click(object sender, EventArgs e)
+        {
+            if (dgvSubject.CurrentRow == null)
+            {
+                return;
+            }
+
+            ScoreRateFrm frm = new ScoreRateFrm();
+            frm.Parent = this.MdiParent;
+            frm.TeachingID = (int)dgvSubject.CurrentRow.Cells["TechID"].Value;
+            frm._lstPoint = _lstPoint;
+            frm.ShowDialog();
         }
     }
 }

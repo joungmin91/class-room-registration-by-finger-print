@@ -33,8 +33,8 @@ namespace ClassRoomRegistration
             _db.Query();
             while (_db.Result.Read())
             {
-                cmbSubName.Items.Add((string)_db.Result.GetValue(1));
-                _lstSubject.Add(new Subject { SubjectID = (string)_db.Result.GetValue(0), SubjectName = (string)_db.Result.GetValue(1) });
+                cmbSubName.Items.Add((string)_db.Result.GetValue(2));
+                _lstSubject.Add(new Subject { ID = (int)_db.Result.GetValue(0), SubjectID = (string)_db.Result.GetValue(1), SubjectName = (string)_db.Result.GetValue(2) });
             }
 
             // For Edit mode
@@ -50,8 +50,8 @@ namespace ClassRoomRegistration
                 if (_db.Result.HasRows)
                 {
                     _db.Result.Read();
-                    txtSubID.Text = (string)_db.Result.GetValue(1);
-                    cmbSubName.Text = LookupSubjectName((string)_db.Result.GetValue(1));
+                    txtSubID.Text = LookupSubjectIDByID((int)_db.Result.GetValue(1));
+                    cmbSubName.Text = LookupSubjectNameByID((int)_db.Result.GetValue(1));
                     txtStdID.Text = (string)_db.Result.GetValue(2);
                     cmbYear.Text = (string)_db.Result.GetValue(3);
 
@@ -62,6 +62,18 @@ namespace ClassRoomRegistration
                     txtStdName.Text = (string)_db.Result.GetValue(0);
                 }
             }
+        }
+
+        private int LookupIDBySubjectID(string subID)
+        {
+            foreach (Subject item in _lstSubject)
+            {
+                if (item.SubjectID == subID)
+                {
+                    return item.ID;
+                }
+            }
+            return -1;
         }
 
         private string LookupSubjectName(string subID)
@@ -88,6 +100,30 @@ namespace ClassRoomRegistration
             return "";
         }
 
+        private string LookupSubjectNameByID(int id)
+        {
+            foreach (Subject item in _lstSubject)
+            {
+                if (item.ID == id)
+                {
+                    return item.SubjectName;
+                }
+            }
+            return "";
+        }
+
+        private string LookupSubjectIDByID(int id)
+        {
+            foreach (Subject item in _lstSubject)
+            {
+                if (item.ID == id)
+                {
+                    return item.SubjectID;
+                }
+            }
+            return "";
+        }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -107,7 +143,7 @@ namespace ClassRoomRegistration
             {
                 // Update the record.
                 _db.SQLCommand = "UPDATE registration SET ";
-                _db.SQLCommand += "sub_id='" + txtSubID.Text + "' ";
+                _db.SQLCommand += "sub_id='" + LookupIDBySubjectID(txtSubID.Text) + "' ";
                 _db.SQLCommand += "WHERE reg_id='" + RegID + "' ";
                 if (_db.Query() == true)
                 {
@@ -154,6 +190,7 @@ namespace ClassRoomRegistration
 
     public class Subject
     {
+        public int ID { get; set; }
         public string SubjectID { get; set; }
         public string SubjectName { get; set; }
     }

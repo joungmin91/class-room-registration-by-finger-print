@@ -43,7 +43,6 @@
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonTeaching = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRegister = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonCheckin = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonImport = new System.Windows.Forms.ToolStripButton();
             this.teachToolbar = new System.Windows.Forms.ToolStrip();
@@ -125,7 +124,6 @@
             this.toolStripButton2,
             this.toolStripButtonTeaching,
             this.toolStripButtonRegister,
-            this.toolStripButtonCheckin,
             this.toolStripSeparator1,
             this.toolStripButtonImport});
             this.mainToolbar.Location = new System.Drawing.Point(0, 25);
@@ -186,17 +184,6 @@
             this.toolStripButtonRegister.Text = "ลงทะเบียน";
             this.toolStripButtonRegister.ToolTipText = "ข้อมูลการลงทะเบียนเรียน";
             this.toolStripButtonRegister.Click += new System.EventHandler(this.toolStripButtonRegister_Click);
-            // 
-            // toolStripButtonCheckin
-            // 
-            this.toolStripButtonCheckin.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonCheckin.Image")));
-            this.toolStripButtonCheckin.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButtonCheckin.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonCheckin.Name = "toolStripButtonCheckin";
-            this.toolStripButtonCheckin.Size = new System.Drawing.Size(75, 36);
-            this.toolStripButtonCheckin.Text = "เช็คชื่อ";
-            this.toolStripButtonCheckin.ToolTipText = "ข้อมูลเช็คชื่อเข้าเรียน";
-            this.toolStripButtonCheckin.Click += new System.EventHandler(this.toolStripButtonCheckin_Click);
             // 
             // toolStripSeparator1
             // 
@@ -289,7 +276,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton toolStripButtonTeaching;
         private System.Windows.Forms.ToolStripButton toolStripButtonRegister;
-        private System.Windows.Forms.ToolStripButton toolStripButtonCheckin;
         private System.Windows.Forms.ToolStrip teachToolbar;
         private System.Windows.Forms.ToolStripButton toolStripButtonTechSubject;
         private System.Windows.Forms.ToolStripButton toolStripButtonSetting;

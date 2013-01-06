@@ -123,6 +123,7 @@
     <Compile Include="ForgetPasswordFrm.Designer.cs">
       <DependentUpon>ForgetPasswordFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImportDataFile.cs" />
     <Compile Include="ImportDataFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -161,6 +162,12 @@
     <Compile Include="ScoreFrm.Designer.cs">
       <DependentUpon>ScoreFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ScoreRateFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScoreRateFrm.Designer.cs">
+      <DependentUpon>ScoreRateFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="StudentFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,6 +185,12 @@
     </Compile>
     <Compile Include="TeacherFrm.Designer.cs">
       <DependentUpon>TeacherFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TeacherPopUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TeacherPopUp.Designer.cs">
+      <DependentUpon>TeacherPopUp.cs</DependentUpon>
     </Compile>
     <Compile Include="TeacherScreenFrm.cs">
       <SubType>Form</SubType>
@@ -257,6 +270,9 @@
     <EmbeddedResource Include="ScoreFrm.resx">
       <DependentUpon>ScoreFrm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ScoreRateFrm.resx">
+      <DependentUpon>ScoreRateFrm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StudentFrm.resx">
       <DependentUpon>StudentFrm.cs</DependentUpon>
     </EmbeddedResource>
@@ -265,6 +281,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TeacherFrm.resx">
       <DependentUpon>TeacherFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TeacherPopUp.resx">
+      <DependentUpon>TeacherPopUp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TeacherScreenFrm.resx">
       <DependentUpon>TeacherScreenFrm.cs</DependentUpon>

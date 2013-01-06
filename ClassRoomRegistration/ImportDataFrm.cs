@@ -14,10 +14,9 @@ namespace ClassRoomRegistration
     public partial class ImportDataFrm : Form
     {
         private MySQLDatabase _db = null;
-        private string _year = null;
-        private string _subjectCode = null;
-        private string _subjectName = null;
         private List<Student> _lstStd = new List<Student>();
+        private ImportDataFile _file = null;
+        private int _techID;
 
         public ImportDataFrm()
         {
@@ -33,44 +32,19 @@ namespace ClassRoomRegistration
             {
                 dgv.Rows.Clear();
                 txtCSVFile.Text = frm.FileName;
-                ParseCSVFile();
-                txtSubjectCode.Text = _subjectCode;
-                txtSubjectName.Text = _subjectName;
-            }
-        }
-
-        private void ParseCSVFile()
-        {
-            string line;
-            string[] cols;
-            
-            StreamReader sr = new StreamReader(txtCSVFile.Text);
-            // Flush
-            line = sr.ReadLine();
-            // Get year
-            line = sr.ReadLine();
-            cols = line.Split(',');
-            _year = cols[0].Substring(cols[0].IndexOf("25"), 4);
-            // Get Subject code and Subject Name
-            line = sr.ReadLine();
-            cols = line.Split(',');
-            cols[0] = cols[0].Replace("รหัสวิชา ", "");
-            cols[0] = cols[0].Substring(0, cols[0].Length - cols[0].IndexOf(" จำนวน") - 6);
-            _subjectCode = cols[0].Substring(0, 8);
-            _subjectName = cols[0].Substring(cols[0].IndexOf(' ') + 1);
-            // Get student
-            line = sr.ReadLine();
-            while (sr.EndOfStream == false)
-            {
-                line = sr.ReadLine();
-                string[] cell = line.Split(',');
-                string stdID = cell[1];
-                string stdName = cell[2];
-                string stdMajor = cell[3];
-                stdName = stdName.Replace("นาย", "");
-                stdName = stdName.Replace("นางสาว", "");
-                dgv.Rows.Add(stdID, stdName, stdMajor);
-                _lstStd.Add(new Student { ID = stdID, Name = stdName, Major = stdMajor });
+                _file = new ImportDataFile(txtCSVFile.Text);
+                txtSubjectID.Text = _file.SubjectID;
+                txtSubjectName.Text = _file.SubjectName;
+                txtLecID.Text = _file.LectureID;
+                txtLabID.Text = _file.LabID;
+                txtYear.Text = _file.Year;
+                _lstStd = _file.Students;
+                // Load DataGrid
+                int i = 1;
+                foreach (Student item in _lstStd)
+                {
+                    dgv.Rows.Add(i++, item.ID, item.Name, item.Major);
+                }
             }
         }
 
@@ -84,30 +58,34 @@ namespace ClassRoomRegistration
             dgv.AllowUserToDeleteRows = false;
             dgv.MultiSelect = false;
             dgv.ReadOnly = true;
-            dgv.ColumnCount = 3;
-            dgv.Columns[0].HeaderText = "รหัสนิสิต";
-            dgv.Columns[1].HeaderText = "ชื่อ-นามสกุล";
-            dgv.Columns[1].Width = 460;
-            dgv.Columns[2].HeaderText = "สาขา";
+            dgv.ColumnCount = 4;
+            dgv.Columns[0].HeaderText = "ลำดับ";
+            dgv.Columns[0].Width = 30;
+            dgv.Columns[1].HeaderText = "รหัสนิสิต";
+            dgv.Columns[2].HeaderText = "ชื่อ-นามสกุล";
+            dgv.Columns[2].Width = 460;
+            dgv.Columns[3].HeaderText = "สาขา";
         }
 
         private void btnImport_Click(object sender, EventArgs e)
         {
             // Subject
             // Check the record is already exist.
-            _db.SQLCommand = "SELECT * FROM subject WHERE sub_id='" + _subjectCode + "'";
+            _db.SQLCommand = "SELECT * FROM subject WHERE sub_id='" + txtSubjectID.Text + "' AND sub_lec='" + txtLecID.Text + "' AND sub_lab='" + txtLabID.Text + "'";
             _db.Query();
             if (_db.Result.HasRows)
             {
                 // Update
                 _db.SQLCommand = "UPDATE subject SET ";
-                _db.SQLCommand += "sub_title='" + _subjectName + "' ";
-                _db.SQLCommand += "WHERE sub_id='" + _subjectCode + "'";
+                _db.SQLCommand += "sub_title='" + txtSubjectName.Text + "', ";
+                _db.SQLCommand += "sub_lec='" + txtLecID.Text + "', ";
+                _db.SQLCommand += "sub_lab='" + txtLabID.Text + "' ";
+                _db.SQLCommand += "WHERE sub_id='" + txtSubjectID.Text + "'";
             }
             else
             {
                 // Insert
-                _db.SQLCommand = "INSERT INTO subject (sub_id, sub_title) VALUES ('" + _subjectCode + "', '" + _subjectName + "')";
+                _db.SQLCommand = "INSERT INTO subject (sub_id, sub_title, sub_lec, sub_lab) VALUES ('" + txtSubjectID.Text + "', '" + txtSubjectName.Text + "', '" + txtLecID.Text + "', '" + txtLabID.Text + "')";
             }
 
             if (_db.Query() == false)
@@ -115,6 +93,13 @@ namespace ClassRoomRegistration
                 MessageBox.Show("ไม่สามารถนำเข้าข้อมูลได้", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            // Get subject id
+            _db.SQLCommand = "SELECT id FROM subject WHERE sub_id='" + txtSubjectID.Text + "' AND sub_lec='" + txtLecID.Text + "' AND sub_lab='" + txtLabID.Text + "'";
+            _db.Query();
+            _db.Result.Read();
+            int id = (int)_db.Result["id"];
+            string subCode = id.ToString();
 
             // Student
             foreach (Student item in _lstStd)
@@ -138,34 +123,52 @@ namespace ClassRoomRegistration
                 _db.Query();
 
                 // Registration
-                _db.SQLCommand = "SELECT * FROM registration WHERE std_id='" + item.ID + "' AND sub_id='" + _subjectCode + "' AND year='" + _year + "'";
+                _db.SQLCommand = "SELECT * FROM registration WHERE std_id='" + item.ID + "' AND sub_id='" + subCode + "' AND year='" + txtYear.Text + "'";
                 _db.Query();
                 if (_db.Result.HasRows)
                 {
                     // Update
                     _db.SQLCommand = "UPDATE registration SET ";
-                    _db.SQLCommand += "sub_id='" + _subjectCode + "', ";
+                    _db.SQLCommand += "sub_id='" + subCode + "', ";
                     _db.SQLCommand += "std_id='" + item.ID + "', ";
-                    _db.SQLCommand += "year='" + _year + "' ";
-                    _db.SQLCommand += "WHERE sub_id='" + _subjectCode + "' AND std_id='" + item.ID + "' AND year='" + _year + "'";
+                    _db.SQLCommand += "year='" + txtYear.Text + "' ";
+                    _db.SQLCommand += "WHERE sub_id='" + subCode + "' AND std_id='" + item.ID + "' AND year='" + txtYear.Text + "'";
                 }
                 else
                 {
                     // Insert
-                    _db.SQLCommand = "INSERT INTO registration (sub_id, std_id, year) VALUES ('" + _subjectCode + "', '" + item.ID + "', '" + _year + "')";
+                    _db.SQLCommand = "INSERT INTO registration (sub_id, std_id, year) VALUES ('" + subCode + "', '" + item.ID + "', '" + txtYear.Text + "')";
                 }
 
                 _db.Query();
             }
 
+            // Manage teaching data
+            _db.SQLCommand = "SELECT * FROM teaching WHERE tech_id='" + _techID + "' AND sub_id='" + subCode + "' AND year='" + txtYear.Text + "'";
+            _db.Query();
+            if (_db.Result.HasRows == false)
+            {
+                // Insert
+                _db.SQLCommand = "INSERT INTO teaching (tech_id, sub_id, year) VALUES ('" + _techID + "', '" + subCode + "', '" + txtYear.Text + "')";
+            }
+
+            if (_db.Query() == false)
+            {
+                MessageBox.Show("ไม่สามารถนำเข้าข้อมูลได้", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             MessageBox.Show("นำเข้าข้อมูลเสร็จเรียบร้อย", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-    }
 
-    public class Student
-    {
-        public string ID { get; set; }
-        public string Name { get; set; }
-        public string Major { get; set; }
+        private void btnSelect_Click(object sender, EventArgs e)
+        {
+            TeacherPopUp frm = new TeacherPopUp();
+            frm.Parent = this.MdiParent;
+            frm.ShowDialog();
+            _techID = frm.TechID;
+            txtTechName.Text = frm.TechName;
+            frm.Close();
+        }
     }
 }

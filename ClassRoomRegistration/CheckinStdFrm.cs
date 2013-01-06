@@ -14,7 +14,8 @@ namespace ClassRoomRegistration
     public partial class CheckinStdFrm : Form
     {
         public Form Parent { get; set; }
-        public string SubID { get; set; }
+        public TimeSpan TimeLate { get; set; }
+        public int SubID { get; set; }
         public string Year { get; set; }
         public bool StopAutoCheckin { get; set; }
         private MySQLDatabase _db = null;
@@ -99,7 +100,12 @@ namespace ClassRoomRegistration
                     _db.Query();
                     if (_db.Result.HasRows == false)
                     {
-                        _db.SQLCommand = "INSERT INTO checkin (sub_id, std_id, chkin_year, chkin_date) VALUES ('" + SubID + "', '" + stdID + "', '" + Year + "', '" + txtDate.Text + "')";
+                        string chkinStatus = "normal";
+                        if (DateTime.Now.Hour > TimeLate.Hours || DateTime.Now.Minute > TimeLate.Minutes)
+                        {
+                            chkinStatus = "late";
+                        }
+                        _db.SQLCommand = "INSERT INTO checkin (sub_id, std_id, chkin_year, chkin_date, chkin_status) VALUES ('" + SubID + "', '" + stdID + "', '" + Year + "', '" + txtDate.Text + "', '" + chkinStatus + "')";
                         _db.Query();
                     }
 
