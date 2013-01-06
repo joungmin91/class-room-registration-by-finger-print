@@ -78,8 +78,8 @@ namespace ClassRoomRegistration
                 if (_db.Result.HasRows)
                 {
                     _db.Result.Read();
-                    txtSubID.Text = (string)_db.Result.GetValue(0);
-                    txtSubName.Text = (string)_db.Result.GetValue(1);
+                    txtSubID.Text = (string)_db.Result.GetValue(1);
+                    txtSubName.Text = (string)_db.Result.GetValue(2);
                 }
             }
         }

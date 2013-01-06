@@ -57,8 +57,8 @@ namespace ClassRoomRegistration
             while (_db.Result.Read())
             {
                 dgv.Rows.Add(
-                    _db.Result.GetValue(0),
-                    _db.Result.GetValue(1)
+                    _db.Result.GetValue(1),
+                    _db.Result.GetValue(2)
                     );
             }
         }
