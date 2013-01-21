@@ -398,7 +398,7 @@ namespace ClassRoomRegistration
                 if (_db.Result.HasRows == true)
                 {
                     _db.Result.Read();
-                    if (_db.Result["type"].ToString() == "grade")
+                    //if (_db.Result["type"].ToString() == "grade")
                     {
                         if (score >= Convert.ToInt16(_db.Result["F"]))
                         {
@@ -739,6 +739,8 @@ namespace ClassRoomRegistration
             frm.TeachingID = (int)dgvSubject.CurrentRow.Cells["TechID"].Value;
             frm._lstPoint = _lstPoint;
             frm.ShowDialog();
+
+            LoadScoreToDGV();
         }
     }
 }

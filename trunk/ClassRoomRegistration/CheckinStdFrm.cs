@@ -101,7 +101,7 @@ namespace ClassRoomRegistration
                     if (_db.Result.HasRows == false)
                     {
                         string chkinStatus = "normal";
-                        if (DateTime.Now.Hour > TimeLate.Hours || DateTime.Now.Minute > TimeLate.Minutes)
+                        if (DateTime.Now.Hour > TimeLate.Hours || DateTime.Now.Minute > (TimeLate.Minutes + 15))
                         {
                             chkinStatus = "late";
                         }
