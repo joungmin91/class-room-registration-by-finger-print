@@ -17,6 +17,7 @@ namespace ClassRoomRegistration
         public TimeSpan TimeLate { get; set; }
         public int SubID { get; set; }
         public string Year { get; set; }
+        public string Term { get; set; }
         public bool StopAutoCheckin { get; set; }
         private MySQLDatabase _db = null;
         private AxZKFPEngX _fpEngine = null;
@@ -70,42 +71,46 @@ namespace ClassRoomRegistration
             // Get finger print key
             string key = _fpEngine.GetTemplateAsString();
 
-            // Check the key with all student in the class
-            _db.SQLCommand = "SELECT std.std_id, std.std_name, std.std_fp_key FROM registration reg JOIN student std ON reg.std_id = std.std_id WHERE reg.sub_id = '" + SubID + "' AND reg.year = '" + Year + "'";
+            // Check the key with all students in the class
+            _db.SQLCommand = "SELECT std.std_id, std.std_name, std.std_fp_key, reg.reg_id FROM registration reg JOIN student std ON reg.std_id = std.std_id WHERE reg.sub_id = '" + SubID + "' AND reg.year = '" + Year + "' AND reg.term='" + Term + "'";
             _db.Query();
 
+            // Store all students that register this class into a list
             List<StdItem> lstStd = new List<StdItem>();
             while (_db.Result.Read())
             {
                 lstStd.Add(new StdItem
                         {
-                            StdID = (string)_db.Result.GetValue(0),
-                            StdName = (string)_db.Result.GetValue(1),
-                            StdKey = (string)_db.Result.GetValue(2)
+                            StdID = (string)_db.Result["std_id"],
+                            StdName = (string)_db.Result["std_name"],
+                            StdKey = (string)_db.Result["std_fp_key"],
+                            RegID = (int)_db.Result["reg_id"]
                         }
                     );
             }
 
+            // Search a student that has a finger key matchs with key from finger print device 
             foreach (StdItem item in lstStd)
             {
-                string stdID = item.StdID;
-                bool bRegChanged = false;
-                bool bMatched = false;
-                string regKey = item.StdKey;
+                bool bRegChanged = false;       // Not use but we need to have it
+                bool bMatched = false;          // Return value from verify 2 keys   
+                string regKey = item.StdKey;    // Student's finger print key
                 bMatched = _fpEngine.VerFingerFromStr(ref regKey, key, false, ref bRegChanged);
+                // If key from device matched with the student's key
                 if (bMatched == true)
                 {
-                    // If the record is not in database then insert
-                    _db.SQLCommand = "SELECT * FROM checkin WHERE sub_id='" + SubID + "' AND std_id='" + stdID + "' AND chkin_year='" + Year + "' AND chkin_date='" + txtDate.Text + "'";
+                    // Check the record is in database, if not yet, insert the record
+                    _db.SQLCommand = "SELECT * FROM checkin WHERE reg_id='" + item.RegID + "' AND date='" + txtDate.Text + "'";
                     _db.Query();
                     if (_db.Result.HasRows == false)
                     {
                         string chkinStatus = "normal";
+                        // If the time checkin more than setting time 15 minutes then the status will be 'late'
                         if (DateTime.Now.Hour > TimeLate.Hours || DateTime.Now.Minute > (TimeLate.Minutes + 15))
                         {
                             chkinStatus = "late";
                         }
-                        _db.SQLCommand = "INSERT INTO checkin (sub_id, std_id, chkin_year, chkin_date, chkin_status) VALUES ('" + SubID + "', '" + stdID + "', '" + Year + "', '" + txtDate.Text + "', '" + chkinStatus + "')";
+                        _db.SQLCommand = "INSERT INTO checkin (reg_id, date, status) VALUES ('" + item.RegID + "', '" + txtDate.Text + "', '" + chkinStatus + "')";
                         _db.Query();
                     }
 
@@ -157,5 +162,6 @@ namespace ClassRoomRegistration
         public string StdID { get; set; }
         public string StdName { get; set; }
         public string StdKey { get; set; }
+        public int RegID { get; set; }
     }
 }
