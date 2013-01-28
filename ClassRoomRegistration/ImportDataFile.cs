@@ -43,6 +43,11 @@ namespace ClassRoomRegistration
             line = sr.ReadLine();
             cols = line.Split(',');
             Year = cols[0].Substring(cols[0].IndexOf("25"), 4);
+
+            // Get term
+            line = line.Replace("รายงานผลการลงทะเบียนประจำ", "");
+            cols = line.Split(' ');
+            Term = cols[0];
             
             // Get Subject code and Subject Name
             line = sr.ReadLine();

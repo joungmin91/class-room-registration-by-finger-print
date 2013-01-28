@@ -105,6 +105,12 @@
     <Compile Include="AssignTeacherToSubjectFrm.Designer.cs">
       <DependentUpon>AssignTeacherToSubjectFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CheckinDateFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CheckinDateFrm.Designer.cs">
+      <DependentUpon>CheckinDateFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CheckinStdFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -233,6 +239,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AssignTeacherToSubjectFrm.resx">
       <DependentUpon>AssignTeacherToSubjectFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CheckinDateFrm.resx">
+      <DependentUpon>CheckinDateFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CheckinStdFrm.resx">
       <DependentUpon>CheckinStdFrm.cs</DependentUpon>

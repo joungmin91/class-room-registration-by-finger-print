@@ -43,12 +43,15 @@
             this.btnCheckAll = new System.Windows.Forms.Button();
             this.tabCtrlRegis = new System.Windows.Forms.TabControl();
             this.tabPageCheckin = new System.Windows.Forms.TabPage();
+            this.btnChkinDate = new System.Windows.Forms.Button();
             this.dtLate = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPageScore = new System.Windows.Forms.TabPage();
-            this.dgvScore = new System.Windows.Forms.DataGridView();
-            this.btnSave = new System.Windows.Forms.Button();
             this.btnScoreSetting = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.dgvScore = new System.Windows.Forms.DataGridView();
+            this.btnPrintCheckin = new System.Windows.Forms.Button();
+            this.btnPrintScore = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudent)).BeginInit();
             this.tabCtrlRegis.SuspendLayout();
@@ -146,7 +149,7 @@
             this.btnFinger.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFinger.Image = ((System.Drawing.Image)(resources.GetObject("btnFinger.Image")));
             this.btnFinger.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFinger.Location = new System.Drawing.Point(613, 275);
+            this.btnFinger.Location = new System.Drawing.Point(547, 274);
             this.btnFinger.Name = "btnFinger";
             this.btnFinger.Size = new System.Drawing.Size(130, 23);
             this.btnFinger.TabIndex = 4;
@@ -160,7 +163,7 @@
             this.btnCheckAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCheckAll.Image = ((System.Drawing.Image)(resources.GetObject("btnCheckAll.Image")));
             this.btnCheckAll.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCheckAll.Location = new System.Drawing.Point(508, 275);
+            this.btnCheckAll.Location = new System.Drawing.Point(442, 274);
             this.btnCheckAll.Name = "btnCheckAll";
             this.btnCheckAll.Size = new System.Drawing.Size(99, 23);
             this.btnCheckAll.TabIndex = 5;
@@ -181,6 +184,8 @@
             // 
             // tabPageCheckin
             // 
+            this.tabPageCheckin.Controls.Add(this.btnPrintCheckin);
+            this.tabPageCheckin.Controls.Add(this.btnChkinDate);
             this.tabPageCheckin.Controls.Add(this.dtLate);
             this.tabPageCheckin.Controls.Add(this.label3);
             this.tabPageCheckin.Controls.Add(this.dgvStudent);
@@ -193,6 +198,20 @@
             this.tabPageCheckin.TabIndex = 0;
             this.tabPageCheckin.Text = "เช็กชื่อนิสิต";
             this.tabPageCheckin.UseVisualStyleBackColor = true;
+            // 
+            // btnChkinDate
+            // 
+            this.btnChkinDate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnChkinDate.Image = ((System.Drawing.Image)(resources.GetObject("btnChkinDate.Image")));
+            this.btnChkinDate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnChkinDate.Location = new System.Drawing.Point(357, 274);
+            this.btnChkinDate.Name = "btnChkinDate";
+            this.btnChkinDate.Size = new System.Drawing.Size(79, 23);
+            this.btnChkinDate.TabIndex = 7;
+            this.btnChkinDate.Text = "ตั้งค่าวัน";
+            this.btnChkinDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnChkinDate.UseVisualStyleBackColor = true;
+            this.btnChkinDate.Click += new System.EventHandler(this.btnChkinDate_Click);
             // 
             // dtLate
             // 
@@ -215,6 +234,7 @@
             // 
             // tabPageScore
             // 
+            this.tabPageScore.Controls.Add(this.btnPrintScore);
             this.tabPageScore.Controls.Add(this.btnScoreSetting);
             this.tabPageScore.Controls.Add(this.btnSave);
             this.tabPageScore.Controls.Add(this.dgvScore);
@@ -226,20 +246,26 @@
             this.tabPageScore.Text = "คะแนน";
             this.tabPageScore.UseVisualStyleBackColor = true;
             // 
-            // dgvScore
+            // btnScoreSetting
             // 
-            this.dgvScore.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvScore.Location = new System.Drawing.Point(7, 6);
-            this.dgvScore.Name = "dgvScore";
-            this.dgvScore.Size = new System.Drawing.Size(736, 263);
-            this.dgvScore.TabIndex = 7;
+            this.btnScoreSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnScoreSetting.Image = ((System.Drawing.Image)(resources.GetObject("btnScoreSetting.Image")));
+            this.btnScoreSetting.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnScoreSetting.Location = new System.Drawing.Point(473, 275);
+            this.btnScoreSetting.Name = "btnScoreSetting";
+            this.btnScoreSetting.Size = new System.Drawing.Size(130, 23);
+            this.btnScoreSetting.TabIndex = 9;
+            this.btnScoreSetting.Text = "ตั้งค่าการให้คะแนน";
+            this.btnScoreSetting.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnScoreSetting.UseVisualStyleBackColor = true;
+            this.btnScoreSetting.Click += new System.EventHandler(this.btnScoreSetting_Click);
             // 
             // btnSave
             // 
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(675, 275);
+            this.btnSave.Location = new System.Drawing.Point(609, 275);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(68, 23);
             this.btnSave.TabIndex = 8;
@@ -248,19 +274,43 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // btnScoreSetting
+            // dgvScore
             // 
-            this.btnScoreSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnScoreSetting.Image = ((System.Drawing.Image)(resources.GetObject("btnScoreSetting.Image")));
-            this.btnScoreSetting.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnScoreSetting.Location = new System.Drawing.Point(539, 275);
-            this.btnScoreSetting.Name = "btnScoreSetting";
-            this.btnScoreSetting.Size = new System.Drawing.Size(130, 23);
-            this.btnScoreSetting.TabIndex = 9;
-            this.btnScoreSetting.Text = "ตั้งค่าการให้คะแนน";
-            this.btnScoreSetting.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnScoreSetting.UseVisualStyleBackColor = true;
-            this.btnScoreSetting.Click += new System.EventHandler(this.btnScoreSetting_Click);
+            this.dgvScore.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvScore.Location = new System.Drawing.Point(7, 6);
+            this.dgvScore.Name = "dgvScore";
+            this.dgvScore.Size = new System.Drawing.Size(736, 263);
+            this.dgvScore.TabIndex = 7;
+            this.dgvScore.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvScore_CellEndEdit);
+            this.dgvScore.SelectionChanged += new System.EventHandler(this.dgvScore_SelectionChanged);
+            // 
+            // btnPrintCheckin
+            // 
+            this.btnPrintCheckin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrintCheckin.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintCheckin.Image")));
+            this.btnPrintCheckin.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPrintCheckin.Location = new System.Drawing.Point(683, 274);
+            this.btnPrintCheckin.Name = "btnPrintCheckin";
+            this.btnPrintCheckin.Size = new System.Drawing.Size(60, 23);
+            this.btnPrintCheckin.TabIndex = 8;
+            this.btnPrintCheckin.Text = "พิมพ์";
+            this.btnPrintCheckin.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPrintCheckin.UseVisualStyleBackColor = true;
+            this.btnPrintCheckin.Click += new System.EventHandler(this.btnPrintCheckin_Click);
+            // 
+            // btnPrintScore
+            // 
+            this.btnPrintScore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrintScore.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintScore.Image")));
+            this.btnPrintScore.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPrintScore.Location = new System.Drawing.Point(683, 275);
+            this.btnPrintScore.Name = "btnPrintScore";
+            this.btnPrintScore.Size = new System.Drawing.Size(60, 23);
+            this.btnPrintScore.TabIndex = 10;
+            this.btnPrintScore.Text = "พิมพ์";
+            this.btnPrintScore.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPrintScore.UseVisualStyleBackColor = true;
+            this.btnPrintScore.Click += new System.EventHandler(this.btnPrintScore_Click);
             // 
             // TeachingViewFrm
             // 
@@ -304,5 +354,8 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.DataGridView dgvScore;
         private System.Windows.Forms.Button btnScoreSetting;
+        private System.Windows.Forms.Button btnChkinDate;
+        private System.Windows.Forms.Button btnPrintCheckin;
+        private System.Windows.Forms.Button btnPrintScore;
     }
 }

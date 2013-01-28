@@ -38,11 +38,13 @@ namespace ClassRoomRegistration
                 txtLecID.Text = _file.LectureID;
                 txtLabID.Text = _file.LabID;
                 txtYear.Text = _file.Year;
+                txtTerm.Text = _file.Term;
                 _lstStd = _file.Students;
                 // Load DataGrid
                 int i = 1;
                 foreach (Student item in _lstStd)
                 {
+                    // order, student_id, student_name, student_major
                     dgv.Rows.Add(i++, item.ID, item.Name, item.Major);
                 }
             }
@@ -123,33 +125,23 @@ namespace ClassRoomRegistration
                 _db.Query();
 
                 // Registration
-                _db.SQLCommand = "SELECT * FROM registration WHERE std_id='" + item.ID + "' AND sub_id='" + subCode + "' AND year='" + txtYear.Text + "'";
+                _db.SQLCommand = "SELECT * FROM registration WHERE std_id='" + item.ID + "' AND sub_id='" + subCode + "' AND year='" + txtYear.Text + "' AND term='" + txtTerm.Text + "'";
                 _db.Query();
-                if (_db.Result.HasRows)
-                {
-                    // Update
-                    _db.SQLCommand = "UPDATE registration SET ";
-                    _db.SQLCommand += "sub_id='" + subCode + "', ";
-                    _db.SQLCommand += "std_id='" + item.ID + "', ";
-                    _db.SQLCommand += "year='" + txtYear.Text + "' ";
-                    _db.SQLCommand += "WHERE sub_id='" + subCode + "' AND std_id='" + item.ID + "' AND year='" + txtYear.Text + "'";
-                }
-                else
+                if (_db.Result.HasRows == false)
                 {
                     // Insert
-                    _db.SQLCommand = "INSERT INTO registration (sub_id, std_id, year) VALUES ('" + subCode + "', '" + item.ID + "', '" + txtYear.Text + "')";
+                    _db.SQLCommand = "INSERT INTO registration (sub_id, std_id, year, term) VALUES ('" + subCode + "', '" + item.ID + "', '" + txtYear.Text + "', '" + txtTerm.Text + "')";
+                    _db.Query();
                 }
-
-                _db.Query();
             }
 
             // Manage teaching data
-            _db.SQLCommand = "SELECT * FROM teaching WHERE tech_id='" + _techID + "' AND sub_id='" + subCode + "' AND year='" + txtYear.Text + "'";
+            _db.SQLCommand = "SELECT * FROM teaching WHERE tech_id='" + _techID + "' AND sub_id='" + subCode + "' AND year='" + txtYear.Text + "' AND term='" + txtTerm.Text + "'";
             _db.Query();
             if (_db.Result.HasRows == false)
             {
                 // Insert
-                _db.SQLCommand = "INSERT INTO teaching (tech_id, sub_id, year) VALUES ('" + _techID + "', '" + subCode + "', '" + txtYear.Text + "')";
+                _db.SQLCommand = "INSERT INTO teaching (tech_id, sub_id, year, term) VALUES ('" + _techID + "', '" + subCode + "', '" + txtYear.Text + "', '" + txtTerm.Text + "')";
             }
 
             if (_db.Query() == false)

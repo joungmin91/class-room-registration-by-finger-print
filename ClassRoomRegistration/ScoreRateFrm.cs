@@ -29,75 +29,77 @@ namespace ClassRoomRegistration
             _db = ((MainFrm)Parent)._db;
 
             // Load current score setting
-            _db.SQLCommand = "SELECT * FROM score_rate_type WHERE tech_id='" + TeachingID + "'";
+            _db.SQLCommand = "SELECT * FROM score_rating WHERE tech_id='" + TeachingID + "'";
             _db.Query();
-
-            if (_db.Result.HasRows == true)
+            // If the subject has been already set score rating
+            if (_db.Result.Read() == true)
             {
-                _db.Result.Read();
-
-                if (_db.Result["type"].ToString() == "grade")
-                {
-                    cmbType.SelectedIndex = 0;
-                }
-                else
-                {
-                    cmbType.SelectedIndex = 1;
-                }
-
-                txtA.Text = (string)_db.Result["A"];
-                txtBP.Text = (string)_db.Result["BP"];
-                txtB.Text = (string)_db.Result["B"];
-                txtCP.Text = (string)_db.Result["CP"];
-                txtC.Text = (string)_db.Result["C"];
-                txtDP.Text = (string)_db.Result["DP"];
-                txtD.Text = (string)_db.Result["D"];
-                txtF.Text = (string)_db.Result["F"];
-
+                txtA.Text = _db.Result["a"].ToString();
+                txtBP.Text = _db.Result["bp"].ToString();
+                txtB.Text = _db.Result["b"].ToString();
+                txtCP.Text = _db.Result["cp"].ToString();
+                txtC.Text = _db.Result["c"].ToString();
+                txtDP.Text = _db.Result["dp"].ToString();
+                txtD.Text = _db.Result["d"].ToString();
+                txtF.Text = _db.Result["f"].ToString();
+                txtMid.Text = _db.Result["mid"].ToString();
+                txtFinal.Text = _db.Result["final"].ToString();
+                txtCheckin.Text = _db.Result["checkin"].ToString();
+                txtScore1.Text = _db.Result["score1"].ToString();
+                txtScore2.Text = _db.Result["score2"].ToString();
+                txtScore3.Text = _db.Result["score3"].ToString();
+                txtScore4.Text = _db.Result["score4"].ToString();
+                txtScore5.Text = _db.Result["score5"].ToString();
                 btnCalc_Click(null, null);
             }
-            
-            _ready = true;
+            _ready = true;  // To prevent crash we this flag.
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            string type = "";
-            if (cmbType.Text == "อิงเกณท์")
+            // Checkk a sum of ll scores must not over 100 points
+            int sum = Convert.ToInt16(txtMid.Text) +
+                      Convert.ToInt16(txtFinal.Text) +
+                      Convert.ToInt16(txtCheckin.Text) +
+                      Convert.ToInt16(txtScore1.Text) +
+                      Convert.ToInt16(txtScore2.Text) +
+                      Convert.ToInt16(txtScore3.Text) +
+                      Convert.ToInt16(txtScore4.Text) +
+                      Convert.ToInt16(txtScore5.Text);
+            if (sum > 100)
             {
-                type = "grade";
-            }
-            else if (cmbType.Text == "อิงกลุ่ม")
-            {
-                type = "group";
-            }
-            else
-            {
-                MessageBox.Show("เลือกประเภทการให้คะแนน", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("คะแนนรวมเกิน 100 คะแนน", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             // Check if the record be there
-            _db.SQLCommand = "SELECT * FROM score_rate_type WHERE tech_id='" + TeachingID + "'";
+            _db.SQLCommand = "SELECT * FROM score_rating WHERE tech_id='" + TeachingID + "'";
             _db.Query();
             if (_db.Result.HasRows == true)
             {
-                _db.SQLCommand = "UPDATE score_rate_type SET ";
-                _db.SQLCommand += "type='" + type + "', ";
-                _db.SQLCommand += "A='" + txtA.Text + "', ";
-                _db.SQLCommand += "BP='" + txtBP.Text + "', ";
-                _db.SQLCommand += "B='" + txtB.Text + "', ";
-                _db.SQLCommand += "CP='" + txtCP.Text + "', ";
-                _db.SQLCommand += "C='" + txtC.Text + "', ";
-                _db.SQLCommand += "DP='" + txtDP.Text + "', ";
-                _db.SQLCommand += "D='" + txtD.Text + "', ";
-                _db.SQLCommand += "F='" + txtF.Text + "' ";
+                _db.SQLCommand = "UPDATE score_rating SET ";
+                _db.SQLCommand += "a='" + txtA.Text + "', ";
+                _db.SQLCommand += "bp='" + txtBP.Text + "', ";
+                _db.SQLCommand += "b='" + txtB.Text + "', ";
+                _db.SQLCommand += "cp='" + txtCP.Text + "', ";
+                _db.SQLCommand += "c='" + txtC.Text + "', ";
+                _db.SQLCommand += "dp='" + txtDP.Text + "', ";
+                _db.SQLCommand += "d='" + txtD.Text + "', ";
+                _db.SQLCommand += "f='" + txtF.Text + "', ";
+                _db.SQLCommand += "mid='" + txtMid.Text + "', ";
+                _db.SQLCommand += "final='" + txtFinal.Text + "', ";
+                _db.SQLCommand += "checkin='" + txtCheckin.Text + "', ";
+                _db.SQLCommand += "score1='" + txtScore1.Text + "', ";
+                _db.SQLCommand += "score2='" + txtScore2.Text + "', ";
+                _db.SQLCommand += "score3='" + txtScore3.Text + "', ";
+                _db.SQLCommand += "score4='" + txtScore4.Text + "', ";
+                _db.SQLCommand += "score5='" + txtScore5.Text + "' ";
                 _db.SQLCommand += "WHERE tech_id='" + TeachingID + "'";
                 _db.Query();
             }
             else
             {
-                _db.SQLCommand = "INSERT INTO score_rate_type (tech_id, type, A, BP, B, CP, C, DP, D, F) VALUES ('" + TeachingID.ToString() + "', '" + type + "', '" + txtA.Text + "', '" + txtBP.Text + "', '" + txtB.Text + "', '" + txtCP.Text + "', '" + txtC.Text + "', '" + txtDP.Text + "', '" + txtD.Text + "', '" + txtF.Text + "')";
+                _db.SQLCommand = "INSERT INTO score_rating (tech_id, a, bp, b, cp, c, dp, d, f, mid, final, checkin, score1, score2, score3, score4, score5) VALUES ('" + TeachingID.ToString() + "', '" + txtA.Text + "', '" + txtBP.Text + "', '" + txtB.Text + "', '" + txtCP.Text + "', '" + txtC.Text + "', '" + txtDP.Text + "', '" + txtD.Text + "', '" + txtF.Text + "', '" + txtMid.Text + "', '" + txtFinal.Text + "', '" + txtCheckin.Text + "', '" + txtScore1.Text + "', '" + txtScore2.Text + "', '" + txtScore3.Text + "', '" + txtScore4 + "', '" + txtScore5.Text + "')";
                 _db.Query();
             }
             this.Close();
@@ -106,82 +108,6 @@ namespace ClassRoomRegistration
         private void btnCalc_Click(object sender, EventArgs e)
         {
             int a = 0, bp = 0, b = 0, cp = 0, c = 0, dp = 0, d = 0, f = 0;
-            
-            if (cmbType.Text == "อิงกลุ่ม")
-            {
-                // Find max
-                int max = 0;
-                foreach (int item in _lstPoint)
-                {
-                    if (item > max)
-                    {
-                        max = item;
-                    }
-                }
-                // Find min
-                int min = 100;
-                foreach (int item in _lstPoint)
-                {
-                    if (item < min)
-                    {
-                        min = item;
-                    }
-                }
-                // Find douglas
-                int dou = (max - min) / 8;
-
-                txtA.Text = (min + dou + dou + dou + dou + dou + dou + dou).ToString();
-                txtBP.Text = (min + dou + dou + dou + dou + dou + dou).ToString();
-                txtB.Text = (min + dou + dou + dou + dou + dou).ToString();
-                txtCP.Text = (min + dou + dou + dou + dou).ToString();
-                txtC.Text = (min + dou + dou + dou).ToString();
-                txtDP.Text = (min + dou + dou).ToString();
-                txtD.Text = (min + dou).ToString();
-                txtF.Text = min.ToString();
-            }
-            else
-            {
-                if (txtA.Text == "")
-                {
-                    txtA.Text = "80";
-                }
-
-                if (txtBP.Text == "")
-                {
-                    txtBP.Text = "75";
-                }
-
-                if (txtB.Text == "")
-                {
-                    txtB.Text = "70";
-                }
-
-                if (txtCP.Text == "")
-                {
-                    txtCP.Text = "65";
-                }
-
-                if (txtC.Text == "")
-                {
-                    txtC.Text = "60";
-                }
-
-                if (txtDP.Text == "")
-                {
-                    txtDP.Text = "55";
-                }
-
-                if (txtD.Text == "")
-                {
-                    txtD.Text = "50";
-                }
-
-                if (txtF.Text == "")
-                {
-                    txtF.Text = "0";
-                }
-            }
-
             foreach (int item in _lstPoint)
             {
                 // Calculate for A
@@ -215,12 +141,12 @@ namespace ClassRoomRegistration
                     dp++;
                 }
                 // Calculate for D
-                else if (item < Convert.ToInt16(txtDP.Text) && item >= Convert.ToInt16(txtD.Text))
+                else if (item < Convert.ToInt16(txtDP.Text) && item >= Convert.ToInt16(txtF.Text))
                 {
                     d++;
                 }
                 // Calculate for F
-                else if (item < Convert.ToInt16(txtD.Text))
+                else if (item <= Convert.ToInt16(txtF.Text))
                 {
                     f++;
                 }
@@ -242,6 +168,11 @@ namespace ClassRoomRegistration
             {
                 btnCalc_Click(null, null);   
             }
+        }
+
+        private void btnCalc_Click_1(object sender, EventArgs e)
+        {
+            btnCalc_Click(null, null);
         }
     }
 }

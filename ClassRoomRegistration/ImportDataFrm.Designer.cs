@@ -49,6 +49,8 @@
             this.btnSelect = new System.Windows.Forms.Button();
             this.txtYear = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.txtTerm = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -174,7 +176,7 @@
             // 
             this.txtLabID.Location = new System.Drawing.Point(287, 116);
             this.txtLabID.Name = "txtLabID";
-            this.txtLabID.Size = new System.Drawing.Size(127, 20);
+            this.txtLabID.Size = new System.Drawing.Size(66, 20);
             this.txtLabID.TabIndex = 16;
             // 
             // label6
@@ -217,26 +219,45 @@
             // 
             // txtYear
             // 
-            this.txtYear.Location = new System.Drawing.Point(498, 116);
+            this.txtYear.Location = new System.Drawing.Point(436, 116);
             this.txtYear.Name = "txtYear";
-            this.txtYear.Size = new System.Drawing.Size(127, 20);
+            this.txtYear.Size = new System.Drawing.Size(91, 20);
             this.txtYear.TabIndex = 21;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label9.Location = new System.Drawing.Point(435, 119);
+            this.label9.Location = new System.Drawing.Point(370, 119);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(60, 13);
             this.label9.TabIndex = 20;
             this.label9.Text = "ปีการศึกษา";
+            // 
+            // txtTerm
+            // 
+            this.txtTerm.Location = new System.Drawing.Point(599, 116);
+            this.txtTerm.Name = "txtTerm";
+            this.txtTerm.Size = new System.Drawing.Size(91, 20);
+            this.txtTerm.TabIndex = 23;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label10.Location = new System.Drawing.Point(567, 119);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(26, 13);
+            this.label10.TabIndex = 22;
+            this.label10.Text = "ภาค";
             // 
             // ImportDataFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 492);
+            this.Controls.Add(this.txtTerm);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.txtYear);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.btnSelect);
@@ -290,6 +311,8 @@
         private System.Windows.Forms.Button btnSelect;
         private System.Windows.Forms.TextBox txtYear;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtTerm;
+        private System.Windows.Forms.Label label10;
 
     }
 }
