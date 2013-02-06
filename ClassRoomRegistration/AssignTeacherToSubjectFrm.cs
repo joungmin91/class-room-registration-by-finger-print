@@ -46,8 +46,11 @@ namespace ClassRoomRegistration
             while (_db.Result.Read())
             {
                 dgv.Rows.Add(
-                    _db.Result.GetValue(0),
-                    _db.Result.GetValue(1)
+                    _db.Result["id"],
+                    _db.Result["sub_id"],
+                    _db.Result["sub_title"],
+                    _db.Result["sub_lec"],
+                    _db.Result["sub_lab"]
                     );
             }
         }
@@ -60,9 +63,13 @@ namespace ClassRoomRegistration
             dgv.AllowUserToDeleteRows = false;
             dgv.MultiSelect = false;
             dgv.ReadOnly = true;
-            dgv.ColumnCount = 2;
-            dgv.Columns[0].HeaderText = "Subject ID";
-            dgv.Columns[1].HeaderText = "Subject Name";
+            dgv.ColumnCount = 5;
+            dgv.Columns[0].HeaderText = "รหัส";
+            dgv.Columns[0].Visible = false;
+            dgv.Columns[1].HeaderText = "รหัสวิชา";
+            dgv.Columns[2].HeaderText = "ชื่อวิชา";
+            dgv.Columns[3].HeaderText = "ทฤษฏี";
+            dgv.Columns[4].HeaderText = "ปฏิบัติ";
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -79,7 +86,7 @@ namespace ClassRoomRegistration
                 return;
             }
 
-            _db.SQLCommand = "SELECT * FROM teaching WHERE tech_id='" + TechID + "' AND sub_id='" + (string)dgv.CurrentRow.Cells[0].Value + "' AND year='" + cmbYear.Text + "'";
+            _db.SQLCommand = "SELECT * FROM teaching WHERE tech_id='" + TechID + "' AND sub_id='" + dgv.CurrentRow.Cells[0].Value.ToString() + "' AND year='" + cmbYear.Text + "' AND term='" + cmbTerm.Text + "'";
             _db.Query();
             if (_db.Result.HasRows)
             {
@@ -87,13 +94,14 @@ namespace ClassRoomRegistration
                 _db.SQLCommand = "UPDATE teaching SET ";
                 _db.SQLCommand += "tech_id='" + TechID + "', ";
                 _db.SQLCommand += "sub_id='" + (string)dgv.CurrentRow.Cells[0].Value + "', ";
-                _db.SQLCommand += "year='" + cmbYear.Text + "' ";
-                _db.SQLCommand += "WHERE tech_id='" + TechID + "' AND sub_id='" + (string)dgv.CurrentRow.Cells[0].Value + "' AND year='" + cmbYear.Text + "'";
+                _db.SQLCommand += "year='" + cmbYear.Text + "', ";
+                _db.SQLCommand += "term='" + cmbTerm.Text + "' ";
+                _db.SQLCommand += "WHERE tech_id='" + TechID + "' AND sub_id='" + dgv.CurrentRow.Cells[0].Value.ToString() + "' AND year='" + cmbYear.Text + "'";
             }
             else
             {
                 // Insert
-                _db.SQLCommand = "INSERT INTO teaching (tech_id, sub_id, year) VALUES ('" + TechID + "', '" + (string)dgv.CurrentRow.Cells[0].Value + "', '" + cmbYear.Text + "')";
+                _db.SQLCommand = "INSERT INTO teaching (tech_id, sub_id, year, term) VALUES ('" + TechID + "', '" + dgv.CurrentRow.Cells[0].Value.ToString() + "', '" + cmbYear.Text + "', '" + cmbTerm.Text + "')";
             }
 
             if (_db.Query() == false)

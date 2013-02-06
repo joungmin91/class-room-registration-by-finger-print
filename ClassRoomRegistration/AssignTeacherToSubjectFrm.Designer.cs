@@ -35,6 +35,8 @@
             this.cmbYear = new System.Windows.Forms.ComboBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.cmbTerm = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,15 +81,15 @@
             "2558",
             "2559",
             "2560"});
-            this.cmbYear.Location = new System.Drawing.Point(114, 199);
+            this.cmbYear.Location = new System.Drawing.Point(145, 199);
             this.cmbYear.Name = "cmbYear";
-            this.cmbYear.Size = new System.Drawing.Size(194, 21);
+            this.cmbYear.Size = new System.Drawing.Size(163, 21);
             this.cmbYear.TabIndex = 3;
             // 
             // btnOK
             // 
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOK.Location = new System.Drawing.Point(152, 248);
+            this.btnOK.Location = new System.Drawing.Point(152, 263);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 4;
@@ -98,7 +100,7 @@
             // btnCancel
             // 
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Location = new System.Drawing.Point(233, 248);
+            this.btnCancel.Location = new System.Drawing.Point(233, 263);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 5;
@@ -106,11 +108,33 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // cmbTerm
+            // 
+            this.cmbTerm.FormattingEnabled = true;
+            this.cmbTerm.Items.AddRange(new object[] {
+            "ภาคต้น",
+            "ภาคปลาย"});
+            this.cmbTerm.Location = new System.Drawing.Point(145, 226);
+            this.cmbTerm.Name = "cmbTerm";
+            this.cmbTerm.Size = new System.Drawing.Size(163, 21);
+            this.cmbTerm.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 229);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(108, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "3. เลือกภาคการศึกษา";
+            // 
             // AssignTeacherToSubjectFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(324, 287);
+            this.ClientSize = new System.Drawing.Size(324, 299);
+            this.Controls.Add(this.cmbTerm);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.cmbYear);
@@ -137,5 +161,7 @@
         private System.Windows.Forms.ComboBox cmbYear;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.ComboBox cmbTerm;
+        private System.Windows.Forms.Label label3;
     }
 }

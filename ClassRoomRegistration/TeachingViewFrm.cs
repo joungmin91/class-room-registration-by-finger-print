@@ -129,6 +129,7 @@ namespace ClassRoomRegistration
             dgvScore.Columns[13].HeaderText = "รหัสลงทะเบียน";
             dgvScore.Columns[13].Width = 50;
             dgvScore.Columns[13].Name = "RegID";
+            dgvScore.Columns[13].Visible = false;
 
             _allowUdateRow = true;
             dgvSubject_SelectionChanged(null, null);
@@ -600,7 +601,10 @@ namespace ClassRoomRegistration
             db.Close();
 
             // Then calculate the score
-            checkinScore = (settingChkinScore * countChk) / countChkDate;
+            if (countChkDate != 0)
+            {
+                checkinScore = (settingChkinScore * countChk) / countChkDate;
+            }
             return checkinScore;
         }
 
@@ -955,7 +959,7 @@ namespace ClassRoomRegistration
             Font font = new Font("Arial", 14);
 
             // Title
-            e.Graphics.DrawString("ใบเช็คชื่อวิชา " + (string)dgvSubject.CurrentRow.Cells["SubTitle"].Value, fontTitle, Brushes.Black, x, y);
+            e.Graphics.DrawString("ใบเช็คชื่อวิชา " + (string)dgvSubject.CurrentRow.Cells["SubTitle"].Value + " หมู่บรรยาย " + (string)dgvSubject.CurrentRow.Cells["SubLec"].Value + " หมู่ปฏิบัติ " + (string)dgvSubject.CurrentRow.Cells["SubLab"].Value, fontTitle, Brushes.Black, x, y);
             y = y + 40;
             e.Graphics.DrawLine(Pens.Gray, x, y, x + 1120, y);
 
@@ -1039,7 +1043,7 @@ namespace ClassRoomRegistration
         private void btnPrintScore_Click(object sender, EventArgs e)
         {
             PrintDocument doc = new PrintDocument();
-            doc.DocumentName = "ใบเช็คชื่อวิชา " + (string)dgvSubject.CurrentRow.Cells["SubTitle"].Value;
+            doc.DocumentName = "ใบคะแนนวิชา " + (string)dgvSubject.CurrentRow.Cells["SubTitle"].Value;
             doc.DefaultPageSettings.Landscape = true;
             doc.PrintPage +=new PrintPageEventHandler(doc_PrintPage2);
 
@@ -1058,7 +1062,7 @@ namespace ClassRoomRegistration
             Font font = new Font("Arial", 14);
 
             // Title
-            e.Graphics.DrawString("คะแนนวิชา " + (string)dgvSubject.CurrentRow.Cells["SubTitle"].Value, fontTitle, Brushes.Black, x, y);
+            e.Graphics.DrawString("คะแนนวิชา " + (string)dgvSubject.CurrentRow.Cells["SubTitle"].Value + " หมู่บรรยาย " + (string)dgvSubject.CurrentRow.Cells["SubLec"].Value + " หมู่ปฏิบัติ " + (string)dgvSubject.CurrentRow.Cells["SubLab"].Value, fontTitle, Brushes.Black, x, y);
             y = y + 40;
             e.Graphics.DrawLine(Pens.Gray, x, y, x + 1120, y);
 
@@ -1073,8 +1077,8 @@ namespace ClassRoomRegistration
             e.Graphics.DrawString("เก็บ 1", font, Brushes.Black, x + 580, y);
             e.Graphics.DrawString("เก็บ 2", font, Brushes.Black, x + 660, y);
             e.Graphics.DrawString("เก็บ 3", font, Brushes.Black, x + 740, y);
-            e.Graphics.DrawString("เก้บ 4", font, Brushes.Black, x + 820, y);
-            e.Graphics.DrawString("เก้บ 5", font, Brushes.Black, x + 900, y);
+            e.Graphics.DrawString("เก็บ 4", font, Brushes.Black, x + 820, y);
+            e.Graphics.DrawString("เก็บ 5", font, Brushes.Black, x + 900, y);
             e.Graphics.DrawString("รวม", font, Brushes.Black, x + 980, y);
             e.Graphics.DrawString("เกรด", font, Brushes.Black, x + 1050, y);
 
@@ -1144,6 +1148,136 @@ namespace ClassRoomRegistration
 
             idxRow = 0;
             e.HasMorePages = false;
+        }
+
+        private void btnGrade_Click(object sender, EventArgs e)
+        {
+            PrintDocument doc = new PrintDocument();
+            doc.DocumentName = "ใบคะแนนวิชา " + (string)dgvSubject.CurrentRow.Cells["SubTitle"].Value;
+            doc.DefaultPageSettings.Landscape = true;
+            doc.PrintPage += new PrintPageEventHandler(doc_PrintPage3);
+
+            PrintDialog dialog = new PrintDialog();
+            dialog.Document = doc;
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                doc.Print();
+            }
+        }
+
+        void doc_PrintPage3(object sender, PrintPageEventArgs e)
+        {
+            int x = 20, y = 10;
+            Font fontTitle = new Font("Arial", 18);
+            Font font = new Font("Arial", 14);
+
+            // Title
+            e.Graphics.DrawString("คะแนนวิชา " + (string)dgvSubject.CurrentRow.Cells["SubTitle"].Value + " หมู่บรรยาย " + (string)dgvSubject.CurrentRow.Cells["SubLec"].Value + " หมู่ปฏิบัติ " + (string)dgvSubject.CurrentRow.Cells["SubLab"].Value, fontTitle, Brushes.Black, x, y);
+            y = y + 40;
+            e.Graphics.DrawLine(Pens.Gray, x, y, x + 1120, y);
+
+            // Header
+            y = y + 5;
+            e.Graphics.DrawString("ลำดับ", font, Brushes.Black, x, y);
+            e.Graphics.DrawString("รหัส", font, Brushes.Black, x + 50, y);
+            e.Graphics.DrawString("ชื่อ-นามสกุล", font, Brushes.Black, x + 180, y);
+            //Graphics.DrawString("กลาง", font, Brushes.Black, x + 350, y);
+            //e.Graphics.DrawString("ปลาย", font, Brushes.Black, x + 430, y);
+            //e.Graphics.DrawString("เช็คชื่อ", font, Brushes.Black, x + 510, y);
+            //e.Graphics.DrawString("เก็บ 1", font, Brushes.Black, x + 580, y);
+            //e.Graphics.DrawString("เก็บ 2", font, Brushes.Black, x + 660, y);
+            //e.Graphics.DrawString("เก็บ 3", font, Brushes.Black, x + 740, y);
+            //e.Graphics.DrawString("เก็บ 4", font, Brushes.Black, x + 820, y);
+            //e.Graphics.DrawString("เก็บ 5", font, Brushes.Black, x + 900, y);
+            //e.Graphics.DrawString("รวม", font, Brushes.Black, x + 980, y);
+            e.Graphics.DrawString("เกรด", font, Brushes.Black, x + 430, y);
+
+            y = y + 25;
+            e.Graphics.DrawLine(Pens.Gray, x, y, x + 1120, y);
+
+            y = y + 15;
+            while (idxRow < dgvScore.Rows.Count)
+            {
+                int xx = 20;
+
+                // Print order
+                e.Graphics.DrawString(dgvStudent.Rows[idxRow].Cells[0].Value.ToString(), font, Brushes.Black, x, y);
+
+                // Print student's id
+                e.Graphics.DrawString(dgvStudent.Rows[idxRow].Cells[1].Value.ToString(), font, Brushes.Black, x + 50, y);
+
+                // Print student's name
+                e.Graphics.DrawString(dgvStudent.Rows[idxRow].Cells[2].Value.ToString(), font, Brushes.Black, x + 180, y);
+
+                string reg_id = dgvScore.Rows[idxRow].Cells["RegID"].Value.ToString();
+                _db.SQLCommand = "SELECT * FROM score WHERE reg_id='" + reg_id + "'";
+                _db.Query();
+                if (_db.Result.Read() == true)
+                {
+                    //e.Graphics.DrawString(_db.Result["mid"].ToString(), font, Brushes.Black, x + 350 + xx, y);
+                    //xx = xx + 80;
+                    //e.Graphics.DrawString(_db.Result["final"].ToString(), font, Brushes.Black, x + 350 + xx, y);
+                    int checkinScore = GetCheckinScore(Convert.ToString(dgvSubject.CurrentRow.Cells["TechID"].Value), reg_id);
+                    //xx = xx + 80;
+                    //e.Graphics.DrawString(checkinScore.ToString(), font, Brushes.Black, x + 350 + xx, y);
+                    //xx = xx + 80;
+                    //e.Graphics.DrawString(_db.Result["score1"].ToString(), font, Brushes.Black, x + 350 + xx, y);
+                    //xx = xx + 80;
+                    //e.Graphics.DrawString(_db.Result["score2"].ToString(), font, Brushes.Black, x + 350 + xx, y);
+                    //xx = xx + 80;
+                    //e.Graphics.DrawString(_db.Result["score3"].ToString(), font, Brushes.Black, x + 350 + xx, y);
+                    //xx = xx + 80;
+                    //e.Graphics.DrawString(_db.Result["score4"].ToString(), font, Brushes.Black, x + 350 + xx, y);
+                    //xx = xx + 80;
+                    //e.Graphics.DrawString(_db.Result["score5"].ToString(), font, Brushes.Black, x + 350 + xx, y);
+                    int sum = 0;
+                    sum = sum + (int)_db.Result["mid"];
+                    sum = sum + (int)_db.Result["final"];
+                    sum = sum + (int)_db.Result["score1"];
+                    sum = sum + (int)_db.Result["score2"];
+                    sum = sum + (int)_db.Result["score3"];
+                    sum = sum + (int)_db.Result["score4"];
+                    sum = sum + (int)_db.Result["score5"];
+                    sum = sum + checkinScore;
+                    //xx = xx + 60;
+                    //e.Graphics.DrawString(sum.ToString(), font, Brushes.Black, x + 350 + xx, y);
+                    string grade = "";
+                    grade = GetGradeFromScore(sum);
+                    xx = xx + 70;
+                    e.Graphics.DrawString(grade, font, Brushes.Black, x + 350 + xx, y);
+                }
+
+                idxRow++;
+                y = y + 25;
+                if (y > 780)
+                {
+                    e.HasMorePages = true;
+                    return;
+                }
+            }
+
+            idxRow = 0;
+            e.HasMorePages = false;
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            if (txtSearch.Text == "")
+            {
+                MessageBox.Show("ใส่รหัสนิสิตด้วยค่ะ");
+                return;
+            }
+
+            foreach (DataGridViewRow item in dgvScore.Rows)
+            {
+                if ((string)item.Cells[1].Value == txtSearch.Text)
+                {
+                    item.Selected = true;
+                    return;
+                }
+            }
+
+            MessageBox.Show("ไม่มีรายการนี้");
         }
     }
 }
