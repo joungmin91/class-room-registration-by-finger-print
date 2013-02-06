@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TeachingViewFrm));
             this.label1 = new System.Windows.Forms.Label();
             this.dgvSubject = new System.Windows.Forms.DataGridView();
@@ -43,15 +43,18 @@
             this.btnCheckAll = new System.Windows.Forms.Button();
             this.tabCtrlRegis = new System.Windows.Forms.TabControl();
             this.tabPageCheckin = new System.Windows.Forms.TabPage();
+            this.btnPrintCheckin = new System.Windows.Forms.Button();
             this.btnChkinDate = new System.Windows.Forms.Button();
             this.dtLate = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPageScore = new System.Windows.Forms.TabPage();
+            this.btnPrintScore = new System.Windows.Forms.Button();
             this.btnScoreSetting = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.dgvScore = new System.Windows.Forms.DataGridView();
-            this.btnPrintCheckin = new System.Windows.Forms.Button();
-            this.btnPrintScore = new System.Windows.Forms.Button();
+            this.btnGrade = new System.Windows.Forms.Button();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.txtSearch = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudent)).BeginInit();
             this.tabCtrlRegis.SuspendLayout();
@@ -71,66 +74,66 @@
             // 
             // dgvSubject
             // 
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSubject.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSubject.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvSubject.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSubject.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSubject.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvSubject.Location = new System.Drawing.Point(15, 27);
             this.dgvSubject.Name = "dgvSubject";
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSubject.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSubject.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvSubject.Size = new System.Drawing.Size(757, 93);
             this.dgvSubject.TabIndex = 1;
             this.dgvSubject.SelectionChanged += new System.EventHandler(this.dgvSubject_SelectionChanged);
             // 
             // dgvStudent
             // 
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStudent.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStudent.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvStudent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStudent.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStudent.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvStudent.Location = new System.Drawing.Point(6, 6);
             this.dgvStudent.Name = "dgvStudent";
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStudent.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStudent.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvStudent.Size = new System.Drawing.Size(737, 263);
             this.dgvStudent.TabIndex = 3;
             this.dgvStudent.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvStudent_MouseDown);
@@ -199,6 +202,20 @@
             this.tabPageCheckin.Text = "เช็กชื่อนิสิต";
             this.tabPageCheckin.UseVisualStyleBackColor = true;
             // 
+            // btnPrintCheckin
+            // 
+            this.btnPrintCheckin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrintCheckin.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintCheckin.Image")));
+            this.btnPrintCheckin.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPrintCheckin.Location = new System.Drawing.Point(683, 274);
+            this.btnPrintCheckin.Name = "btnPrintCheckin";
+            this.btnPrintCheckin.Size = new System.Drawing.Size(60, 23);
+            this.btnPrintCheckin.TabIndex = 8;
+            this.btnPrintCheckin.Text = "พิมพ์";
+            this.btnPrintCheckin.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPrintCheckin.UseVisualStyleBackColor = true;
+            this.btnPrintCheckin.Click += new System.EventHandler(this.btnPrintCheckin_Click);
+            // 
             // btnChkinDate
             // 
             this.btnChkinDate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -234,6 +251,9 @@
             // 
             // tabPageScore
             // 
+            this.tabPageScore.Controls.Add(this.txtSearch);
+            this.tabPageScore.Controls.Add(this.btnSearch);
+            this.tabPageScore.Controls.Add(this.btnGrade);
             this.tabPageScore.Controls.Add(this.btnPrintScore);
             this.tabPageScore.Controls.Add(this.btnScoreSetting);
             this.tabPageScore.Controls.Add(this.btnSave);
@@ -246,12 +266,26 @@
             this.tabPageScore.Text = "คะแนน";
             this.tabPageScore.UseVisualStyleBackColor = true;
             // 
+            // btnPrintScore
+            // 
+            this.btnPrintScore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrintScore.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintScore.Image")));
+            this.btnPrintScore.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPrintScore.Location = new System.Drawing.Point(504, 275);
+            this.btnPrintScore.Name = "btnPrintScore";
+            this.btnPrintScore.Size = new System.Drawing.Size(147, 23);
+            this.btnPrintScore.TabIndex = 10;
+            this.btnPrintScore.Text = "พิมพ์รายงานเต็มรูปแบบ";
+            this.btnPrintScore.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPrintScore.UseVisualStyleBackColor = true;
+            this.btnPrintScore.Click += new System.EventHandler(this.btnPrintScore_Click);
+            // 
             // btnScoreSetting
             // 
             this.btnScoreSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnScoreSetting.Image = ((System.Drawing.Image)(resources.GetObject("btnScoreSetting.Image")));
             this.btnScoreSetting.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnScoreSetting.Location = new System.Drawing.Point(473, 275);
+            this.btnScoreSetting.Location = new System.Drawing.Point(294, 275);
             this.btnScoreSetting.Name = "btnScoreSetting";
             this.btnScoreSetting.Size = new System.Drawing.Size(130, 23);
             this.btnScoreSetting.TabIndex = 9;
@@ -265,7 +299,7 @@
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(609, 275);
+            this.btnSave.Location = new System.Drawing.Point(430, 275);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(68, 23);
             this.btnSave.TabIndex = 8;
@@ -284,33 +318,40 @@
             this.dgvScore.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvScore_CellEndEdit);
             this.dgvScore.SelectionChanged += new System.EventHandler(this.dgvScore_SelectionChanged);
             // 
-            // btnPrintCheckin
+            // btnGrade
             // 
-            this.btnPrintCheckin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPrintCheckin.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintCheckin.Image")));
-            this.btnPrintCheckin.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrintCheckin.Location = new System.Drawing.Point(683, 274);
-            this.btnPrintCheckin.Name = "btnPrintCheckin";
-            this.btnPrintCheckin.Size = new System.Drawing.Size(60, 23);
-            this.btnPrintCheckin.TabIndex = 8;
-            this.btnPrintCheckin.Text = "พิมพ์";
-            this.btnPrintCheckin.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnPrintCheckin.UseVisualStyleBackColor = true;
-            this.btnPrintCheckin.Click += new System.EventHandler(this.btnPrintCheckin_Click);
+            this.btnGrade.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGrade.Image = ((System.Drawing.Image)(resources.GetObject("btnGrade.Image")));
+            this.btnGrade.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGrade.Location = new System.Drawing.Point(656, 275);
+            this.btnGrade.Name = "btnGrade";
+            this.btnGrade.Size = new System.Drawing.Size(87, 23);
+            this.btnGrade.TabIndex = 11;
+            this.btnGrade.Text = "พิมพ์เกรด";
+            this.btnGrade.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGrade.UseVisualStyleBackColor = true;
+            this.btnGrade.Click += new System.EventHandler(this.btnGrade_Click);
             // 
-            // btnPrintScore
+            // btnSearch
             // 
-            this.btnPrintScore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPrintScore.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintScore.Image")));
-            this.btnPrintScore.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrintScore.Location = new System.Drawing.Point(683, 275);
-            this.btnPrintScore.Name = "btnPrintScore";
-            this.btnPrintScore.Size = new System.Drawing.Size(60, 23);
-            this.btnPrintScore.TabIndex = 10;
-            this.btnPrintScore.Text = "พิมพ์";
-            this.btnPrintScore.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnPrintScore.UseVisualStyleBackColor = true;
-            this.btnPrintScore.Click += new System.EventHandler(this.btnPrintScore_Click);
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearch.Image = ((System.Drawing.Image)(resources.GetObject("btnSearch.Image")));
+            this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSearch.Location = new System.Drawing.Point(144, 275);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(71, 23);
+            this.btnSearch.TabIndex = 12;
+            this.btnSearch.Text = "ค้นหา";
+            this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(7, 275);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(131, 20);
+            this.txtSearch.TabIndex = 13;
             // 
             // TeachingViewFrm
             // 
@@ -332,6 +373,7 @@
             this.tabPageCheckin.ResumeLayout(false);
             this.tabPageCheckin.PerformLayout();
             this.tabPageScore.ResumeLayout(false);
+            this.tabPageScore.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvScore)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -357,5 +399,8 @@
         private System.Windows.Forms.Button btnChkinDate;
         private System.Windows.Forms.Button btnPrintCheckin;
         private System.Windows.Forms.Button btnPrintScore;
+        private System.Windows.Forms.Button btnGrade;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.TextBox txtSearch;
     }
 }

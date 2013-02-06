@@ -14,7 +14,7 @@ namespace ClassRoomRegistration
     {
         private MySQLDatabase _db = null;
         private ContextMenu _contextMenu = null;
-        private string _sqlShowAll = "SELECT tech_id, tech_name, tech_branch, tech_username, tech_password, tech_question, tech_answer FROM teacher";
+        private string _sqlShowAll = "SELECT t.tech_id, t.tech_name, tb.tech_brch_name, t.tech_username, t.tech_password, t.tech_question, t.tech_answer FROM teacher t JOIN teacher_branch tb ON t.tech_branch = tb.tech_brch_id";
 
         public TeacherFrm()
         {
@@ -41,7 +41,8 @@ namespace ClassRoomRegistration
             dgv.ColumnCount = 7;
             dgv.Columns[0].HeaderText = "รหัส";
             dgv.Columns[1].HeaderText = "ชื่อ-นามสกุล";
-            dgv.Columns[2].HeaderText = "สาขา";
+            dgv.Columns[2].HeaderText = "คณะ";
+            dgv.Columns[2].Width = 200;
             dgv.Columns[3].HeaderText = "ชื่อผู้ใช้";
             dgv.Columns[4].HeaderText = "รหัสผ่าน";
             dgv.Columns[5].HeaderText = "คำถาม";
