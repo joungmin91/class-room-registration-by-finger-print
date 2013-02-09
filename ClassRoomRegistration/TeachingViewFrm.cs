@@ -18,6 +18,7 @@ namespace ClassRoomRegistration
         public string TechID { get; set; }
         public MySQLDatabase _db = null;
         private ContextMenu _contextMenu = null;
+        private ContextMenu _scoreMenu = null;
         private bool _allowUdateRow = false;
         private string _sqlShowAllSubject = "SELECT s.id, s.sub_id, s.sub_title, s.sub_lec, s.sub_lab, t.year, t.term, t.id as teaching_id FROM teaching t JOIN subject s ON t.sub_id = s.id";
         private string _sqlShowAllRegister = "SELECT r.std_id, s.std_name, s.std_fp_key, r.reg_id FROM registration r JOIN student s ON r.std_id = s.std_id";
@@ -85,10 +86,10 @@ namespace ClassRoomRegistration
             dgvScore.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvScore.AllowUserToAddRows = false;
             dgvScore.AllowUserToDeleteRows = false;
-            dgvScore.MultiSelect = false;
+            dgvScore.MultiSelect = true;
             //dgvScore.ReadOnly = true;
             dgvScore.EditMode = DataGridViewEditMode.EditOnEnter;
-            dgvScore.ColumnCount = 14;
+            dgvScore.ColumnCount = 15;
             dgvScore.Columns[0].HeaderText = "ลำดับ";
             dgvScore.Columns[0].Width = 40;
             dgvScore.Columns[0].ReadOnly = true;
@@ -130,10 +131,86 @@ namespace ClassRoomRegistration
             dgvScore.Columns[13].Width = 50;
             dgvScore.Columns[13].Name = "RegID";
             dgvScore.Columns[13].Visible = false;
+            dgvScore.Columns[14].HeaderText = "ปฏิบัติ";
+            dgvScore.Columns[14].Width = 50;
+            dgvScore.Columns[14].Name = "ScoreLab";
+
+            UpdateScoreTitle();
 
             _allowUdateRow = true;
             dgvSubject_SelectionChanged(null, null);
             BuildContextualMenu();
+        }
+
+        void UpdateScoreTitle()
+        {
+            _db.SQLCommand = "SELECT * FROM score_rating WHERE tech_id='" + dgvSubject.CurrentRow.Cells["TechID"].Value.ToString() + "'";
+            _db.Query();
+            if (_db.Result.Read())
+            {
+                if (_db.Result["score1_title"].ToString() != "")
+                {
+                    dgvScore.Columns[8].HeaderText = _db.Result["score1_title"].ToString();
+                }
+                else
+                {
+                    dgvScore.Columns[8].HeaderText = "เก็บ 1";
+                }
+
+                if (_db.Result["score2_title"].ToString() != "")
+                {
+                    dgvScore.Columns[9].HeaderText = _db.Result["score2_title"].ToString();
+                }
+                else
+                {
+                    dgvScore.Columns[9].HeaderText = "เก็บ 2";
+                }
+
+                if (_db.Result["score3_title"].ToString() != "")
+                {
+                    dgvScore.Columns[10].HeaderText = _db.Result["score3_title"].ToString();
+                }
+                else
+                {
+                    dgvScore.Columns[10].HeaderText = "เก็บ 3";
+                }
+
+                if (_db.Result["score4_title"].ToString() != "")
+                {
+                    dgvScore.Columns[11].HeaderText = _db.Result["score4_title"].ToString();
+                }
+                else
+                {
+                    dgvScore.Columns[11].HeaderText = "เก็บ 4";
+                }
+
+                if (_db.Result["score5_title"].ToString() != "")
+                {
+                    dgvScore.Columns[12].HeaderText = _db.Result["score5_title"].ToString();
+                }
+                else
+                {
+                    dgvScore.Columns[12].HeaderText = "เก็บ 5";
+                }
+            }
+            else
+            {
+                dgvScore.Columns[8].HeaderText = "เก็บ 1";
+                dgvScore.Columns[9].HeaderText = "เก็บ 2";
+                dgvScore.Columns[10].HeaderText = "เก็บ 3";
+                dgvScore.Columns[11].HeaderText = "เก็บ 4";
+                dgvScore.Columns[12].HeaderText = "เก็บ 5";
+            }
+
+            // LecMode
+            if (dgvSubject.CurrentRow.Cells["SubLab"].Value as string == "")
+            {
+                dgvScore.Columns[14].Visible = true;
+            }
+            else
+            {
+                dgvScore.Columns[14].Visible = false;
+            }
         }
 
         void AddColumnForStudentDGV()
@@ -259,6 +336,36 @@ namespace ClassRoomRegistration
             MenuItem checkinStd = new MenuItem("เช็คชื่อนิสิตคนนี้");
             checkinStd.Click += new EventHandler(checkinStd_Click);
             _contextMenu.MenuItems.Add(checkinStd);
+
+            _scoreMenu = new ContextMenu();
+            MenuItem scoreMenu = new MenuItem("ให้คะแนน");
+            scoreMenu.Click += new EventHandler(scoreMenu_Click);
+            _scoreMenu.MenuItems.Add(scoreMenu);
+        }
+
+        void scoreMenu_Click(object sender, EventArgs e)
+        {
+            ScoreTypeSelector frm = new ScoreTypeSelector();
+            frm.Parent = this;
+            frm.ShowDialog();
+
+            int idx = 0;
+            foreach (DataGridViewColumn item in dgvScore.Columns)
+            {
+                if (item.HeaderText == frm.TypeSelected)
+                {
+                    break;
+                }
+                idx++;
+            }
+
+            foreach (DataGridViewRow item in dgvScore.Rows)
+            {
+                if (item.Selected == true)
+                {
+                    item.Cells[idx].Value = frm.Score;
+                }
+            }
         }
 
         void checkinStd_Click(object sender, EventArgs e)
@@ -396,98 +503,100 @@ namespace ClassRoomRegistration
                 int checkinScore = 0;   // This will calculate later.
                 checkinScore = GetCheckinScore(Convert.ToString(dgvSubject.CurrentRow.Cells["TechID"].Value), Convert.ToString(item.RegID));
 
-                //// Get a number of checkin's dates
-                //int countChkDate = 0;
-                //_db.SQLCommand = "SELECT COUNT(date) FROM checkin_date WHERE tech_id='" + dgvSubject.CurrentRow.Cells["TechID"].Value + "'";
-                //_db.Query();
-                //if (_db.Result.Read())
-                //{
-                //    countChkDate = Convert.ToInt16(_db.Result.GetValue(0));
-                //}
-                //else
-                //{
-                //    countChkDate = 0;
-                //}
+                // If LecMode?
+                int labScore = 0;
+                if (dgvSubject.CurrentRow.Cells["SubLab"].Value as string == "")
+                {
+                    MySQLDatabase localDB = new MySQLDatabase();
+                    localDB.DBServer = _db.DBServer;
+                    localDB.DBName = _db.DBName;
+                    localDB.DBUser = _db.DBUser;
+                    localDB.DBPassword = _db.DBPassword;
+                    localDB.Connect();
 
-                //// Get setting checkin score
-                //int settingChkinScore = 0;
-                //_db.SQLCommand = "SELECT checkin FROM score_rating WHERE tech_id='" + dgvSubject.CurrentRow.Cells["TechID"].Value + "'";
-                //_db.Query();
-                //if (_db.Result.Read())
-                //{
-                //    settingChkinScore = Convert.ToInt16(_db.Result["checkin"]);
-                //}
-                //else
-                //{
-                //    settingChkinScore = 0;
-                //}
+                    // Get Lab Subject of Lec Subject
+                    localDB.SQLCommand = "SELECT * FROM subject WHERE sub_lec='" + dgvSubject.CurrentRow.Cells["SubLec"].Value as string + "' AND sub_lab<>''";
+                    localDB.Query();
 
-                //// Get a number of checkin
-                //int countChk = 0;
-                //_db.SQLCommand = "SELECT COUNT(reg_id) FROM checkin WHERE reg_id='" + item.RegID + "'";
-                //_db.Query();
-                //if (_db.Result.Read())
-                //{
-                //    countChk = Convert.ToInt16(_db.Result.GetValue(0));
-                //}
-                //else
-                //{
-                //    countChk = 0;
-                //}
+                    while (localDB.Result.Read())
+                    {
+                        // STD + Lab + Year Sub ID, look up in registration
+                        MySQLDatabase regDB = new MySQLDatabase();
+                        regDB.DBServer = _db.DBServer;
+                        regDB.DBName = _db.DBName;
+                        regDB.DBUser = _db.DBUser;
+                        regDB.DBPassword = _db.DBPassword;
+                        regDB.Connect();
+                        regDB.SQLCommand = "SELECT * FROM registration WHERE sub_id='" + (int)localDB.Result["id"] + "' AND std_id='" + item.StdID + "' AND year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "'";
+                        regDB.Query();
+                        while (regDB.Result.Read())
+                        {
+                            // REGID look up in score
+                            int regid = (int)regDB.Result["reg_id"];
+                            MySQLDatabase scoreDB = new MySQLDatabase();
+                            scoreDB.DBServer = _db.DBServer;
+                            scoreDB.DBName = _db.DBName;
+                            scoreDB.DBUser = _db.DBUser;
+                            scoreDB.DBPassword = _db.DBPassword;
+                            scoreDB.Connect();
+                            scoreDB.SQLCommand = "SELECT * FROM score WHERE reg_id='" + regid + "'";
+                            scoreDB.Query();
 
-                //// Then calculate the score
-                //checkinScore = (settingChkinScore * countChk) / countChkDate;
+                            // A = Sum all score
+                            int all_score = 0;
+                            if (scoreDB.Result.Read())
+                            {
+                                all_score = (int)scoreDB.Result["mid"] + (int)scoreDB.Result["final"] + (int)scoreDB.Result["score1"] +
+                                            (int)scoreDB.Result["score2"] + (int)scoreDB.Result["score3"] + (int)scoreDB.Result["score4"] +
+                                            (int)scoreDB.Result["score5"];
+
+                                // TechID + SubID + Year, look up in teaching
+                                MySQLDatabase techingDB = new MySQLDatabase();
+                                techingDB.DBServer = _db.DBServer;
+                                techingDB.DBName = _db.DBName;
+                                techingDB.DBUser = _db.DBUser;
+                                techingDB.DBPassword = _db.DBPassword;
+                                techingDB.Connect();
+
+                                techingDB.SQLCommand = "SELECT * FROM teaching WHERE tech_id='" + TechID + "' AND sub_id='" + localDB.Result["id"].ToString() + "' AND year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "'";
+                                techingDB.Query();
+                                techingDB.Result.Read();
+
+                                all_score += GetCheckinScore(techingDB.Result["id"].ToString(), regid.ToString());
+
+                                techingDB.Close();
+                            }
+
+                            // B = Get Lab's score from score_rating
+                            scoreDB.SQLCommand = "SELECT * FROM score_rating WHERE tech_id='" + dgvSubject.CurrentRow.Cells["TechID"].Value + "'";
+                            scoreDB.Query();
+                            scoreDB.Result.Read();
+                            int scoreLab = (int)scoreDB.Result["score_lab"];
+
+                            // Real score = (A * B)/100
+                            labScore = (all_score * scoreLab) / 100;
+
+                            scoreDB.Close();
+                        }
+                        regDB.Close();
+                    }
+                    
+                    localDB.Close();
+                }
 
                 // Total score is
                 totalScore = midScore + finalScore + checkinScore + score1 + score2 + score3 + score4 + score5;
+                if (dgvSubject.CurrentRow.Cells["SubLab"].Value as string == "")
+                {
+                    totalScore += labScore;
+                }
 
                 // Convert raw score to A - F grade
                 string grade = "";
                 grade = GetGradeFromScore(totalScore);
-                //_db.SQLCommand = "SELECT a, bp, b, cp, c, dp, d FROM score_rating WHERE tech_id='" + dgvSubject.CurrentRow.Cells["TechID"].Value + "'";
-                //_db.Query();
-                //if (_db.Result.Read())
-                //{
-                //    if (totalScore >= Convert.ToInt16(_db.Result["a"]))
-                //    {
-                //        grade = "A";
-                //    }
-                //    else if (totalScore >= Convert.ToInt16(_db.Result["bp"]))
-                //    {
-                //        grade = "B+";
-                //    }
-                //    else if (totalScore >= Convert.ToInt16(_db.Result["b"]))
-                //    {
-                //        grade = "B";
-                //    }
-                //    else if (totalScore >= Convert.ToInt16(_db.Result["cp"]))
-                //    {
-                //        grade = "C+";
-                //    }
-                //    else if (totalScore >= Convert.ToInt16(_db.Result["c"]))
-                //    {
-                //        grade = "C";
-                //    }
-                //    else if (totalScore >= Convert.ToInt16(_db.Result["dp"]))
-                //    {
-                //        grade = "D+";
-                //    }
-                //    else if (totalScore >= Convert.ToInt16(_db.Result["d"]))
-                //    {
-                //        grade = "D";
-                //    }
-                //    else
-                //    {
-                //        grade = "F";
-                //    }
-                //}
-                //else
-                //{
-                    
-                //}
 
                 // Insert into DGV Score
-                dgvScore.Rows.Add(order, item.StdID, item.StdName, grade, totalScore, midScore, finalScore, checkinScore, score1, score2, score3, score4, score5, item.RegID);
+                dgvScore.Rows.Add(order, item.StdID, item.StdName, grade, totalScore, midScore, finalScore, checkinScore, score1, score2, score3, score4, score5, item.RegID, labScore);
                 _lstPoint.Add(totalScore);
             }
         }
@@ -731,6 +840,7 @@ namespace ClassRoomRegistration
             if (_allowUdateRow == true)
 	        {
                 string sql = _sqlShowAllRegister + " WHERE r.sub_id='" + dgvSubject.CurrentRow.Cells["ID"].Value + "' AND r.year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "' AND r.term='" + dgvSubject.CurrentRow.Cells["SubTerm"].Value + "'";
+                UpdateScoreTitle();
                 LoadRegisterToDGV(sql);
                 LoadScoreToDGV();
                 btnSave_Click(null, null);
@@ -834,9 +944,17 @@ namespace ClassRoomRegistration
             ScoreRateFrm frm = new ScoreRateFrm();
             frm.Parent = this.MdiParent;
             frm.TeachingID = (int)dgvSubject.CurrentRow.Cells["TechID"].Value;
+
+            if (dgvSubject.CurrentRow.Cells["SubLab"].Value as string == "")
+            {
+                // Lec Mode
+                frm.LabMode = false;
+            }
+
             frm._lstPoint = _lstPoint;
             frm.ShowDialog();
             LoadScoreToDGV();
+            UpdateScoreTitle();
         }
 
         private void btnChkinDate_Click(object sender, EventArgs e)
@@ -1278,6 +1396,14 @@ namespace ClassRoomRegistration
             }
 
             MessageBox.Show("ไม่มีรายการนี้");
+        }
+
+        private void dgvScore_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                _scoreMenu.Show(dgvScore, e.Location);
+            }
         }
     }
 }

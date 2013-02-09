@@ -48,13 +48,13 @@
             this.dtLate = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPageScore = new System.Windows.Forms.TabPage();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.btnGrade = new System.Windows.Forms.Button();
             this.btnPrintScore = new System.Windows.Forms.Button();
             this.btnScoreSetting = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.dgvScore = new System.Windows.Forms.DataGridView();
-            this.btnGrade = new System.Windows.Forms.Button();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.txtSearch = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudent)).BeginInit();
             this.tabCtrlRegis.SuspendLayout();
@@ -266,6 +266,41 @@
             this.tabPageScore.Text = "คะแนน";
             this.tabPageScore.UseVisualStyleBackColor = true;
             // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(7, 275);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(131, 20);
+            this.txtSearch.TabIndex = 13;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearch.Image = ((System.Drawing.Image)(resources.GetObject("btnSearch.Image")));
+            this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSearch.Location = new System.Drawing.Point(144, 275);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(71, 23);
+            this.btnSearch.TabIndex = 12;
+            this.btnSearch.Text = "ค้นหา";
+            this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // btnGrade
+            // 
+            this.btnGrade.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGrade.Image = ((System.Drawing.Image)(resources.GetObject("btnGrade.Image")));
+            this.btnGrade.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGrade.Location = new System.Drawing.Point(656, 275);
+            this.btnGrade.Name = "btnGrade";
+            this.btnGrade.Size = new System.Drawing.Size(87, 23);
+            this.btnGrade.TabIndex = 11;
+            this.btnGrade.Text = "พิมพ์เกรด";
+            this.btnGrade.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGrade.UseVisualStyleBackColor = true;
+            this.btnGrade.Click += new System.EventHandler(this.btnGrade_Click);
+            // 
             // btnPrintScore
             // 
             this.btnPrintScore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -317,41 +352,7 @@
             this.dgvScore.TabIndex = 7;
             this.dgvScore.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvScore_CellEndEdit);
             this.dgvScore.SelectionChanged += new System.EventHandler(this.dgvScore_SelectionChanged);
-            // 
-            // btnGrade
-            // 
-            this.btnGrade.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGrade.Image = ((System.Drawing.Image)(resources.GetObject("btnGrade.Image")));
-            this.btnGrade.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGrade.Location = new System.Drawing.Point(656, 275);
-            this.btnGrade.Name = "btnGrade";
-            this.btnGrade.Size = new System.Drawing.Size(87, 23);
-            this.btnGrade.TabIndex = 11;
-            this.btnGrade.Text = "พิมพ์เกรด";
-            this.btnGrade.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnGrade.UseVisualStyleBackColor = true;
-            this.btnGrade.Click += new System.EventHandler(this.btnGrade_Click);
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSearch.Image = ((System.Drawing.Image)(resources.GetObject("btnSearch.Image")));
-            this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSearch.Location = new System.Drawing.Point(144, 275);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(71, 23);
-            this.btnSearch.TabIndex = 12;
-            this.btnSearch.Text = "ค้นหา";
-            this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // txtSearch
-            // 
-            this.txtSearch.Location = new System.Drawing.Point(7, 275);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(131, 20);
-            this.txtSearch.TabIndex = 13;
+            this.dgvScore.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvScore_MouseDown);
             // 
             // TeachingViewFrm
             // 

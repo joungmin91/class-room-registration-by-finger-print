@@ -64,23 +64,36 @@
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtMid = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtFinal = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.txtCheckin = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.txtScore1 = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.txtScore2 = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.txtScore3 = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.txtScore4 = new System.Windows.Forms.TextBox();
-            this.label23 = new System.Windows.Forms.Label();
+            this.txtScoreLab = new System.Windows.Forms.TextBox();
+            this.labScoreLab = new System.Windows.Forms.Label();
+            this.txtScore1Title = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.txtScore2Title = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.txtScore3Title = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.txtScore4Title = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.txtScore5Title = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
             this.txtScore5 = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
+            this.txtScore4 = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.txtScore3 = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.txtScore2 = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.txtScore1 = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.txtCheckin = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.txtFinal = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.txtMid = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnCalc = new System.Windows.Forms.Button();
+            this.cmbType = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -216,7 +229,7 @@
             // btnOK
             // 
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOK.Location = new System.Drawing.Point(527, 267);
+            this.btnOK.Location = new System.Drawing.Point(682, 292);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 67;
@@ -388,13 +401,25 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Location = new System.Drawing.Point(12, 15);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(413, 246);
+            this.groupBox1.Size = new System.Drawing.Size(413, 271);
             this.groupBox1.TabIndex = 84;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "เกรด";
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtScoreLab);
+            this.groupBox2.Controls.Add(this.labScoreLab);
+            this.groupBox2.Controls.Add(this.txtScore1Title);
+            this.groupBox2.Controls.Add(this.label29);
+            this.groupBox2.Controls.Add(this.txtScore2Title);
+            this.groupBox2.Controls.Add(this.label28);
+            this.groupBox2.Controls.Add(this.txtScore3Title);
+            this.groupBox2.Controls.Add(this.label27);
+            this.groupBox2.Controls.Add(this.txtScore4Title);
+            this.groupBox2.Controls.Add(this.label26);
+            this.groupBox2.Controls.Add(this.txtScore5Title);
+            this.groupBox2.Controls.Add(this.label25);
             this.groupBox2.Controls.Add(this.txtScore5);
             this.groupBox2.Controls.Add(this.label24);
             this.groupBox2.Controls.Add(this.txtScore4);
@@ -413,122 +438,106 @@
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Location = new System.Drawing.Point(431, 15);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(171, 246);
+            this.groupBox2.Size = new System.Drawing.Size(326, 271);
             this.groupBox2.TabIndex = 85;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "คะแนน";
             // 
-            // txtMid
+            // txtScoreLab
             // 
-            this.txtMid.Location = new System.Drawing.Point(67, 24);
-            this.txtMid.Name = "txtMid";
-            this.txtMid.Size = new System.Drawing.Size(83, 20);
-            this.txtMid.TabIndex = 87;
+            this.txtScoreLab.Location = new System.Drawing.Point(67, 232);
+            this.txtScoreLab.Name = "txtScoreLab";
+            this.txtScoreLab.Size = new System.Drawing.Size(83, 20);
+            this.txtScoreLab.TabIndex = 95;
             // 
-            // label1
+            // labScoreLab
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 13);
-            this.label1.TabIndex = 86;
-            this.label1.Text = "กลางภาค";
+            this.labScoreLab.AutoSize = true;
+            this.labScoreLab.Location = new System.Drawing.Point(17, 235);
+            this.labScoreLab.Name = "labScoreLab";
+            this.labScoreLab.Size = new System.Drawing.Size(35, 13);
+            this.labScoreLab.TabIndex = 94;
+            this.labScoreLab.Text = "ปฏิบัติ";
             // 
-            // txtFinal
+            // txtScore1Title
             // 
-            this.txtFinal.Location = new System.Drawing.Point(67, 50);
-            this.txtFinal.Name = "txtFinal";
-            this.txtFinal.Size = new System.Drawing.Size(83, 20);
-            this.txtFinal.TabIndex = 87;
+            this.txtScore1Title.Location = new System.Drawing.Point(204, 102);
+            this.txtScore1Title.Name = "txtScore1Title";
+            this.txtScore1Title.Size = new System.Drawing.Size(106, 20);
+            this.txtScore1Title.TabIndex = 93;
             // 
-            // label18
+            // label29
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(14, 53);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(51, 13);
-            this.label18.TabIndex = 86;
-            this.label18.Text = "ปลายภาค";
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(166, 105);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(32, 13);
+            this.label29.TabIndex = 92;
+            this.label29.Text = "ตั้งชื่อ";
             // 
-            // txtCheckin
+            // txtScore2Title
             // 
-            this.txtCheckin.Location = new System.Drawing.Point(67, 76);
-            this.txtCheckin.Name = "txtCheckin";
-            this.txtCheckin.Size = new System.Drawing.Size(83, 20);
-            this.txtCheckin.TabIndex = 87;
+            this.txtScore2Title.Location = new System.Drawing.Point(204, 128);
+            this.txtScore2Title.Name = "txtScore2Title";
+            this.txtScore2Title.Size = new System.Drawing.Size(106, 20);
+            this.txtScore2Title.TabIndex = 93;
             // 
-            // label19
+            // label28
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(14, 79);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(49, 13);
-            this.label19.TabIndex = 86;
-            this.label19.Text = "เข้าเรียน";
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(166, 131);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(32, 13);
+            this.label28.TabIndex = 92;
+            this.label28.Text = "ตั้งชื่อ";
             // 
-            // txtScore1
+            // txtScore3Title
             // 
-            this.txtScore1.Location = new System.Drawing.Point(67, 102);
-            this.txtScore1.Name = "txtScore1";
-            this.txtScore1.Size = new System.Drawing.Size(83, 20);
-            this.txtScore1.TabIndex = 87;
+            this.txtScore3Title.Location = new System.Drawing.Point(204, 154);
+            this.txtScore3Title.Name = "txtScore3Title";
+            this.txtScore3Title.Size = new System.Drawing.Size(106, 20);
+            this.txtScore3Title.TabIndex = 93;
             // 
-            // label20
+            // label27
             // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(14, 105);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(35, 13);
-            this.label20.TabIndex = 86;
-            this.label20.Text = "เก็บ 1";
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(166, 157);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(32, 13);
+            this.label27.TabIndex = 92;
+            this.label27.Text = "ตั้งชื่อ";
             // 
-            // txtScore2
+            // txtScore4Title
             // 
-            this.txtScore2.Location = new System.Drawing.Point(67, 128);
-            this.txtScore2.Name = "txtScore2";
-            this.txtScore2.Size = new System.Drawing.Size(83, 20);
-            this.txtScore2.TabIndex = 89;
+            this.txtScore4Title.Location = new System.Drawing.Point(204, 180);
+            this.txtScore4Title.Name = "txtScore4Title";
+            this.txtScore4Title.Size = new System.Drawing.Size(106, 20);
+            this.txtScore4Title.TabIndex = 93;
             // 
-            // label21
+            // label26
             // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(14, 131);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(35, 13);
-            this.label21.TabIndex = 88;
-            this.label21.Text = "เก็บ 2";
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(166, 183);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(32, 13);
+            this.label26.TabIndex = 92;
+            this.label26.Text = "ตั้งชื่อ";
             // 
-            // txtScore3
+            // txtScore5Title
             // 
-            this.txtScore3.Location = new System.Drawing.Point(67, 154);
-            this.txtScore3.Name = "txtScore3";
-            this.txtScore3.Size = new System.Drawing.Size(83, 20);
-            this.txtScore3.TabIndex = 89;
+            this.txtScore5Title.Location = new System.Drawing.Point(204, 206);
+            this.txtScore5Title.Name = "txtScore5Title";
+            this.txtScore5Title.Size = new System.Drawing.Size(106, 20);
+            this.txtScore5Title.TabIndex = 91;
             // 
-            // label22
+            // label25
             // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(14, 157);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(35, 13);
-            this.label22.TabIndex = 88;
-            this.label22.Text = "เก็บ 3";
-            // 
-            // txtScore4
-            // 
-            this.txtScore4.Location = new System.Drawing.Point(67, 180);
-            this.txtScore4.Name = "txtScore4";
-            this.txtScore4.Size = new System.Drawing.Size(83, 20);
-            this.txtScore4.TabIndex = 89;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(14, 183);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(35, 13);
-            this.label23.TabIndex = 88;
-            this.label23.Text = "เก็บ 4";
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(166, 209);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(32, 13);
+            this.label25.TabIndex = 90;
+            this.label25.Text = "ตั้งชื่อ";
             // 
             // txtScore5
             // 
@@ -546,10 +555,122 @@
             this.label24.TabIndex = 88;
             this.label24.Text = "เก็บ 5";
             // 
+            // txtScore4
+            // 
+            this.txtScore4.Location = new System.Drawing.Point(67, 180);
+            this.txtScore4.Name = "txtScore4";
+            this.txtScore4.Size = new System.Drawing.Size(83, 20);
+            this.txtScore4.TabIndex = 89;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(14, 183);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(35, 13);
+            this.label23.TabIndex = 88;
+            this.label23.Text = "เก็บ 4";
+            // 
+            // txtScore3
+            // 
+            this.txtScore3.Location = new System.Drawing.Point(67, 154);
+            this.txtScore3.Name = "txtScore3";
+            this.txtScore3.Size = new System.Drawing.Size(83, 20);
+            this.txtScore3.TabIndex = 89;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(14, 157);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(35, 13);
+            this.label22.TabIndex = 88;
+            this.label22.Text = "เก็บ 3";
+            // 
+            // txtScore2
+            // 
+            this.txtScore2.Location = new System.Drawing.Point(67, 128);
+            this.txtScore2.Name = "txtScore2";
+            this.txtScore2.Size = new System.Drawing.Size(83, 20);
+            this.txtScore2.TabIndex = 89;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(14, 131);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(35, 13);
+            this.label21.TabIndex = 88;
+            this.label21.Text = "เก็บ 2";
+            // 
+            // txtScore1
+            // 
+            this.txtScore1.Location = new System.Drawing.Point(67, 102);
+            this.txtScore1.Name = "txtScore1";
+            this.txtScore1.Size = new System.Drawing.Size(83, 20);
+            this.txtScore1.TabIndex = 87;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(14, 105);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(35, 13);
+            this.label20.TabIndex = 86;
+            this.label20.Text = "เก็บ 1";
+            // 
+            // txtCheckin
+            // 
+            this.txtCheckin.Location = new System.Drawing.Point(67, 76);
+            this.txtCheckin.Name = "txtCheckin";
+            this.txtCheckin.Size = new System.Drawing.Size(83, 20);
+            this.txtCheckin.TabIndex = 87;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(14, 79);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(49, 13);
+            this.label19.TabIndex = 86;
+            this.label19.Text = "เข้าเรียน";
+            // 
+            // txtFinal
+            // 
+            this.txtFinal.Location = new System.Drawing.Point(67, 50);
+            this.txtFinal.Name = "txtFinal";
+            this.txtFinal.Size = new System.Drawing.Size(83, 20);
+            this.txtFinal.TabIndex = 87;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(14, 53);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(51, 13);
+            this.label18.TabIndex = 86;
+            this.label18.Text = "ปลายภาค";
+            // 
+            // txtMid
+            // 
+            this.txtMid.Location = new System.Drawing.Point(67, 24);
+            this.txtMid.Name = "txtMid";
+            this.txtMid.Size = new System.Drawing.Size(83, 20);
+            this.txtMid.TabIndex = 87;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(14, 27);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(49, 13);
+            this.label1.TabIndex = 86;
+            this.label1.Text = "กลางภาค";
+            // 
             // btnCalc
             // 
             this.btnCalc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCalc.Location = new System.Drawing.Point(448, 267);
+            this.btnCalc.Location = new System.Drawing.Point(603, 292);
             this.btnCalc.Name = "btnCalc";
             this.btnCalc.Size = new System.Drawing.Size(75, 23);
             this.btnCalc.TabIndex = 86;
@@ -557,11 +678,24 @@
             this.btnCalc.UseVisualStyleBackColor = true;
             this.btnCalc.Click += new System.EventHandler(this.btnCalc_Click_1);
             // 
+            // cmbType
+            // 
+            this.cmbType.FormattingEnabled = true;
+            this.cmbType.Items.AddRange(new object[] {
+            "อิงกลุ่ม",
+            "อิงเกรณ์"});
+            this.cmbType.Location = new System.Drawing.Point(12, 294);
+            this.cmbType.Name = "cmbType";
+            this.cmbType.Size = new System.Drawing.Size(121, 21);
+            this.cmbType.TabIndex = 87;
+            this.cmbType.SelectedIndexChanged += new System.EventHandler(this.cmbType_SelectedIndexChanged);
+            // 
             // ScoreRateFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(619, 302);
+            this.ClientSize = new System.Drawing.Size(769, 327);
+            this.Controls.Add(this.cmbType);
             this.Controls.Add(this.btnCalc);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -634,5 +768,18 @@
         private System.Windows.Forms.TextBox txtMid;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnCalc;
+        private System.Windows.Forms.TextBox txtScore1Title;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox txtScore2Title;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TextBox txtScore3Title;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox txtScore4Title;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox txtScore5Title;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.ComboBox cmbType;
+        private System.Windows.Forms.TextBox txtScoreLab;
+        private System.Windows.Forms.Label labScoreLab;
     }
 }
