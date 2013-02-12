@@ -31,10 +31,12 @@ namespace ClassRoomRegistration
             dgv.AllowUserToDeleteRows = false;
             dgv.MultiSelect = false;
             dgv.ReadOnly = true;
-            dgv.ColumnCount = 2;
+            dgv.ColumnCount = 4;
             dgv.Columns[0].HeaderText = "รหัสวิชา";
             dgv.Columns[1].HeaderText = "ชื่อวิชา";
-            dgv.Columns[1].Width = 610;
+            dgv.Columns[1].Width = 400;
+            dgv.Columns[2].HeaderText = "ทฤษฏี";
+            dgv.Columns[3].HeaderText = "ปฏิบัติ";
             
             LoadSubjectToDGV("SELECT * FROM subject");
         }
@@ -57,8 +59,10 @@ namespace ClassRoomRegistration
             while (_db.Result.Read())
             {
                 dgv.Rows.Add(
-                    _db.Result.GetValue(1),
-                    _db.Result.GetValue(2)
+                    _db.Result["sub_id"],
+                    _db.Result["sub_title"],
+                    _db.Result["sub_lec"],
+                    _db.Result["sub_lab"]
                     );
             }
         }

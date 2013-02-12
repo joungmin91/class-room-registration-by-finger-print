@@ -113,7 +113,8 @@
             this.cmbTerm.FormattingEnabled = true;
             this.cmbTerm.Items.AddRange(new object[] {
             "ภาคต้น",
-            "ภาคปลาย"});
+            "ภาคปลาย",
+            "ภาคฤดูร้อน"});
             this.cmbTerm.Location = new System.Drawing.Point(145, 226);
             this.cmbTerm.Name = "cmbTerm";
             this.cmbTerm.Size = new System.Drawing.Size(163, 21);

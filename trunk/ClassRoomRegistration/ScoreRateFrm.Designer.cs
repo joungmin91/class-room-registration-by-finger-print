@@ -94,6 +94,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnCalc = new System.Windows.Forms.Button();
             this.cmbType = new System.Windows.Forms.ComboBox();
+            this.chkForce = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -408,6 +409,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chkForce);
             this.groupBox2.Controls.Add(this.txtScoreLab);
             this.groupBox2.Controls.Add(this.labScoreLab);
             this.groupBox2.Controls.Add(this.txtScore1Title);
@@ -690,6 +692,16 @@
             this.cmbType.TabIndex = 87;
             this.cmbType.SelectedIndexChanged += new System.EventHandler(this.cmbType_SelectedIndexChanged);
             // 
+            // chkForce
+            // 
+            this.chkForce.AutoSize = true;
+            this.chkForce.Location = new System.Drawing.Point(172, 27);
+            this.chkForce.Name = "chkForce";
+            this.chkForce.Size = new System.Drawing.Size(145, 17);
+            this.chkForce.TabIndex = 96;
+            this.chkForce.Text = "F ถ้าเข้าเรียนไม่เกิน 80%";
+            this.chkForce.UseVisualStyleBackColor = true;
+            // 
             // ScoreRateFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -781,5 +793,6 @@
         private System.Windows.Forms.ComboBox cmbType;
         private System.Windows.Forms.TextBox txtScoreLab;
         private System.Windows.Forms.Label labScoreLab;
+        private System.Windows.Forms.CheckBox chkForce;
     }
 }

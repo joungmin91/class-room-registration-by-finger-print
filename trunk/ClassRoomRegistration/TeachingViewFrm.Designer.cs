@@ -184,6 +184,7 @@
             this.tabCtrlRegis.SelectedIndex = 0;
             this.tabCtrlRegis.Size = new System.Drawing.Size(757, 330);
             this.tabCtrlRegis.TabIndex = 6;
+            this.tabCtrlRegis.SelectedIndexChanged += new System.EventHandler(this.tabCtrlRegis_SelectedIndexChanged);
             // 
             // tabPageCheckin
             // 

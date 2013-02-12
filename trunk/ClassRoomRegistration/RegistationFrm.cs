@@ -13,7 +13,7 @@ namespace ClassRoomRegistration
     public partial class RegistationFrm : Form
     {
         private MySQLDatabase _db = null;
-        private string _sqlShowAll = "SELECT reg.reg_id, sub.sub_id, sub.sub_title, std.std_id, std.std_name, reg.year FROM subject sub JOIN registration reg ON sub.id = reg.sub_id JOIN student std ON reg.std_id = std.std_id";
+        private string _sqlShowAll = "SELECT reg.reg_id, sub.sub_id, sub.sub_title, sub.sub_lec, sub.sub_lab, std.std_id, std.std_name, reg.year FROM subject sub JOIN registration reg ON sub.id = reg.sub_id JOIN student std ON reg.std_id = std.std_id";
 
         public RegistationFrm()
         {
@@ -32,19 +32,23 @@ namespace ClassRoomRegistration
             dgv.AllowUserToDeleteRows = false;
             dgv.MultiSelect = false;
             dgv.ReadOnly = true;
-            dgv.ColumnCount = 6;
+            dgv.ColumnCount = 8;
             dgv.Columns[0].HeaderText = "รหัส";
             dgv.Columns[0].Visible = false;
             dgv.Columns[1].HeaderText = "รหัสวิชา";
             dgv.Columns[1].Width = 100;
             dgv.Columns[2].HeaderText = "ชื่อวิชา";
             dgv.Columns[2].Width = 150;
-            dgv.Columns[3].HeaderText = "รหัสนิสิต";
-            dgv.Columns[3].Width = 100;
-            dgv.Columns[4].HeaderText = "ชื่อนิสิต";
-            dgv.Columns[4].Width = 250;
-            dgv.Columns[5].HeaderText = "ปีการศึกษา";
+            dgv.Columns[3].HeaderText = "ทฤษฏี";
+            dgv.Columns[3].Width = 50;
+            dgv.Columns[4].HeaderText = "ปฏิบัติ";
+            dgv.Columns[4].Width = 50;
+            dgv.Columns[5].HeaderText = "รหัสนิสิต";
             dgv.Columns[5].Width = 100;
+            dgv.Columns[6].HeaderText = "ชื่อนิสิต";
+            dgv.Columns[6].Width = 250;
+            dgv.Columns[7].HeaderText = "ปีการศึกษา";
+            dgv.Columns[7].Width = 100;
 
             LoadRegisterToDGV(_sqlShowAll);
         }
@@ -72,7 +76,9 @@ namespace ClassRoomRegistration
                     _db.Result.GetValue(2),
                     _db.Result.GetValue(3),
                     _db.Result.GetValue(4),
-                    _db.Result.GetValue(5)
+                    _db.Result.GetValue(5),
+                    _db.Result.GetValue(6),
+                    _db.Result.GetValue(7)
                     );
             }
         }
