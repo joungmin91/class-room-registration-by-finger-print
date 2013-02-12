@@ -23,7 +23,7 @@ namespace ClassRoomRegistration
         private string _sqlShowAllSubject = "SELECT s.id, s.sub_id, s.sub_title, s.sub_lec, s.sub_lab, t.year, t.term, t.id as teaching_id FROM teaching t JOIN subject s ON t.sub_id = s.id";
         private string _sqlShowAllRegister = "SELECT r.std_id, s.std_name, s.std_fp_key, r.reg_id FROM registration r JOIN student s ON r.std_id = s.std_id";
         private bool _bAlreadyRegis = false;
-        private List<int> _lstPoint = new List<int>();
+        private List<double> _lstPoint = new List<double>();
 
         private class Record
         {
@@ -378,6 +378,7 @@ namespace ClassRoomRegistration
             CheckinStdFrm frm = new CheckinStdFrm();
             frm.TimeLate = dtLate.Value.TimeOfDay;
             frm.Parent = this;
+            frm.Term = (string)dgvSubject.CurrentRow.Cells["SubTerm"].Value;
             frm.SubID = (int)dgvSubject.CurrentRow.Cells["ID"].Value;
             frm.Year = (string)dgvSubject.CurrentRow.Cells["SubYear"].Value;
             frm.ShowDialog();
@@ -409,8 +410,8 @@ namespace ClassRoomRegistration
 
             ScanFingerStdFrm frm = new ScanFingerStdFrm();
             frm.Parent = this;
-            frm.StdID = (string)dgvStudent.CurrentRow.Cells[0].Value;
-            frm.StdName = (string)dgvStudent.CurrentRow.Cells[1].Value;
+            frm.StdID = (string)dgvStudent.CurrentRow.Cells[1].Value;
+            frm.StdName = (string)dgvStudent.CurrentRow.Cells[2].Value;
             frm.ShowDialog();
 
             dgvSubject_SelectionChanged(null, null);
@@ -474,11 +475,12 @@ namespace ClassRoomRegistration
             dgvScore.Rows.Clear();
 
             // Retrieve student's score
+            bool forceF = false;
             int order = 0;
             _lstPoint.Clear();
             foreach (Record item in lstStudent)
             {
-                int totalScore = 0;
+                double totalScore = 0;
                 order++;
                 // Retrieve the student's score
                 _db.SQLCommand = "SELECT * FROM score WHERE reg_id='" + item.RegID + "'";
@@ -500,11 +502,11 @@ namespace ClassRoomRegistration
                 int score5 = (int)_db.Result["score5"];
 
                 // Calculate checkin's score, the fomular is (15/10) = (20/x)
-                int checkinScore = 0;   // This will calculate later.
+                double checkinScore = 0;   // This will calculate later.
                 checkinScore = GetCheckinScore(Convert.ToString(dgvSubject.CurrentRow.Cells["TechID"].Value), Convert.ToString(item.RegID));
 
                 // If LecMode?
-                int labScore = 0;
+                double labScore = 0;
                 if (dgvSubject.CurrentRow.Cells["SubLab"].Value as string == "")
                 {
                     MySQLDatabase localDB = new MySQLDatabase();
@@ -543,7 +545,7 @@ namespace ClassRoomRegistration
                             scoreDB.Query();
 
                             // A = Sum all score
-                            int all_score = 0;
+                            double all_score = 0;
                             if (scoreDB.Result.Read())
                             {
                                 all_score = (int)scoreDB.Result["mid"] + (int)scoreDB.Result["final"] + (int)scoreDB.Result["score1"] +
@@ -570,8 +572,12 @@ namespace ClassRoomRegistration
                             // B = Get Lab's score from score_rating
                             scoreDB.SQLCommand = "SELECT * FROM score_rating WHERE tech_id='" + dgvSubject.CurrentRow.Cells["TechID"].Value + "'";
                             scoreDB.Query();
-                            scoreDB.Result.Read();
-                            int scoreLab = (int)scoreDB.Result["score_lab"];
+                            
+                            double scoreLab = 0;
+                            if (scoreDB.Result.Read())
+                            {
+                                scoreLab = (int)scoreDB.Result["score_lab"];
+                            }
 
                             // Real score = (A * B)/100
                             labScore = (all_score * scoreLab) / 100;
@@ -593,12 +599,95 @@ namespace ClassRoomRegistration
 
                 // Convert raw score to A - F grade
                 string grade = "";
-                grade = GetGradeFromScore(totalScore);
+                grade = GetGradeFromScore((int)totalScore);
+
+                // If Std's checkin is not over 80% then force F grade.
+                if (IsForce80Checkin(dgvSubject.CurrentRow.Cells["TechID"].Value.ToString()))
+                {
+                    forceF = Check80OfCheckin(Convert.ToString(dgvSubject.CurrentRow.Cells["TechID"].Value), Convert.ToString(item.RegID));
+                    if (forceF == true)
+                    {
+                        grade = "F";
+                    }
+                }
 
                 // Insert into DGV Score
                 dgvScore.Rows.Add(order, item.StdID, item.StdName, grade, totalScore, midScore, finalScore, checkinScore, score1, score2, score3, score4, score5, item.RegID, labScore);
                 _lstPoint.Add(totalScore);
             }
+        }
+
+        private bool IsForce80Checkin(string tech_id)
+        {
+            MySQLDatabase db = new MySQLDatabase();
+            db.DBServer = _db.DBServer;
+            db.DBUser = _db.DBUser;
+            db.DBPassword = _db.DBPassword;
+            db.DBName = _db.DBName;
+            db.Connect();
+            db.SQLCommand = "SELECT force_f_checkin FROM score_rating";
+            db.Query();
+            bool ret = false;
+            if (db.Result.Read())
+            {
+                if ((int)db.Result["force_f_checkin"] == 1)
+                {
+                    ret = true;
+                }
+            }
+            db.Close();
+            return ret;
+        }
+
+        private bool Check80OfCheckin(string tech_id, string reg_id)
+        {
+            // Get Checkin Count.
+            MySQLDatabase db = new MySQLDatabase();
+            db.DBServer = _db.DBServer;
+            db.DBUser = _db.DBUser;
+            db.DBPassword = _db.DBPassword;
+            db.DBName = _db.DBName;
+            db.Connect();
+
+            // Calculate checkin's score, the fomular is (15/10) = (20/x)
+            double checkinScore = 0;   // This will calculate later.
+
+            // Get a number of checkin's dates
+            int countChkDate = 0;
+            db.SQLCommand = "SELECT COUNT(date) FROM checkin_date WHERE tech_id='" + tech_id + "'";
+            db.Query();
+            if (db.Result.Read())
+            {
+                countChkDate = Convert.ToInt16(db.Result.GetValue(0));
+            }
+            else
+            {
+                countChkDate = 0;
+            }
+
+            // Get a number of checkins.
+            int countChk = 0;
+            db.SQLCommand = "SELECT COUNT(reg_id) FROM checkin WHERE reg_id='" + reg_id + "'";
+            db.Query();
+            if (db.Result.Read())
+            {
+                countChk = Convert.ToInt16(db.Result.GetValue(0));
+            }
+            else
+            {
+                countChk = 0;
+            }
+
+            db.Close();
+
+            // Calculate
+            int countNeedCheckin = (80 * countChkDate) / 100;
+            if (countChk >= countNeedCheckin)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private string GetGradeFromScore(int score)
@@ -656,7 +745,7 @@ namespace ClassRoomRegistration
             return grade;
         }
 
-        private int GetCheckinScore(string tech_id, string reg_id)
+        private double GetCheckinScore(string tech_id, string reg_id)
         {
             MySQLDatabase db = new MySQLDatabase();
             db.DBServer = _db.DBServer;
@@ -666,7 +755,7 @@ namespace ClassRoomRegistration
             db.Connect();
 
             // Calculate checkin's score, the fomular is (15/10) = (20/x)
-            int checkinScore = 0;   // This will calculate later.
+            double checkinScore = 0;   // This will calculate later.
 
             // Get a number of checkin's dates
             int countChkDate = 0;
@@ -682,7 +771,7 @@ namespace ClassRoomRegistration
             }
 
             // Get setting checkin score
-            int settingChkinScore = 0;
+            double settingChkinScore = 0;
             db.SQLCommand = "SELECT checkin FROM score_rating WHERE tech_id='" + tech_id + "'";
             db.Query();
             if (db.Result.Read())
@@ -695,16 +784,28 @@ namespace ClassRoomRegistration
             }
 
             // Get a number of checkin
-            int countChk = 0;
-            db.SQLCommand = "SELECT COUNT(reg_id) FROM checkin WHERE reg_id='" + reg_id + "'";
+            double countChkNormal = 0;
+            db.SQLCommand = "SELECT COUNT(reg_id) FROM checkin WHERE reg_id='" + reg_id + "' AND status IN ('normal', 'absence')";
             db.Query();
             if (db.Result.Read())
             {
-                countChk = Convert.ToInt16(db.Result.GetValue(0));
+                countChkNormal = Convert.ToInt16(db.Result.GetValue(0));
             }
             else
             {
-                countChk = 0;
+                countChkNormal = 0;
+            }
+
+            double countChkLate = 0;
+            db.SQLCommand = "SELECT COUNT(reg_id) FROM checkin WHERE reg_id='" + reg_id + "' AND status='late'";
+            db.Query();
+            if (db.Result.Read())
+            {
+                countChkLate = Convert.ToInt16(db.Result.GetValue(0)) * 0.5;
+            }
+            else
+            {
+                countChkNormal = 0;
             }
 
             db.Close();
@@ -712,7 +813,7 @@ namespace ClassRoomRegistration
             // Then calculate the score
             if (countChkDate != 0)
             {
-                checkinScore = (settingChkinScore * countChk) / countChkDate;
+                checkinScore = (settingChkinScore * (countChkNormal + countChkLate)) / countChkDate;
             }
             return checkinScore;
         }
@@ -780,7 +881,7 @@ namespace ClassRoomRegistration
                     DataGridViewTextBoxColumn statusCol = new DataGridViewTextBoxColumn();
                     statusCol.HeaderText = _db.Result["date"] as string;
                     statusCol.Width = 70;
-                    statusCol.Visible = false;
+                    statusCol.Visible = false; // Status column
                     int idxStatus = dgvStudent.Columns.Add(statusCol);
 
                     MySQLDatabase localDB = new MySQLDatabase();
@@ -1225,7 +1326,7 @@ namespace ClassRoomRegistration
                     e.Graphics.DrawString(_db.Result["mid"].ToString(), font, Brushes.Black, x + 350 + xx, y);
                     xx = xx + 80;
                     e.Graphics.DrawString(_db.Result["final"].ToString(), font, Brushes.Black, x + 350 + xx, y);
-                    int checkinScore = GetCheckinScore(Convert.ToString(dgvSubject.CurrentRow.Cells["TechID"].Value), reg_id);
+                    double checkinScore = GetCheckinScore(Convert.ToString(dgvSubject.CurrentRow.Cells["TechID"].Value), reg_id);
                     xx = xx + 80;
                     e.Graphics.DrawString(checkinScore.ToString(), font, Brushes.Black, x + 350 + xx, y);
                     xx = xx + 80;
@@ -1238,7 +1339,7 @@ namespace ClassRoomRegistration
                     e.Graphics.DrawString(_db.Result["score4"].ToString(), font, Brushes.Black, x + 350 + xx, y);
                     xx = xx + 80;
                     e.Graphics.DrawString(_db.Result["score5"].ToString(), font, Brushes.Black, x + 350 + xx, y);
-                    int sum = 0;
+                    double sum = 0;
                     sum = sum + (int)_db.Result["mid"];
                     sum = sum + (int)_db.Result["final"];
                     sum = sum + (int)_db.Result["score1"];
@@ -1250,7 +1351,7 @@ namespace ClassRoomRegistration
                     xx = xx + 60;
                     e.Graphics.DrawString(sum.ToString(), font, Brushes.Black, x + 350 + xx, y);
                     string grade = "";
-                    grade = GetGradeFromScore(sum);
+                    grade = GetGradeFromScore((int)sum);
                     xx = xx + 70;
                     e.Graphics.DrawString(grade, font, Brushes.Black, x + 350 + xx, y);
                 }
@@ -1335,7 +1436,7 @@ namespace ClassRoomRegistration
                     //e.Graphics.DrawString(_db.Result["mid"].ToString(), font, Brushes.Black, x + 350 + xx, y);
                     //xx = xx + 80;
                     //e.Graphics.DrawString(_db.Result["final"].ToString(), font, Brushes.Black, x + 350 + xx, y);
-                    int checkinScore = GetCheckinScore(Convert.ToString(dgvSubject.CurrentRow.Cells["TechID"].Value), reg_id);
+                    double checkinScore = GetCheckinScore(Convert.ToString(dgvSubject.CurrentRow.Cells["TechID"].Value), reg_id);
                     //xx = xx + 80;
                     //e.Graphics.DrawString(checkinScore.ToString(), font, Brushes.Black, x + 350 + xx, y);
                     //xx = xx + 80;
@@ -1348,7 +1449,7 @@ namespace ClassRoomRegistration
                     //e.Graphics.DrawString(_db.Result["score4"].ToString(), font, Brushes.Black, x + 350 + xx, y);
                     //xx = xx + 80;
                     //e.Graphics.DrawString(_db.Result["score5"].ToString(), font, Brushes.Black, x + 350 + xx, y);
-                    int sum = 0;
+                    double sum = 0;
                     sum = sum + (int)_db.Result["mid"];
                     sum = sum + (int)_db.Result["final"];
                     sum = sum + (int)_db.Result["score1"];
@@ -1360,7 +1461,7 @@ namespace ClassRoomRegistration
                     //xx = xx + 60;
                     //e.Graphics.DrawString(sum.ToString(), font, Brushes.Black, x + 350 + xx, y);
                     string grade = "";
-                    grade = GetGradeFromScore(sum);
+                    grade = GetGradeFromScore((int)sum);
                     xx = xx + 70;
                     e.Graphics.DrawString(grade, font, Brushes.Black, x + 350 + xx, y);
                 }
@@ -1391,6 +1492,10 @@ namespace ClassRoomRegistration
                 if ((string)item.Cells[1].Value == txtSearch.Text)
                 {
                     item.Selected = true;
+                    if (dgvScore.CurrentRow != null)
+                    {
+                        dgvScore.CurrentRow.Selected = false;
+                    }
                     return;
                 }
             }
@@ -1403,6 +1508,14 @@ namespace ClassRoomRegistration
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
                 _scoreMenu.Show(dgvScore, e.Location);
+            }
+        }
+
+        private void tabCtrlRegis_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabCtrlRegis.SelectedIndex == 1)
+            {
+                dgvSubject_SelectionChanged(null, null);
             }
         }
     }

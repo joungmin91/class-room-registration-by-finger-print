@@ -13,7 +13,7 @@ namespace ClassRoomRegistration
     public partial class TeachingFrm : Form
     {
         private MySQLDatabase _db = null;
-        private string _sqlShowAll = "SELECT s.sub_id, s.sub_title, t1.tech_name, t2.year, t1.tech_id FROM teacher t1 JOIN teaching t2 ON t1.tech_id = t2.tech_id JOIN subject s ON t2.sub_id = s.sub_id";
+        private string _sqlShowAll = "SELECT s.sub_id, s.sub_title, s.sub_lec, s.sub_lab, t1.tech_name, t2.year, t1.tech_id, t2.term FROM teacher t1 JOIN teaching t2 ON t1.tech_id = t2.tech_id JOIN subject s ON t2.sub_id = s.id";
 
         public TeachingFrm()
         {
@@ -32,15 +32,20 @@ namespace ClassRoomRegistration
             dgv.AllowUserToDeleteRows = false;
             dgv.MultiSelect = false;
             dgv.ReadOnly = true;
-            dgv.ColumnCount = 5;
+            dgv.ColumnCount = 8;
             dgv.Columns[0].HeaderText = "รหัสวิชา";
             dgv.Columns[1].HeaderText = "ชื่อวิชา";
             dgv.Columns[1].Width = 250;
-            dgv.Columns[2].HeaderText = "ชื่ออาจารย์";
-            dgv.Columns[2].Width = 300;
-            dgv.Columns[3].HeaderText = "ปีการศึกษา";
-            dgv.Columns[4].HeaderText = "รหัสอาจารย์";
-            dgv.Columns[4].Visible = false;
+            dgv.Columns[2].HeaderText = "ทฤษฏี";
+            dgv.Columns[2].Width = 50;
+            dgv.Columns[3].HeaderText = "ปฏิบัติ";
+            dgv.Columns[3].Width = 50;
+            dgv.Columns[4].HeaderText = "ชื่ออาจารย์";
+            dgv.Columns[4].Width = 300;
+            dgv.Columns[5].HeaderText = "ปีการศึกษา";
+            dgv.Columns[6].HeaderText = "รหัสอาจารย์";
+            dgv.Columns[6].Visible = false;
+            dgv.Columns[7].HeaderText = "ภาค";
 
             LoadTeachingToDGV(_sqlShowAll);
         }
@@ -67,7 +72,10 @@ namespace ClassRoomRegistration
                     _db.Result.GetValue(1),
                     _db.Result.GetValue(2),
                     _db.Result.GetValue(3),
-                    _db.Result.GetValue(4)
+                    _db.Result.GetValue(4),
+                    _db.Result.GetValue(5),
+                    _db.Result.GetValue(6),
+                    _db.Result.GetValue(7)
                     );
             }
         }
@@ -131,7 +139,7 @@ namespace ClassRoomRegistration
                 return;
             }
 
-            _db.SQLCommand = "DELETE FROM teaching WHERE tech_id='" + dgv.CurrentRow.Cells[4].Value.ToString() + "' AND sub_id='" + dgv.CurrentRow.Cells[0].Value.ToString() + "' AND year='" + dgv.CurrentRow.Cells[3].Value.ToString() + "'";
+            _db.SQLCommand = "DELETE FROM teaching WHERE tech_id='" + dgv.CurrentRow.Cells[6].Value.ToString() + "' AND sub_id='" + dgv.CurrentRow.Cells[0].Value.ToString() + "' AND year='" + dgv.CurrentRow.Cells[5].Value.ToString() + "'";
             if (_db.Query() == true)
             {
                 LoadTeachingToDGV(_sqlShowAll);

@@ -16,7 +16,7 @@ namespace ClassRoomRegistration
         public int TeachingID { get; set; }
         private MySQLDatabase _db = null;
         private bool _ready = false;
-        public List<int> _lstPoint = new List<int>();
+        public List<double> _lstPoint = new List<double>();
         private bool _reallyCalcuate = false;
         public bool LabMode = true;
 
@@ -58,6 +58,15 @@ namespace ClassRoomRegistration
                 txtScore4Title.Text = _db.Result["score4_title"].ToString();
                 txtScore5Title.Text = _db.Result["score5_title"].ToString();
                 txtScoreLab.Text = _db.Result["score_lab"].ToString();
+
+                if ((int)_db.Result["force_f_checkin"] == 0)
+                {
+                    chkForce.Checked = false;
+                }
+                else
+                {
+                    chkForce.Checked = true;
+                }
 
                 if (LabMode == true)
                 {
@@ -195,6 +204,16 @@ namespace ClassRoomRegistration
                 _db.SQLCommand += "score4_title='" + txtScore4Title.Text + "', ";
                 _db.SQLCommand += "score5_title='" + txtScore5Title.Text + "', ";
                 _db.SQLCommand += "score_lab='" + txtScoreLab.Text + "', ";
+
+                if (chkForce.Checked == true)
+                {
+                    _db.SQLCommand += "force_f_checkin='1', ";
+                }
+                else
+                {
+                    _db.SQLCommand += "force_f_checkin='0', ";
+                }
+
                 if (cmbType.Text == "อิงกลุ่ม")
                 {
                     _db.SQLCommand += "score_type='group' ";    
@@ -218,7 +237,14 @@ namespace ClassRoomRegistration
                 {
                     type = "grade";
                 }
-                _db.SQLCommand = "INSERT INTO score_rating (tech_id, a, bp, b, cp, c, dp, d, f, mid, final, checkin, score1, score2, score3, score4, score5, score1_title, score2_title, score3_title, score4_title, score5_title, score_type, score_lab) VALUES ('" + TeachingID.ToString() + "', '" + txtA.Text + "', '" + txtBP.Text + "', '" + txtB.Text + "', '" + txtCP.Text + "', '" + txtC.Text + "', '" + txtDP.Text + "', '" + txtD.Text + "', '" + txtF.Text + "', '" + txtMid.Text + "', '" + txtFinal.Text + "', '" + txtCheckin.Text + "', '" + txtScore1.Text + "', '" + txtScore2.Text + "', '" + txtScore3.Text + "', '" + txtScore4 + "', '" + txtScore5.Text + "', '" + txtScore1Title.Text + "', '" + txtScore2Title.Text + "', '" + txtScore3Title.Text + "', '" + txtScore4Title.Text + "', '" + txtScore5Title.Text + "', '" +type + "', '" + txtScoreLab.Text + "')";
+
+                string forceF = "0";
+                if (chkForce.Checked == true)
+                {
+                    forceF = "1";
+                }
+
+                _db.SQLCommand = "INSERT INTO score_rating (tech_id, a, bp, b, cp, c, dp, d, f, mid, final, checkin, score1, score2, score3, score4, score5, score1_title, score2_title, score3_title, score4_title, score5_title, score_type, score_lab, force_f_checkin) VALUES ('" + TeachingID.ToString() + "', '" + txtA.Text + "', '" + txtBP.Text + "', '" + txtB.Text + "', '" + txtCP.Text + "', '" + txtC.Text + "', '" + txtDP.Text + "', '" + txtD.Text + "', '" + txtF.Text + "', '" + txtMid.Text + "', '" + txtFinal.Text + "', '" + txtCheckin.Text + "', '" + txtScore1.Text + "', '" + txtScore2.Text + "', '" + txtScore3.Text + "', '" + txtScore4 + "', '" + txtScore5.Text + "', '" + txtScore1Title.Text + "', '" + txtScore2Title.Text + "', '" + txtScore3Title.Text + "', '" + txtScore4Title.Text + "', '" + txtScore5Title.Text + "', '" +type + "', '" + txtScoreLab.Text + "', '" + forceF + "')";
                 _db.Query();
             }
             this.Close();

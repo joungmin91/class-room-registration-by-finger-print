@@ -93,7 +93,7 @@ namespace ClassRoomRegistration
                 // Update
                 _db.SQLCommand = "UPDATE teaching SET ";
                 _db.SQLCommand += "tech_id='" + TechID + "', ";
-                _db.SQLCommand += "sub_id='" + (string)dgv.CurrentRow.Cells[0].Value + "', ";
+                _db.SQLCommand += "sub_id='" + (int)dgv.CurrentRow.Cells[0].Value + "', ";
                 _db.SQLCommand += "year='" + cmbYear.Text + "', ";
                 _db.SQLCommand += "term='" + cmbTerm.Text + "' ";
                 _db.SQLCommand += "WHERE tech_id='" + TechID + "' AND sub_id='" + dgv.CurrentRow.Cells[0].Value.ToString() + "' AND year='" + cmbYear.Text + "'";
