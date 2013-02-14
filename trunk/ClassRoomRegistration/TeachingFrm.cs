@@ -13,7 +13,7 @@ namespace ClassRoomRegistration
     public partial class TeachingFrm : Form
     {
         private MySQLDatabase _db = null;
-        private string _sqlShowAll = "SELECT s.sub_id, s.sub_title, s.sub_lec, s.sub_lab, t1.tech_name, t2.year, t1.tech_id, t2.term FROM teacher t1 JOIN teaching t2 ON t1.tech_id = t2.tech_id JOIN subject s ON t2.sub_id = s.id";
+        private string _sqlShowAll = "SELECT s.sub_id, s.sub_title, s.sub_lec, s.sub_lab, t1.tech_name, t2.year, t1.tech_id, t2.term, t2.id FROM teacher t1 JOIN teaching t2 ON t1.tech_id = t2.tech_id JOIN subject s ON t2.sub_id = s.id";
 
         public TeachingFrm()
         {
@@ -32,7 +32,7 @@ namespace ClassRoomRegistration
             dgv.AllowUserToDeleteRows = false;
             dgv.MultiSelect = false;
             dgv.ReadOnly = true;
-            dgv.ColumnCount = 8;
+            dgv.ColumnCount = 9;
             dgv.Columns[0].HeaderText = "รหัสวิชา";
             dgv.Columns[1].HeaderText = "ชื่อวิชา";
             dgv.Columns[1].Width = 250;
@@ -46,6 +46,8 @@ namespace ClassRoomRegistration
             dgv.Columns[6].HeaderText = "รหัสอาจารย์";
             dgv.Columns[6].Visible = false;
             dgv.Columns[7].HeaderText = "ภาค";
+            dgv.Columns[8].HeaderText = "ไอดีการสอน";
+            dgv.Columns[8].Visible = false;
 
             LoadTeachingToDGV(_sqlShowAll);
         }
@@ -75,7 +77,8 @@ namespace ClassRoomRegistration
                     _db.Result.GetValue(4),
                     _db.Result.GetValue(5),
                     _db.Result.GetValue(6),
-                    _db.Result.GetValue(7)
+                    _db.Result.GetValue(7),
+                    _db.Result.GetValue(8)
                     );
             }
         }
@@ -139,7 +142,7 @@ namespace ClassRoomRegistration
                 return;
             }
 
-            _db.SQLCommand = "DELETE FROM teaching WHERE tech_id='" + dgv.CurrentRow.Cells[6].Value.ToString() + "' AND sub_id='" + dgv.CurrentRow.Cells[0].Value.ToString() + "' AND year='" + dgv.CurrentRow.Cells[5].Value.ToString() + "'";
+            _db.SQLCommand = "DELETE FROM teaching WHERE id='" + dgv.CurrentRow.Cells[8].Value.ToString() + "'";
             if (_db.Query() == true)
             {
                 LoadTeachingToDGV(_sqlShowAll);

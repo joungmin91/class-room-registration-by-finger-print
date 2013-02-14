@@ -81,7 +81,7 @@ namespace ClassRoomRegistration
                 return;
             }
 
-            _db.SQLCommand = "DELETE FROM student WHERE std_id='" + dgv.CurrentRow.Cells[0].Value.ToString() + "'";
+            _db.SQLCommand = "DELETE FROM student WHERE std_id='" + dgv.CurrentRow.Cells[1].Value.ToString() + "'";
             if (_db.Query() == true)
             {
                 LoadStudentToDGV("SELECT * FROM student");

@@ -228,6 +228,7 @@
     <Compile Include="UserSettingFrm.Designer.cs">
       <DependentUpon>UserSettingFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ValidateInput.cs" />
     <EmbeddedResource Include="AddEditRegistrationFrm.resx">
       <DependentUpon>AddEditRegistrationFrm.cs</DependentUpon>
     </EmbeddedResource>

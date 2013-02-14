@@ -40,6 +40,7 @@ namespace ClassRoomRegistration
             dgv.ReadOnly = true;
             dgv.ColumnCount = 7;
             dgv.Columns[0].HeaderText = "รหัส";
+            dgv.Columns[0].Visible = false;
             dgv.Columns[1].HeaderText = "ชื่อ-นามสกุล";
             dgv.Columns[2].HeaderText = "คณะ";
             dgv.Columns[2].Width = 200;

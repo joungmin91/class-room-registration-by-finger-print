@@ -81,5 +81,23 @@ namespace ClassRoomRegistration
             frm.Username = txtUsername.Text;
             frm.ShowDialog();
         }
+
+        private void txtUsername_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (ValidateInput.CheckAllowKeyCharNumber((int)e.KeyChar) == false)
+            {
+                MessageBox.Show("ใส่ได้แต่ตัวเลขและตัวอักษรเท่านั่น");
+                e.Handled = true;
+            }
+        }
+
+        private void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (ValidateInput.CheckAllowKeyCharNumber((int)e.KeyChar) == false)
+            {
+                MessageBox.Show("ใส่ได้แต่ตัวเลขและตัวอักษรเท่านั่น");
+                e.Handled = true;
+            }
+        }
     }
 }

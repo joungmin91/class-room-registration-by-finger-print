@@ -68,6 +68,7 @@
             this.txtScore.Name = "txtScore";
             this.txtScore.Size = new System.Drawing.Size(169, 20);
             this.txtScore.TabIndex = 3;
+            this.txtScore.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtScore_KeyPress);
             // 
             // btnOK
             // 
