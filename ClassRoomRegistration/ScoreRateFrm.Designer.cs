@@ -64,6 +64,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkForce = new System.Windows.Forms.CheckBox();
             this.txtScoreLab = new System.Windows.Forms.TextBox();
             this.labScoreLab = new System.Windows.Forms.Label();
             this.txtScore1Title = new System.Windows.Forms.TextBox();
@@ -94,7 +95,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnCalc = new System.Windows.Forms.Button();
             this.cmbType = new System.Windows.Forms.ComboBox();
-            this.chkForce = new System.Windows.Forms.CheckBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.labStar = new System.Windows.Forms.Label();
+            this.btnSetGradeScore = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -409,6 +414,10 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.labStar);
+            this.groupBox2.Controls.Add(this.label32);
+            this.groupBox2.Controls.Add(this.label31);
+            this.groupBox2.Controls.Add(this.label30);
             this.groupBox2.Controls.Add(this.chkForce);
             this.groupBox2.Controls.Add(this.txtScoreLab);
             this.groupBox2.Controls.Add(this.labScoreLab);
@@ -444,6 +453,16 @@
             this.groupBox2.TabIndex = 85;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "คะแนน";
+            // 
+            // chkForce
+            // 
+            this.chkForce.AutoSize = true;
+            this.chkForce.Location = new System.Drawing.Point(172, 27);
+            this.chkForce.Name = "chkForce";
+            this.chkForce.Size = new System.Drawing.Size(145, 17);
+            this.chkForce.TabIndex = 96;
+            this.chkForce.Text = "F ถ้าเข้าเรียนไม่เกิน 80%";
+            this.chkForce.UseVisualStyleBackColor = true;
             // 
             // txtScoreLab
             // 
@@ -692,21 +711,67 @@
             this.cmbType.TabIndex = 87;
             this.cmbType.SelectedIndexChanged += new System.EventHandler(this.cmbType_SelectedIndexChanged);
             // 
-            // chkForce
+            // label30
             // 
-            this.chkForce.AutoSize = true;
-            this.chkForce.Location = new System.Drawing.Point(172, 27);
-            this.chkForce.Name = "chkForce";
-            this.chkForce.Size = new System.Drawing.Size(145, 17);
-            this.chkForce.TabIndex = 96;
-            this.chkForce.Text = "F ถ้าเข้าเรียนไม่เกิน 80%";
-            this.chkForce.UseVisualStyleBackColor = true;
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label30.ForeColor = System.Drawing.Color.Red;
+            this.label30.Location = new System.Drawing.Point(150, 27);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(16, 20);
+            this.label30.TabIndex = 88;
+            this.label30.Text = "*";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label31.ForeColor = System.Drawing.Color.Red;
+            this.label31.Location = new System.Drawing.Point(150, 50);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(16, 20);
+            this.label31.TabIndex = 88;
+            this.label31.Text = "*";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label32.ForeColor = System.Drawing.Color.Red;
+            this.label32.Location = new System.Drawing.Point(150, 76);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(16, 20);
+            this.label32.TabIndex = 88;
+            this.label32.Text = "*";
+            // 
+            // labStar
+            // 
+            this.labStar.AutoSize = true;
+            this.labStar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.labStar.ForeColor = System.Drawing.Color.Red;
+            this.labStar.Location = new System.Drawing.Point(150, 232);
+            this.labStar.Name = "labStar";
+            this.labStar.Size = new System.Drawing.Size(16, 20);
+            this.labStar.TabIndex = 88;
+            this.labStar.Text = "*";
+            // 
+            // btnSetGradeScore
+            // 
+            this.btnSetGradeScore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetGradeScore.Location = new System.Drawing.Point(139, 292);
+            this.btnSetGradeScore.Name = "btnSetGradeScore";
+            this.btnSetGradeScore.Size = new System.Drawing.Size(100, 23);
+            this.btnSetGradeScore.TabIndex = 88;
+            this.btnSetGradeScore.Text = "ตั้งค่าคะแนน";
+            this.btnSetGradeScore.UseVisualStyleBackColor = true;
+            this.btnSetGradeScore.Click += new System.EventHandler(this.btnSetGradeScore_Click);
             // 
             // ScoreRateFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(769, 327);
+            this.Controls.Add(this.btnSetGradeScore);
             this.Controls.Add(this.cmbType);
             this.Controls.Add(this.btnCalc);
             this.Controls.Add(this.groupBox2);
@@ -794,5 +859,10 @@
         private System.Windows.Forms.TextBox txtScoreLab;
         private System.Windows.Forms.Label labScoreLab;
         private System.Windows.Forms.CheckBox chkForce;
+        private System.Windows.Forms.Label labStar;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Button btnSetGradeScore;
     }
 }

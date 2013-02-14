@@ -231,9 +231,11 @@ namespace ClassRoomRegistration
             dgvStudent.Columns[0].Width = 50;
             dgvStudent.Columns[0].Frozen = true;
             dgvStudent.Columns[1].HeaderText = "รหัสนิสิต";
+            dgvStudent.Columns[1].Name = "StdID";
             dgvStudent.Columns[1].Width = 100;
             dgvStudent.Columns[1].Frozen = true;
             dgvStudent.Columns[2].HeaderText = "ชื่อนิสิต";
+            dgvStudent.Columns[2].Name = "StdName";
             dgvStudent.Columns[2].Width = 200;
             dgvStudent.Columns[2].Frozen = true;
             dgvStudent.Columns[3].HeaderText = "สถานะ";
@@ -348,6 +350,11 @@ namespace ClassRoomRegistration
             ScoreTypeSelector frm = new ScoreTypeSelector();
             frm.Parent = this;
             frm.ShowDialog();
+
+            if (frm.OK == false)
+            {
+                return;
+            }
 
             int idx = 0;
             foreach (DataGridViewColumn item in dgvScore.Columns)
@@ -509,85 +516,87 @@ namespace ClassRoomRegistration
                 double labScore = 0;
                 if (dgvSubject.CurrentRow.Cells["SubLab"].Value as string == "")
                 {
-                    MySQLDatabase localDB = new MySQLDatabase();
-                    localDB.DBServer = _db.DBServer;
-                    localDB.DBName = _db.DBName;
-                    localDB.DBUser = _db.DBUser;
-                    localDB.DBPassword = _db.DBPassword;
-                    localDB.Connect();
+                    labScore = GetLabScore(item.StdID);
 
-                    // Get Lab Subject of Lec Subject
-                    localDB.SQLCommand = "SELECT * FROM subject WHERE sub_lec='" + dgvSubject.CurrentRow.Cells["SubLec"].Value as string + "' AND sub_lab<>''";
-                    localDB.Query();
+                    //MySQLDatabase localDB = new MySQLDatabase();
+                    //localDB.DBServer = _db.DBServer;
+                    //localDB.DBName = _db.DBName;
+                    //localDB.DBUser = _db.DBUser;
+                    //localDB.DBPassword = _db.DBPassword;
+                    //localDB.Connect();
 
-                    while (localDB.Result.Read())
-                    {
-                        // STD + Lab + Year Sub ID, look up in registration
-                        MySQLDatabase regDB = new MySQLDatabase();
-                        regDB.DBServer = _db.DBServer;
-                        regDB.DBName = _db.DBName;
-                        regDB.DBUser = _db.DBUser;
-                        regDB.DBPassword = _db.DBPassword;
-                        regDB.Connect();
-                        regDB.SQLCommand = "SELECT * FROM registration WHERE sub_id='" + (int)localDB.Result["id"] + "' AND std_id='" + item.StdID + "' AND year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "'";
-                        regDB.Query();
-                        while (regDB.Result.Read())
-                        {
-                            // REGID look up in score
-                            int regid = (int)regDB.Result["reg_id"];
-                            MySQLDatabase scoreDB = new MySQLDatabase();
-                            scoreDB.DBServer = _db.DBServer;
-                            scoreDB.DBName = _db.DBName;
-                            scoreDB.DBUser = _db.DBUser;
-                            scoreDB.DBPassword = _db.DBPassword;
-                            scoreDB.Connect();
-                            scoreDB.SQLCommand = "SELECT * FROM score WHERE reg_id='" + regid + "'";
-                            scoreDB.Query();
+                    //// Get Lab Subject of Lec Subject
+                    //localDB.SQLCommand = "SELECT * FROM subject WHERE sub_lec='" + dgvSubject.CurrentRow.Cells["SubLec"].Value as string + "' AND sub_lab<>''";
+                    //localDB.Query();
 
-                            // A = Sum all score
-                            double all_score = 0;
-                            if (scoreDB.Result.Read())
-                            {
-                                all_score = (int)scoreDB.Result["mid"] + (int)scoreDB.Result["final"] + (int)scoreDB.Result["score1"] +
-                                            (int)scoreDB.Result["score2"] + (int)scoreDB.Result["score3"] + (int)scoreDB.Result["score4"] +
-                                            (int)scoreDB.Result["score5"];
+                    //while (localDB.Result.Read())
+                    //{
+                    //    // STD + Lab + Year Sub ID, look up in registration
+                    //    MySQLDatabase regDB = new MySQLDatabase();
+                    //    regDB.DBServer = _db.DBServer;
+                    //    regDB.DBName = _db.DBName;
+                    //    regDB.DBUser = _db.DBUser;
+                    //    regDB.DBPassword = _db.DBPassword;
+                    //    regDB.Connect();
+                    //    regDB.SQLCommand = "SELECT * FROM registration WHERE sub_id='" + (int)localDB.Result["id"] + "' AND std_id='" + item.StdID + "' AND year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "'";
+                    //    regDB.Query();
+                    //    while (regDB.Result.Read())
+                    //    {
+                    //        // REGID look up in score
+                    //        int regid = (int)regDB.Result["reg_id"];
+                    //        MySQLDatabase scoreDB = new MySQLDatabase();
+                    //        scoreDB.DBServer = _db.DBServer;
+                    //        scoreDB.DBName = _db.DBName;
+                    //        scoreDB.DBUser = _db.DBUser;
+                    //        scoreDB.DBPassword = _db.DBPassword;
+                    //        scoreDB.Connect();
+                    //        scoreDB.SQLCommand = "SELECT * FROM score WHERE reg_id='" + regid + "'";
+                    //        scoreDB.Query();
 
-                                // TechID + SubID + Year, look up in teaching
-                                MySQLDatabase techingDB = new MySQLDatabase();
-                                techingDB.DBServer = _db.DBServer;
-                                techingDB.DBName = _db.DBName;
-                                techingDB.DBUser = _db.DBUser;
-                                techingDB.DBPassword = _db.DBPassword;
-                                techingDB.Connect();
+                    //        // A = Sum all score
+                    //        double all_score = 0;
+                    //        if (scoreDB.Result.Read())
+                    //        {
+                    //            all_score = (int)scoreDB.Result["mid"] + (int)scoreDB.Result["final"] + (int)scoreDB.Result["score1"] +
+                    //                        (int)scoreDB.Result["score2"] + (int)scoreDB.Result["score3"] + (int)scoreDB.Result["score4"] +
+                    //                        (int)scoreDB.Result["score5"];
 
-                                techingDB.SQLCommand = "SELECT * FROM teaching WHERE tech_id='" + TechID + "' AND sub_id='" + localDB.Result["id"].ToString() + "' AND year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "'";
-                                techingDB.Query();
-                                techingDB.Result.Read();
+                    //            // TechID + SubID + Year, look up in teaching
+                    //            MySQLDatabase techingDB = new MySQLDatabase();
+                    //            techingDB.DBServer = _db.DBServer;
+                    //            techingDB.DBName = _db.DBName;
+                    //            techingDB.DBUser = _db.DBUser;
+                    //            techingDB.DBPassword = _db.DBPassword;
+                    //            techingDB.Connect();
 
-                                all_score += GetCheckinScore(techingDB.Result["id"].ToString(), regid.ToString());
+                    //            techingDB.SQLCommand = "SELECT * FROM teaching WHERE tech_id='" + TechID + "' AND sub_id='" + localDB.Result["id"].ToString() + "' AND year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "'";
+                    //            techingDB.Query();
+                    //            techingDB.Result.Read();
 
-                                techingDB.Close();
-                            }
+                    //            all_score += GetCheckinScore(techingDB.Result["id"].ToString(), regid.ToString());
 
-                            // B = Get Lab's score from score_rating
-                            scoreDB.SQLCommand = "SELECT * FROM score_rating WHERE tech_id='" + dgvSubject.CurrentRow.Cells["TechID"].Value + "'";
-                            scoreDB.Query();
+                    //            techingDB.Close();
+                    //        }
+
+                    //        // B = Get Lab's score from score_rating
+                    //        scoreDB.SQLCommand = "SELECT * FROM score_rating WHERE tech_id='" + dgvSubject.CurrentRow.Cells["TechID"].Value + "'";
+                    //        scoreDB.Query();
                             
-                            double scoreLab = 0;
-                            if (scoreDB.Result.Read())
-                            {
-                                scoreLab = (int)scoreDB.Result["score_lab"];
-                            }
+                    //        double scoreLab = 0;
+                    //        if (scoreDB.Result.Read())
+                    //        {
+                    //            scoreLab = (int)scoreDB.Result["score_lab"];
+                    //        }
 
-                            // Real score = (A * B)/100
-                            labScore = (all_score * scoreLab) / 100;
+                    //        // Real score = (A * B)/100
+                    //        labScore = (all_score * scoreLab) / 100;
 
-                            scoreDB.Close();
-                        }
-                        regDB.Close();
-                    }
+                    //        scoreDB.Close();
+                    //    }
+                    //    regDB.Close();
+                    //}
                     
-                    localDB.Close();
+                    //localDB.Close();
                 }
 
                 // Total score is
@@ -615,6 +624,91 @@ namespace ClassRoomRegistration
                 dgvScore.Rows.Add(order, item.StdID, item.StdName, grade, totalScore, midScore, finalScore, checkinScore, score1, score2, score3, score4, score5, item.RegID, labScore);
                 _lstPoint.Add(totalScore);
             }
+        }
+
+        private double GetLabScore(string stdID)
+        {
+            double labScore = 0.0;
+
+            MySQLDatabase localDB = new MySQLDatabase();
+            localDB.DBServer = _db.DBServer;
+            localDB.DBName = _db.DBName;
+            localDB.DBUser = _db.DBUser;
+            localDB.DBPassword = _db.DBPassword;
+            localDB.Connect();
+
+            // Get Lab Subject of Lec Subject
+            localDB.SQLCommand = "SELECT * FROM subject WHERE sub_lec='" + dgvSubject.CurrentRow.Cells["SubLec"].Value as string + "' AND sub_lab<>''";
+            localDB.Query();
+
+            while (localDB.Result.Read())
+            {
+                // STD + Lab + Year Sub ID, look up in registration
+                MySQLDatabase regDB = new MySQLDatabase();
+                regDB.DBServer = _db.DBServer;
+                regDB.DBName = _db.DBName;
+                regDB.DBUser = _db.DBUser;
+                regDB.DBPassword = _db.DBPassword;
+                regDB.Connect();
+                regDB.SQLCommand = "SELECT * FROM registration WHERE sub_id='" + (int)localDB.Result["id"] + "' AND std_id='" + stdID + "' AND year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "'";
+                regDB.Query();
+                while (regDB.Result.Read())
+                {
+                    // REGID look up in score
+                    int regid = (int)regDB.Result["reg_id"];
+                    MySQLDatabase scoreDB = new MySQLDatabase();
+                    scoreDB.DBServer = _db.DBServer;
+                    scoreDB.DBName = _db.DBName;
+                    scoreDB.DBUser = _db.DBUser;
+                    scoreDB.DBPassword = _db.DBPassword;
+                    scoreDB.Connect();
+                    scoreDB.SQLCommand = "SELECT * FROM score WHERE reg_id='" + regid + "'";
+                    scoreDB.Query();
+
+                    // A = Sum all score
+                    double all_score = 0;
+                    if (scoreDB.Result.Read())
+                    {
+                        all_score = (int)scoreDB.Result["mid"] + (int)scoreDB.Result["final"] + (int)scoreDB.Result["score1"] +
+                                    (int)scoreDB.Result["score2"] + (int)scoreDB.Result["score3"] + (int)scoreDB.Result["score4"] +
+                                    (int)scoreDB.Result["score5"];
+
+                        // TechID + SubID + Year, look up in teaching
+                        MySQLDatabase techingDB = new MySQLDatabase();
+                        techingDB.DBServer = _db.DBServer;
+                        techingDB.DBName = _db.DBName;
+                        techingDB.DBUser = _db.DBUser;
+                        techingDB.DBPassword = _db.DBPassword;
+                        techingDB.Connect();
+
+                        techingDB.SQLCommand = "SELECT * FROM teaching WHERE tech_id='" + TechID + "' AND sub_id='" + localDB.Result["id"].ToString() + "' AND year='" + dgvSubject.CurrentRow.Cells["SubYear"].Value + "'";
+                        techingDB.Query();
+                        techingDB.Result.Read();
+
+                        all_score += GetCheckinScore(techingDB.Result["id"].ToString(), regid.ToString());
+
+                        techingDB.Close();
+                    }
+
+                    // B = Get Lab's score from score_rating
+                    scoreDB.SQLCommand = "SELECT * FROM score_rating WHERE tech_id='" + dgvSubject.CurrentRow.Cells["TechID"].Value + "'";
+                    scoreDB.Query();
+
+                    double scoreLab = 0;
+                    if (scoreDB.Result.Read())
+                    {
+                        scoreLab = (int)scoreDB.Result["score_lab"];
+                    }
+
+                    // Real score = (A * B)/100
+                    labScore = (all_score * scoreLab) / 100;
+
+                    scoreDB.Close();
+                }
+                regDB.Close();
+            }
+            localDB.Close();
+            return labScore;
         }
 
         private bool IsForce80Checkin(string tech_id)
@@ -961,13 +1055,13 @@ namespace ClassRoomRegistration
             foreach (DataGridViewRow item in dgvStudent.Rows)
             {
                 item.Selected = true;
-                if ((string)item.Cells[2].Value == "noscan")
+                if ((string)item.Cells["Status"].Value == "noscan")
                 {
                     ScanFingerStdFrm frm = new ScanFingerStdFrm();
                     frm.Parent = this;
                     frm.AutoScanMode = true;
-                    frm.StdID = (string)item.Cells[0].Value;
-                    frm.StdName = (string)item.Cells[1].Value; ;
+                    frm.StdID = (string)item.Cells["StdID"].Value;
+                    frm.StdName = (string)item.Cells["StdName"].Value;
                     frm.ShowDialog();
                     dgvSubject_SelectionChanged(null, null);
                     if (frm.StopAutoScan == true)
@@ -1174,11 +1268,11 @@ namespace ClassRoomRegistration
         void doc_PrintPage(object sender, PrintPageEventArgs e)
         {
             int x = 20, y = 10;
-            Font fontTitle = new Font("Arial", 18);
+            Font fontTitle = new Font("Arial", 14);
             Font font = new Font("Arial", 14);
 
             // Title
-            e.Graphics.DrawString("ใบเช็คชื่อวิชา " + (string)dgvSubject.CurrentRow.Cells["SubTitle"].Value + " หมู่บรรยาย " + (string)dgvSubject.CurrentRow.Cells["SubLec"].Value + " หมู่ปฏิบัติ " + (string)dgvSubject.CurrentRow.Cells["SubLab"].Value, fontTitle, Brushes.Black, x, y);
+            e.Graphics.DrawString("ใบเช็คชื่อวิชา " + (string)dgvSubject.CurrentRow.Cells["SubTitle"].Value + " หมู่บรรยาย " + (string)dgvSubject.CurrentRow.Cells["SubLec"].Value + " หมู่ปฏิบัติ " + (string)dgvSubject.CurrentRow.Cells["SubLab"].Value + " ปีการศึกษา " + (string)dgvSubject.CurrentRow.Cells["SubYear"].Value + " ภาค " + (string)dgvSubject.CurrentRow.Cells["SubTerm"].Value, fontTitle, Brushes.Black, x, y);
             y = y + 40;
             e.Graphics.DrawLine(Pens.Gray, x, y, x + 1120, y);
 
@@ -1274,32 +1368,107 @@ namespace ClassRoomRegistration
             }
         }
 
+        private bool IsLecMode()
+        {
+            return dgvSubject.CurrentRow.Cells["SubLab"].Value as string == "";
+        }
+
         void doc_PrintPage2(object sender, PrintPageEventArgs e)
         {
             int x = 20, y = 10;
-            Font fontTitle = new Font("Arial", 18);
+            Font fontTitle = new Font("Arial", 14);
             Font font = new Font("Arial", 14);
 
             // Title
-            e.Graphics.DrawString("คะแนนวิชา " + (string)dgvSubject.CurrentRow.Cells["SubTitle"].Value + " หมู่บรรยาย " + (string)dgvSubject.CurrentRow.Cells["SubLec"].Value + " หมู่ปฏิบัติ " + (string)dgvSubject.CurrentRow.Cells["SubLab"].Value, fontTitle, Brushes.Black, x, y);
+            e.Graphics.DrawString("คะแนนวิชา " + (string)dgvSubject.CurrentRow.Cells["SubTitle"].Value + " หมู่บรรยาย " + (string)dgvSubject.CurrentRow.Cells["SubLec"].Value + " หมู่ปฏิบัติ " + (string)dgvSubject.CurrentRow.Cells["SubLab"].Value + " ปีการศึกษา " + (string)dgvSubject.CurrentRow.Cells["SubYear"].Value + " ภาค " + (string)dgvSubject.CurrentRow.Cells["SubTerm"].Value, fontTitle, Brushes.Black, x, y);
             y = y + 40;
             e.Graphics.DrawLine(Pens.Gray, x, y, x + 1120, y);
+
+            // Get header text
+            string header_score1 = "";
+            string header_score2 = "";
+            string header_score3 = "";
+            string header_score4 = "";
+            string header_score5 = "";
+
+            _db.SQLCommand = "SELECT * FROM score_rating WHERE tech_id='" + dgvSubject.CurrentRow.Cells["TechID"].Value.ToString() + "'";
+            _db.Query();
+            
+            if (_db.Result.Read())
+            {
+                if (_db.Result["score1_title"].ToString() != "")
+                {
+                    header_score1 = _db.Result["score1_title"].ToString();
+                }
+                else
+                {
+                    header_score1 = "เก็บ 1";
+                }
+
+                if (_db.Result["score2_title"].ToString() != "")
+                {
+                    header_score2 = _db.Result["score2_title"].ToString();
+                }
+                else
+                {
+                    header_score2 = "เก็บ 2";
+                }
+
+                if (_db.Result["score3_title"].ToString() != "")
+                {
+                    header_score3 = _db.Result["score3_title"].ToString();
+                }
+                else
+                {
+                    header_score3 = "เก็บ 3";
+                }
+
+                if (_db.Result["score4_title"].ToString() != "")
+                {
+                    header_score4 = _db.Result["score4_title"].ToString();
+                }
+                else
+                {
+                    header_score4 = "เก็บ 4";
+                }
+
+                if (_db.Result["score5_title"].ToString() != "")
+                {
+                    header_score5 = _db.Result["score5_title"].ToString();
+                }
+                else
+                {
+                    header_score5 = "เก็บ 5";
+                }
+            }
+            else
+            {
+                header_score1 = "เก็บ 1";
+                header_score2 = "เก็บ 2";
+                header_score3 = "เก็บ 3";
+                header_score4 = "เก็บ 4";
+                header_score5 = "เก็บ 5";
+            }
 
             // Header
             y = y + 5;
             e.Graphics.DrawString("ลำดับ", font, Brushes.Black, x, y);
             e.Graphics.DrawString("รหัส", font, Brushes.Black, x + 50, y);
             e.Graphics.DrawString("ชื่อ-นามสกุล", font, Brushes.Black, x + 180, y);
-            e.Graphics.DrawString("กลาง", font, Brushes.Black, x + 350, y);
-            e.Graphics.DrawString("ปลาย", font, Brushes.Black, x + 430, y);
-            e.Graphics.DrawString("เช็คชื่อ", font, Brushes.Black, x + 510, y);
-            e.Graphics.DrawString("เก็บ 1", font, Brushes.Black, x + 580, y);
-            e.Graphics.DrawString("เก็บ 2", font, Brushes.Black, x + 660, y);
-            e.Graphics.DrawString("เก็บ 3", font, Brushes.Black, x + 740, y);
-            e.Graphics.DrawString("เก็บ 4", font, Brushes.Black, x + 820, y);
-            e.Graphics.DrawString("เก็บ 5", font, Brushes.Black, x + 900, y);
-            e.Graphics.DrawString("รวม", font, Brushes.Black, x + 980, y);
-            e.Graphics.DrawString("เกรด", font, Brushes.Black, x + 1050, y);
+            e.Graphics.DrawString("กลาง", font, Brushes.Black, x + 400, y);
+            e.Graphics.DrawString("ปลาย", font, Brushes.Black, x + 470, y);
+            e.Graphics.DrawString("เช็คชื่อ", font, Brushes.Black, x + 540, y);
+            if (IsLecMode())
+            {
+                e.Graphics.DrawString("ปฏิบัติ", font, Brushes.Black, x + 610, y);
+            }
+            e.Graphics.DrawString(header_score1, font, Brushes.Black, x + 680, y);
+            e.Graphics.DrawString(header_score2, font, Brushes.Black, x + 750, y);
+            e.Graphics.DrawString(header_score3, font, Brushes.Black, x + 820, y);
+            e.Graphics.DrawString(header_score4, font, Brushes.Black, x + 890, y);
+            e.Graphics.DrawString(header_score5, font, Brushes.Black, x + 960, y);
+            e.Graphics.DrawString("รวม", font, Brushes.Black, x + 1030, y);
+            e.Graphics.DrawString("เกรด", font, Brushes.Black, x + 1080, y);
 
             y = y + 25;
             e.Graphics.DrawLine(Pens.Gray, x, y, x + 1120, y);
@@ -1323,22 +1492,37 @@ namespace ClassRoomRegistration
                 _db.Query();
                 if (_db.Result.Read() == true)
                 {
-                    e.Graphics.DrawString(_db.Result["mid"].ToString(), font, Brushes.Black, x + 350 + xx, y);
-                    xx = xx + 80;
-                    e.Graphics.DrawString(_db.Result["final"].ToString(), font, Brushes.Black, x + 350 + xx, y);
+                    e.Graphics.DrawString(_db.Result["mid"].ToString(), font, Brushes.Black, x + 400 + xx, y);
+                    
+                    xx = xx + 70;
+                    e.Graphics.DrawString(_db.Result["final"].ToString(), font, Brushes.Black, x + 400 + xx, y);
+                    
+                    xx = xx + 70;
                     double checkinScore = GetCheckinScore(Convert.ToString(dgvSubject.CurrentRow.Cells["TechID"].Value), reg_id);
-                    xx = xx + 80;
-                    e.Graphics.DrawString(checkinScore.ToString(), font, Brushes.Black, x + 350 + xx, y);
-                    xx = xx + 80;
-                    e.Graphics.DrawString(_db.Result["score1"].ToString(), font, Brushes.Black, x + 350 + xx, y);
-                    xx = xx + 80;
-                    e.Graphics.DrawString(_db.Result["score2"].ToString(), font, Brushes.Black, x + 350 + xx, y);
-                    xx = xx + 80;
-                    e.Graphics.DrawString(_db.Result["score3"].ToString(), font, Brushes.Black, x + 350 + xx, y);
-                    xx = xx + 80;
-                    e.Graphics.DrawString(_db.Result["score4"].ToString(), font, Brushes.Black, x + 350 + xx, y);
-                    xx = xx + 80;
-                    e.Graphics.DrawString(_db.Result["score5"].ToString(), font, Brushes.Black, x + 350 + xx, y);
+                    e.Graphics.DrawString(checkinScore.ToString(), font, Brushes.Black, x + 400 + xx, y);
+
+                    xx = xx + 70;
+                    if (IsLecMode())
+                    {
+                        double labScore = GetLabScore(dgvStudent.Rows[idxRow].Cells[1].Value.ToString());
+                        e.Graphics.DrawString(labScore.ToString(), font, Brushes.Black, x + 400 + xx, y);
+                    }
+                    
+                    xx = xx + 70;
+                    e.Graphics.DrawString(_db.Result["score1"].ToString(), font, Brushes.Black, x + 400 + xx, y);
+                    
+                    xx = xx + 70;
+                    e.Graphics.DrawString(_db.Result["score2"].ToString(), font, Brushes.Black, x + 400 + xx, y);
+                    
+                    xx = xx + 70;
+                    e.Graphics.DrawString(_db.Result["score3"].ToString(), font, Brushes.Black, x + 400 + xx, y);
+                    
+                    xx = xx + 70;
+                    e.Graphics.DrawString(_db.Result["score4"].ToString(), font, Brushes.Black, x + 400 + xx, y);
+                    
+                    xx = xx + 70;
+                    e.Graphics.DrawString(_db.Result["score5"].ToString(), font, Brushes.Black, x + 400 + xx, y);
+                    
                     double sum = 0;
                     sum = sum + (int)_db.Result["mid"];
                     sum = sum + (int)_db.Result["final"];
@@ -1348,12 +1532,12 @@ namespace ClassRoomRegistration
                     sum = sum + (int)_db.Result["score4"];
                     sum = sum + (int)_db.Result["score5"];
                     sum = sum + checkinScore;
-                    xx = xx + 60;
-                    e.Graphics.DrawString(sum.ToString(), font, Brushes.Black, x + 350 + xx, y);
+                    xx = xx + 70;
+                    e.Graphics.DrawString(sum.ToString(), font, Brushes.Black, x + 400 + xx, y);
                     string grade = "";
                     grade = GetGradeFromScore((int)sum);
-                    xx = xx + 70;
-                    e.Graphics.DrawString(grade, font, Brushes.Black, x + 350 + xx, y);
+                    xx = xx + 55;
+                    e.Graphics.DrawString(grade, font, Brushes.Black, x + 400 + xx, y);
                 }
 
                 idxRow++;
@@ -1387,11 +1571,11 @@ namespace ClassRoomRegistration
         void doc_PrintPage3(object sender, PrintPageEventArgs e)
         {
             int x = 20, y = 10;
-            Font fontTitle = new Font("Arial", 18);
+            Font fontTitle = new Font("Arial", 14);
             Font font = new Font("Arial", 14);
 
             // Title
-            e.Graphics.DrawString("คะแนนวิชา " + (string)dgvSubject.CurrentRow.Cells["SubTitle"].Value + " หมู่บรรยาย " + (string)dgvSubject.CurrentRow.Cells["SubLec"].Value + " หมู่ปฏิบัติ " + (string)dgvSubject.CurrentRow.Cells["SubLab"].Value, fontTitle, Brushes.Black, x, y);
+            e.Graphics.DrawString("คะแนนวิชา " + (string)dgvSubject.CurrentRow.Cells["SubTitle"].Value + " หมู่บรรยาย " + (string)dgvSubject.CurrentRow.Cells["SubLec"].Value + " หมู่ปฏิบัติ " + (string)dgvSubject.CurrentRow.Cells["SubLab"].Value + " ปีการศึกษา " + (string)dgvSubject.CurrentRow.Cells["SubYear"].Value + " ภาค " + (string)dgvSubject.CurrentRow.Cells["SubTerm"].Value, fontTitle, Brushes.Black, x, y);
             y = y + 40;
             e.Graphics.DrawLine(Pens.Gray, x, y, x + 1120, y);
 

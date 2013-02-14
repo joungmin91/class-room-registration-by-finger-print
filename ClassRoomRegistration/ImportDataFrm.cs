@@ -40,6 +40,7 @@ namespace ClassRoomRegistration
                 txtYear.Text = _file.Year;
                 txtTerm.Text = _file.Term;
                 _lstStd = _file.Students;
+                txtTechName.Text = "";
                 // Load DataGrid
                 int i = 1;
                 foreach (Student item in _lstStd)
@@ -71,6 +72,14 @@ namespace ClassRoomRegistration
 
         private void btnImport_Click(object sender, EventArgs e)
         {
+            _db.SQLCommand = "SELECT * FROM subject s JOIN teaching t ON s.id = t.sub_id WHERE s.sub_id = '" + txtSubjectID.Text + "' AND s.sub_lec='" + txtLecID.Text + "' AND s.sub_lab='" + txtLabID.Text + "' AND t.year='" + txtYear.Text + "' AND t.term='" + txtTerm.Text + "'";
+            _db.Query();
+            if (_db.Result.HasRows)
+            {
+                MessageBox.Show("ข้อมูลรายวิชานี้มีแล้วในฐานข้อมูล");
+                return;
+            }
+
             // Subject
             // Check the record is already exist.
             _db.SQLCommand = "SELECT * FROM subject WHERE sub_id='" + txtSubjectID.Text + "' AND sub_lec='" + txtLecID.Text + "' AND sub_lab='" + txtLabID.Text + "'";
@@ -78,23 +87,24 @@ namespace ClassRoomRegistration
             if (_db.Result.HasRows)
             {
                 // Update
-                _db.SQLCommand = "UPDATE subject SET ";
-                _db.SQLCommand += "sub_title='" + txtSubjectName.Text + "', ";
-                _db.SQLCommand += "sub_lec='" + txtLecID.Text + "', ";
-                _db.SQLCommand += "sub_lab='" + txtLabID.Text + "' ";
-                _db.SQLCommand += "WHERE sub_id='" + txtSubjectID.Text + "'";
+                //_db.SQLCommand = "UPDATE subject SET ";
+                //_db.SQLCommand += "sub_title='" + txtSubjectName.Text + "', ";
+                //_db.SQLCommand += "sub_lec='" + txtLecID.Text + "', ";
+                //_db.SQLCommand += "sub_lab='" + txtLabID.Text + "' ";
+                //_db.SQLCommand += "WHERE sub_id='" + txtSubjectID.Text + "'";
             }
             else
             {
                 // Insert
                 _db.SQLCommand = "INSERT INTO subject (sub_id, sub_title, sub_lec, sub_lab) VALUES ('" + txtSubjectID.Text + "', '" + txtSubjectName.Text + "', '" + txtLecID.Text + "', '" + txtLabID.Text + "')";
+                _db.Query();
             }
 
-            if (_db.Query() == false)
-            {
-                MessageBox.Show("ไม่สามารถนำเข้าข้อมูลได้", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //if (_db.Query() == false)
+            //{
+            //    MessageBox.Show("ไม่สามารถนำเข้าข้อมูลได้", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
 
             // Get subject id
             _db.SQLCommand = "SELECT id FROM subject WHERE sub_id='" + txtSubjectID.Text + "' AND sub_lec='" + txtLecID.Text + "' AND sub_lab='" + txtLabID.Text + "'";

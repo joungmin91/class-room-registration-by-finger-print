@@ -32,6 +32,7 @@
             this.btnSelect = new System.Windows.Forms.Button();
             this.dgv = new System.Windows.Forms.DataGridView();
             this.dateChkin = new System.Windows.Forms.DateTimePicker();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,11 +62,23 @@
             this.dateChkin.Size = new System.Drawing.Size(200, 20);
             this.dateChkin.TabIndex = 23;
             // 
+            // button1
+            // 
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(226, 214);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 24;
+            this.button1.Text = "ตกลง";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // CheckinDateFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(313, 222);
+            this.ClientSize = new System.Drawing.Size(313, 245);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.dateChkin);
             this.Controls.Add(this.btnSelect);
             this.Controls.Add(this.dgv);
@@ -85,5 +98,6 @@
         private System.Windows.Forms.Button btnSelect;
         private System.Windows.Forms.DataGridView dgv;
         private System.Windows.Forms.DateTimePicker dateChkin;
+        private System.Windows.Forms.Button button1;
     }
 }

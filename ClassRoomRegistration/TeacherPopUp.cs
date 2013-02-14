@@ -36,6 +36,7 @@ namespace ClassRoomRegistration
             dgv.ReadOnly = true;
             dgv.ColumnCount = 3;
             dgv.Columns[0].HeaderText = "รหัส";
+            dgv.Columns[0].Visible = false;
             dgv.Columns[1].HeaderText = "ชื่อ-นามสกุล";
 
             // Load data
@@ -43,6 +44,10 @@ namespace ClassRoomRegistration
             _db.Query();
             while (_db.Result.Read())
             {
+                if (_db.Result["tech_name"].ToString() == "admin")
+                {
+                    continue;
+                }
                 dgv.Rows.Add(_db.Result["tech_id"], _db.Result["tech_name"]);
             }
         }

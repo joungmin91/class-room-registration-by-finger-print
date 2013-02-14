@@ -94,6 +94,7 @@ namespace ClassRoomRegistration
             {
                 txtScoreLab.Visible = false;
                 labScoreLab.Visible = false;
+                labStar.Visible = false;
             }
 
             _ready = true;  // To prevent crash we this flag.
@@ -170,9 +171,9 @@ namespace ClassRoomRegistration
                 }
             }
 
-            if (sum > 100)
+            if (sum != 100)
             {
-                MessageBox.Show("คะแนนรวมเกิน 100 คะแนน", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("คะแนนรวมไม่เท่ากับ 100 คะแนน", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -390,6 +391,50 @@ namespace ClassRoomRegistration
 
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //if (_ready == true)
+            //{
+            //    if (cmbType.Text == "อิงกลุ่ม")
+            //    {
+            //        if (txtA.Text == "" || txtF.Text == "")
+            //        {
+            //            MessageBox.Show("ต้องใส่คะแนนของ A กับ F ก่อน");
+            //            return;
+            //        }
+
+            //        // Find max
+            //        int max = Convert.ToInt16(txtA.Text);
+            //        int min = Convert.ToInt16(txtF.Text);
+            //        int dou = (max - min) / 6;
+
+            //        txtBP.Text = (min + dou + dou + dou + dou + dou + dou).ToString();
+            //        txtB.Text = (min + dou + dou + dou + dou + dou).ToString();
+            //        txtCP.Text = (min + dou + dou + dou + dou).ToString();
+            //        txtC.Text = (min + dou + dou + dou).ToString();
+            //        txtDP.Text = (min + dou + dou).ToString();
+            //        txtD.Text = (min + dou).ToString();
+            //    }
+            //    else
+            //    {
+            //        txtA.Text = "80";
+            //        txtBP.Text = "75";
+            //        txtB.Text = "70";
+            //        txtCP.Text = "65";
+            //        txtC.Text = "60";
+            //        txtDP.Text = "55";
+            //        txtD.Text = "50";
+            //        txtF.Text = "0";
+            //    }
+            //}
+        }
+
+        private void btnCalc_Click_1(object sender, EventArgs e)
+        {
+            _reallyCalcuate = true;
+            btnCalc_Click(null, null);
+        }
+
+        private void btnSetGradeScore_Click(object sender, EventArgs e)
+        {
             if (_ready == true)
             {
                 if (cmbType.Text == "อิงกลุ่ม")
@@ -424,12 +469,6 @@ namespace ClassRoomRegistration
                     txtF.Text = "0";
                 }
             }
-        }
-
-        private void btnCalc_Click_1(object sender, EventArgs e)
-        {
-            _reallyCalcuate = true;
-            btnCalc_Click(null, null);
         }
     }
 }
