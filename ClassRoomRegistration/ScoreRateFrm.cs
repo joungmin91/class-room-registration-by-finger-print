@@ -369,7 +369,21 @@ namespace ClassRoomRegistration
                 // Calculate for D
                 else if (item < Convert.ToInt16(txtDP.Text) && item >= Convert.ToInt16(txtF.Text))
                 {
-                    d++;
+                    if (cmbType.Text == "อิงกลุ่ม")
+                    {
+                        d++;
+                    }
+                    else
+                    {
+                        if (item < Convert.ToInt16(txtDP.Text) && item >= Convert.ToInt16(txtD.Text))
+                        {
+                            d++;
+                        }
+                        else
+                        {
+                            f++;
+                        }
+                    }
                 }
                 // Calculate for F
                 else if (item <= Convert.ToInt16(txtF.Text))

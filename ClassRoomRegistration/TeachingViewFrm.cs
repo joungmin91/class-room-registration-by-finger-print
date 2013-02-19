@@ -794,7 +794,7 @@ namespace ClassRoomRegistration
             db.Connect();
 
             string grade = "";
-            _db.SQLCommand = "SELECT a, bp, b, cp, c, dp, d, f FROM score_rating WHERE tech_id='" + dgvSubject.CurrentRow.Cells["TechID"].Value + "'";
+            _db.SQLCommand = "SELECT a, bp, b, cp, c, dp, d, f, score_type FROM score_rating WHERE tech_id='" + dgvSubject.CurrentRow.Cells["TechID"].Value + "'";
             _db.Query();
             if (_db.Result.Read())
             {
@@ -824,7 +824,21 @@ namespace ClassRoomRegistration
                 }
                 else if (score >= Convert.ToInt16(_db.Result["f"]))
                 {
-                    grade = "D";
+                    if (_db.Result["score_type"].ToString() == "grade")
+                    {
+                        if (score >= Convert.ToInt16(_db.Result["d"]))
+                        {
+                            grade = "D";
+                        }
+                        else
+                        {
+                            grade = "F";
+                        }
+                    }
+                    else
+                    {
+                        grade = "D";
+                    }
                 }
                 else
                 {
