@@ -90,7 +90,7 @@ namespace ClassRoomRegistration
             // Check required field.
             if (txtName.Text == "" || txtUsername.Text == "" || txtPassword.Text == "" || cmbQuestion.Text == "" || txtAnswer.Text == "")
             {
-                MessageBox.Show("ข้อมูลไม่ครบ", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("กรุณากรอกข้อมูลให้ครบถ้วน", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -144,6 +144,24 @@ namespace ClassRoomRegistration
 
         private void cmbBrch_SelectedIndexChanged(object sender, EventArgs e)
         {
+        }
+
+        private void txtUsername_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (ValidateInput.CheckAllowKeyCharNumber((int)e.KeyChar) == false)
+            {
+                MessageBox.Show("ใส่ได้เฉพาะตัวเลขและตัวอักษรเท่านั้น");
+                e.Handled = true;
+            }
+        }
+
+        private void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (ValidateInput.CheckAllowKeyCharNumber((int)e.KeyChar) == false)
+            {
+                MessageBox.Show("ใส่ได้เฉพาะตัวเลขและตัวอักษรเท่านั้น");
+                e.Handled = true;
+            }
         }
     }
 

@@ -76,7 +76,7 @@ namespace ClassRoomRegistration
             _db.Query();
             if (_db.Result.HasRows)
             {
-                MessageBox.Show("ข้อมูลรายวิชานี้มีแล้วในฐานข้อมูล");
+                MessageBox.Show("ข้อมูลรายวิชานี้มีในฐานข้อมูลอยู่แล้ว");
                 return;
             }
 

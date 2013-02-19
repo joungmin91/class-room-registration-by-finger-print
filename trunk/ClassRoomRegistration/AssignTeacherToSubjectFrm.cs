@@ -38,8 +38,8 @@ namespace ClassRoomRegistration
 
             if (_db.Result.HasRows == false)
             {
-                MessageBox.Show("ไม่มีรายการที่ต้องการแสดง", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+               // MessageBox.Show("ไม่มีรายการที่ต้องการแสดง", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //return;
             }
 
             // Insert rows to DGV
@@ -86,8 +86,8 @@ namespace ClassRoomRegistration
 
             if (dgv.CurrentRow == null)
             {
-                MessageBox.Show("ไม่มีรายการที่ต้องการ", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+              MessageBox.Show("ไม่มีรายการที่ต้องการ", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+              return;
             }
 
             _db.SQLCommand = "SELECT * FROM teaching WHERE tech_id='" + TechID + "' AND sub_id='" + dgv.CurrentRow.Cells[0].Value.ToString() + "' AND year='" + dgv.CurrentRow.Cells[5].Value.ToString() + "' AND term='" + dgv.CurrentRow.Cells[6].Value.ToString() + "'";

@@ -38,19 +38,19 @@
             this.label7 = new System.Windows.Forms.Label();
             this.dgv = new System.Windows.Forms.DataGridView();
             this.btnImport = new System.Windows.Forms.Button();
-            this.txtSubjectID = new System.Windows.Forms.TextBox();
-            this.txtSubjectName = new System.Windows.Forms.TextBox();
-            this.txtLecID = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtLabID = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.txtTechName = new System.Windows.Forms.TextBox();
             this.btnSelect = new System.Windows.Forms.Button();
-            this.txtYear = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.txtTerm = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.txtTechName = new System.Windows.Forms.Label();
+            this.txtSubjectID = new System.Windows.Forms.Label();
+            this.txtSubjectName = new System.Windows.Forms.Label();
+            this.txtLecID = new System.Windows.Forms.Label();
+            this.txtLabID = new System.Windows.Forms.Label();
+            this.txtYear = new System.Windows.Forms.Label();
+            this.txtTerm = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,9 +60,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(207, 13);
+            this.label1.Size = new System.Drawing.Size(160, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "1. เลือกข้อมูล .CSV ไฟล?ที่ต้องการจะนำเข้า";
+            this.label1.Text = "1. เลือกไฟล์ข้อมูลที่ต้องการนำเข้า";
             // 
             // txtCSVFile
             // 
@@ -96,11 +96,11 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label3.Location = new System.Drawing.Point(27, 93);
+            this.label3.Location = new System.Drawing.Point(42, 93);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 13);
+            this.label3.Size = new System.Drawing.Size(47, 13);
             this.label3.TabIndex = 4;
-            this.label3.Text = "รหัสวิชา";
+            this.label3.Text = "รหัสวิชา:";
             // 
             // label5
             // 
@@ -108,9 +108,9 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label5.Location = new System.Drawing.Point(243, 93);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(38, 13);
+            this.label5.Size = new System.Drawing.Size(41, 13);
             this.label5.TabIndex = 6;
-            this.label5.Text = "ชื่อวิชา";
+            this.label5.Text = "ชื่อวิชา:";
             // 
             // label7
             // 
@@ -118,9 +118,9 @@
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label7.Location = new System.Drawing.Point(30, 182);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(116, 13);
+            this.label7.Size = new System.Drawing.Size(119, 13);
             this.label7.TabIndex = 8;
-            this.label7.Text = "รายชื่อนิสิตที่ลงทะเบียน";
+            this.label7.Text = "รายชื่อนิสิตที่ลงทะเบียน:";
             // 
             // dgv
             // 
@@ -141,43 +141,15 @@
             this.btnImport.UseVisualStyleBackColor = true;
             this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
-            // txtSubjectID
-            // 
-            this.txtSubjectID.Location = new System.Drawing.Point(92, 90);
-            this.txtSubjectID.Name = "txtSubjectID";
-            this.txtSubjectID.Size = new System.Drawing.Size(127, 20);
-            this.txtSubjectID.TabIndex = 11;
-            // 
-            // txtSubjectName
-            // 
-            this.txtSubjectName.Location = new System.Drawing.Point(287, 90);
-            this.txtSubjectName.Name = "txtSubjectName";
-            this.txtSubjectName.Size = new System.Drawing.Size(403, 20);
-            this.txtSubjectName.TabIndex = 12;
-            // 
-            // txtLecID
-            // 
-            this.txtLecID.Location = new System.Drawing.Point(92, 116);
-            this.txtLecID.Name = "txtLecID";
-            this.txtLecID.Size = new System.Drawing.Size(127, 20);
-            this.txtLecID.TabIndex = 14;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label4.Location = new System.Drawing.Point(27, 119);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 13);
+            this.label4.Size = new System.Drawing.Size(62, 13);
             this.label4.TabIndex = 13;
-            this.label4.Text = "หมู่บรรยาย";
-            // 
-            // txtLabID
-            // 
-            this.txtLabID.Location = new System.Drawing.Point(287, 116);
-            this.txtLabID.Name = "txtLabID";
-            this.txtLabID.Size = new System.Drawing.Size(66, 20);
-            this.txtLabID.TabIndex = 16;
+            this.label4.Text = "หมู่บรรยาย:";
             // 
             // label6
             // 
@@ -185,26 +157,19 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label6.Location = new System.Drawing.Point(232, 119);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(49, 13);
+            this.label6.Size = new System.Drawing.Size(52, 13);
             this.label6.TabIndex = 15;
-            this.label6.Text = "หมู่ปฏิบัติ";
+            this.label6.Text = "หมู่ปฏิบัติ:";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label8.Location = new System.Drawing.Point(30, 151);
+            this.label8.Location = new System.Drawing.Point(42, 151);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(42, 13);
+            this.label8.Size = new System.Drawing.Size(45, 13);
             this.label8.TabIndex = 17;
-            this.label8.Text = "อาจารย์";
-            // 
-            // txtTechName
-            // 
-            this.txtTechName.Location = new System.Drawing.Point(92, 148);
-            this.txtTechName.Name = "txtTechName";
-            this.txtTechName.Size = new System.Drawing.Size(322, 20);
-            this.txtTechName.TabIndex = 18;
+            this.label8.Text = "อาจารย์:";
             // 
             // btnSelect
             // 
@@ -217,29 +182,15 @@
             this.btnSelect.UseVisualStyleBackColor = true;
             this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
-            // txtYear
-            // 
-            this.txtYear.Location = new System.Drawing.Point(436, 116);
-            this.txtYear.Name = "txtYear";
-            this.txtYear.Size = new System.Drawing.Size(91, 20);
-            this.txtYear.TabIndex = 21;
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label9.Location = new System.Drawing.Point(370, 119);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(60, 13);
+            this.label9.Size = new System.Drawing.Size(63, 13);
             this.label9.TabIndex = 20;
-            this.label9.Text = "ปีการศึกษา";
-            // 
-            // txtTerm
-            // 
-            this.txtTerm.Location = new System.Drawing.Point(599, 116);
-            this.txtTerm.Name = "txtTerm";
-            this.txtTerm.Size = new System.Drawing.Size(91, 20);
-            this.txtTerm.TabIndex = 23;
+            this.label9.Text = "ปีการศึกษา:";
             // 
             // label10
             // 
@@ -247,9 +198,79 @@
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label10.Location = new System.Drawing.Point(567, 119);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(26, 13);
+            this.label10.Size = new System.Drawing.Size(29, 13);
             this.label10.TabIndex = 22;
-            this.label10.Text = "ภาค";
+            this.label10.Text = "ภาค:";
+            // 
+            // txtTechName
+            // 
+            this.txtTechName.AutoSize = true;
+            this.txtTechName.BackColor = System.Drawing.SystemColors.Control;
+            this.txtTechName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtTechName.Location = new System.Drawing.Point(98, 151);
+            this.txtTechName.Name = "txtTechName";
+            this.txtTechName.Size = new System.Drawing.Size(0, 13);
+            this.txtTechName.TabIndex = 24;
+            // 
+            // txtSubjectID
+            // 
+            this.txtSubjectID.AutoSize = true;
+            this.txtSubjectID.BackColor = System.Drawing.SystemColors.Control;
+            this.txtSubjectID.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtSubjectID.Location = new System.Drawing.Point(98, 93);
+            this.txtSubjectID.Name = "txtSubjectID";
+            this.txtSubjectID.Size = new System.Drawing.Size(0, 13);
+            this.txtSubjectID.TabIndex = 25;
+            // 
+            // txtSubjectName
+            // 
+            this.txtSubjectName.AutoSize = true;
+            this.txtSubjectName.BackColor = System.Drawing.SystemColors.Control;
+            this.txtSubjectName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtSubjectName.Location = new System.Drawing.Point(303, 93);
+            this.txtSubjectName.Name = "txtSubjectName";
+            this.txtSubjectName.Size = new System.Drawing.Size(0, 13);
+            this.txtSubjectName.TabIndex = 26;
+            // 
+            // txtLecID
+            // 
+            this.txtLecID.AutoSize = true;
+            this.txtLecID.BackColor = System.Drawing.SystemColors.Control;
+            this.txtLecID.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtLecID.Location = new System.Drawing.Point(98, 119);
+            this.txtLecID.Name = "txtLecID";
+            this.txtLecID.Size = new System.Drawing.Size(0, 13);
+            this.txtLecID.TabIndex = 27;
+            // 
+            // txtLabID
+            // 
+            this.txtLabID.AutoSize = true;
+            this.txtLabID.BackColor = System.Drawing.SystemColors.Control;
+            this.txtLabID.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtLabID.Location = new System.Drawing.Point(303, 119);
+            this.txtLabID.Name = "txtLabID";
+            this.txtLabID.Size = new System.Drawing.Size(0, 13);
+            this.txtLabID.TabIndex = 28;
+            // 
+            // txtYear
+            // 
+            this.txtYear.AutoSize = true;
+            this.txtYear.BackColor = System.Drawing.SystemColors.Control;
+            this.txtYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtYear.Location = new System.Drawing.Point(447, 119);
+            this.txtYear.Name = "txtYear";
+            this.txtYear.Size = new System.Drawing.Size(0, 13);
+            this.txtYear.TabIndex = 29;
+            // 
+            // txtTerm
+            // 
+            this.txtTerm.AutoSize = true;
+            this.txtTerm.BackColor = System.Drawing.SystemColors.Control;
+            this.txtTerm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtTerm.Location = new System.Drawing.Point(599, 119);
+            this.txtTerm.Name = "txtTerm";
+            this.txtTerm.Size = new System.Drawing.Size(0, 13);
+            this.txtTerm.TabIndex = 30;
             // 
             // ImportDataFrm
             // 
@@ -257,18 +278,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 492);
             this.Controls.Add(this.txtTerm);
-            this.Controls.Add(this.label10);
             this.Controls.Add(this.txtYear);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.btnSelect);
-            this.Controls.Add(this.txtTechName);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.txtLabID);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.txtLecID);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.txtSubjectName);
             this.Controls.Add(this.txtSubjectID);
+            this.Controls.Add(this.txtTechName);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.btnSelect);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.btnImport);
             this.Controls.Add(this.dgv);
             this.Controls.Add(this.label7);
@@ -300,19 +321,19 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataGridView dgv;
         private System.Windows.Forms.Button btnImport;
-        private System.Windows.Forms.TextBox txtSubjectID;
-        private System.Windows.Forms.TextBox txtSubjectName;
-        private System.Windows.Forms.TextBox txtLecID;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtLabID;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txtTechName;
         private System.Windows.Forms.Button btnSelect;
-        private System.Windows.Forms.TextBox txtYear;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txtTerm;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label txtTechName;
+        private System.Windows.Forms.Label txtSubjectID;
+        private System.Windows.Forms.Label txtSubjectName;
+        private System.Windows.Forms.Label txtLecID;
+        private System.Windows.Forms.Label txtLabID;
+        private System.Windows.Forms.Label txtYear;
+        private System.Windows.Forms.Label txtTerm;
 
     }
 }

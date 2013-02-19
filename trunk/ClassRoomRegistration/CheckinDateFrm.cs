@@ -34,7 +34,7 @@ namespace ClassRoomRegistration
             dgv.MultiSelect = false;
             dgv.ReadOnly = true;
             dgv.ColumnCount = 1;
-            dgv.Columns[0].HeaderText = "วันที่เช็กชื่อ";
+            dgv.Columns[0].HeaderText = "วันที่เช็คชื่อ";
             dgv.Columns[0].Width = 200;
 
             LoadDGV();

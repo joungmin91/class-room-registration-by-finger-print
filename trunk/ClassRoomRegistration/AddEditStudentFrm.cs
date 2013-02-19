@@ -37,7 +37,7 @@ namespace ClassRoomRegistration
             // Check required field.
             if (txtStdID.Text == "" || txtStdName.Text == "" || txtStdMajor.Text == "")
             {
-                MessageBox.Show("ใส่ข้อมูลไม่ครบ", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("กรุณากรอกข้อมูลให้ครบถ้วน", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -89,7 +89,7 @@ namespace ClassRoomRegistration
 
             if (_fpEngine.InitEngine() != 0)
             {
-                MessageBox.Show("ไม่สามารถติดต่ออุปกรณ์สแกนลายนิ้วมือได้", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("ไม่สามารถติดต่อเครื่องสแกนลายนิ้วมือได้", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 _fpDeviceConnect = false;
             }
             else
@@ -142,7 +142,7 @@ namespace ClassRoomRegistration
         {
             if (_fpDeviceConnect == false)
             {
-                MessageBox.Show("อุปกรณ์สแกนลายนิ้วมือไม่ได้ถูกติดตั้ง", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("เครื่องสแกนลายนิ้วมือไม่ได้ถูกติดตั้ง", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

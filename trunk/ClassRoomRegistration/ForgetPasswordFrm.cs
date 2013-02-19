@@ -43,7 +43,7 @@ namespace ClassRoomRegistration
         {
             if (txtAnswer.Text != _answer)
             {
-                MessageBox.Show("คำตอบไม่ถูกต้อง", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("คำตอบของคุณไม่ถูกต้อง", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtAnswer.Text = "";
                 return;
             }

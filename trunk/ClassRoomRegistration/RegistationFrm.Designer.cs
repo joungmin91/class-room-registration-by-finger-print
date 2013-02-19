@@ -123,6 +123,7 @@
             this.btnAdd.Size = new System.Drawing.Size(24, 24);
             this.btnAdd.TabIndex = 26;
             this.btnAdd.TabStop = false;
+            this.btnAdd.Visible = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnEdit
@@ -133,6 +134,7 @@
             this.btnEdit.Size = new System.Drawing.Size(24, 24);
             this.btnEdit.TabIndex = 25;
             this.btnEdit.TabStop = false;
+            this.btnEdit.Visible = false;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // RegistationFrm
