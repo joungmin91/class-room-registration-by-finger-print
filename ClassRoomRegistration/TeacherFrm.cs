@@ -178,14 +178,15 @@ namespace ClassRoomRegistration
                 return;
             }
 
-            string sqlCmd = "SELECT * FROM teacher WHERE ";
+            //string sqlCmd = "SELECT * FROM teacher WHERE ";
+            string sqlCmd = "SELECT t.tech_id, t.tech_name, tb.tech_brch_name, t.tech_username, t.tech_password, t.tech_question, t.tech_answer FROM teacher t JOIN teacher_branch tb ON t.tech_branch = tb.tech_brch_id AND ";
             if (cmbType.Text == "ชื่อ-นามสกุล")
             {
-                sqlCmd += "tech_name like '%" + txtSearch.Text + "%'";
+                sqlCmd += "t.tech_name like '%" + txtSearch.Text + "%'";
             }
             else if (cmbType.Text == "ชื่อผู้ใช้งาน")
             {
-                sqlCmd += "tech_username='" + txtSearch.Text + "'";
+                sqlCmd += "t.tech_username='" + txtSearch.Text + "'";
             }
             else
             {
