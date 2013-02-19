@@ -94,6 +94,12 @@ namespace ClassRoomRegistration
                 return;
             }
 
+            if (txtUsername.Text.Length <= 4 || txtPassword.Text.Length <= 4)
+            {
+                MessageBox.Show("Username และ Password ต้องมากกว่า 4 ตัวอกษรขึ้นไป", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             // Insert the record.
             string mode = "user";
             if (txtName.Text == "admin")
