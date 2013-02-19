@@ -367,7 +367,7 @@ namespace ClassRoomRegistration
                     dp++;
                 }
                 // Calculate for D
-                else if (item < Convert.ToInt16(txtDP.Text) && item >= Convert.ToInt16(txtD.Text))
+                else if (item < Convert.ToInt16(txtDP.Text) && item >= Convert.ToInt16(txtF.Text))
                 {
                     d++;
                 }
