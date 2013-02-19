@@ -45,7 +45,7 @@ namespace ClassRoomRegistration
 
             if (_fpEngine.InitEngine() != 0)
             {
-                MessageBox.Show("ไม่สามารถติดต่ออุปกรณ์สแกนลายนิ้วมือได้", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("ไม่สามารถติดต่อเครื่องสแกนลายนิ้วมือได้", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 _fpEngine.EndInit();
                 _fpEngine.EndEngine();
                 this.Hide();

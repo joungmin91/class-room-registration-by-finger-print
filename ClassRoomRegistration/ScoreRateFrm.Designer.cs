@@ -64,6 +64,10 @@
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.labStar = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
             this.chkForce = new System.Windows.Forms.CheckBox();
             this.txtScoreLab = new System.Windows.Forms.TextBox();
             this.labScoreLab = new System.Windows.Forms.Label();
@@ -95,10 +99,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnCalc = new System.Windows.Forms.Button();
             this.cmbType = new System.Windows.Forms.ComboBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.labStar = new System.Windows.Forms.Label();
             this.btnSetGradeScore = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -454,6 +454,50 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "คะแนน";
             // 
+            // labStar
+            // 
+            this.labStar.AutoSize = true;
+            this.labStar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.labStar.ForeColor = System.Drawing.Color.Red;
+            this.labStar.Location = new System.Drawing.Point(150, 232);
+            this.labStar.Name = "labStar";
+            this.labStar.Size = new System.Drawing.Size(16, 20);
+            this.labStar.TabIndex = 88;
+            this.labStar.Text = "*";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label32.ForeColor = System.Drawing.Color.Red;
+            this.label32.Location = new System.Drawing.Point(150, 76);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(16, 20);
+            this.label32.TabIndex = 88;
+            this.label32.Text = "*";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label31.ForeColor = System.Drawing.Color.Red;
+            this.label31.Location = new System.Drawing.Point(150, 50);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(16, 20);
+            this.label31.TabIndex = 88;
+            this.label31.Text = "*";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label30.ForeColor = System.Drawing.Color.Red;
+            this.label30.Location = new System.Drawing.Point(150, 27);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(16, 20);
+            this.label30.TabIndex = 88;
+            this.label30.Text = "*";
+            // 
             // chkForce
             // 
             this.chkForce.AutoSize = true;
@@ -704,56 +748,12 @@
             this.cmbType.FormattingEnabled = true;
             this.cmbType.Items.AddRange(new object[] {
             "อิงกลุ่ม",
-            "อิงเกรณ์"});
+            "อิงเกณฑ์"});
             this.cmbType.Location = new System.Drawing.Point(12, 294);
             this.cmbType.Name = "cmbType";
             this.cmbType.Size = new System.Drawing.Size(121, 21);
             this.cmbType.TabIndex = 87;
             this.cmbType.SelectedIndexChanged += new System.EventHandler(this.cmbType_SelectedIndexChanged);
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label30.ForeColor = System.Drawing.Color.Red;
-            this.label30.Location = new System.Drawing.Point(150, 27);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(16, 20);
-            this.label30.TabIndex = 88;
-            this.label30.Text = "*";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label31.ForeColor = System.Drawing.Color.Red;
-            this.label31.Location = new System.Drawing.Point(150, 50);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(16, 20);
-            this.label31.TabIndex = 88;
-            this.label31.Text = "*";
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label32.ForeColor = System.Drawing.Color.Red;
-            this.label32.Location = new System.Drawing.Point(150, 76);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(16, 20);
-            this.label32.TabIndex = 88;
-            this.label32.Text = "*";
-            // 
-            // labStar
-            // 
-            this.labStar.AutoSize = true;
-            this.labStar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.labStar.ForeColor = System.Drawing.Color.Red;
-            this.labStar.Location = new System.Drawing.Point(150, 232);
-            this.labStar.Name = "labStar";
-            this.labStar.Size = new System.Drawing.Size(16, 20);
-            this.labStar.TabIndex = 88;
-            this.labStar.Text = "*";
             // 
             // btnSetGradeScore
             // 

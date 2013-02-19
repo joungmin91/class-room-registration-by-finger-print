@@ -111,12 +111,12 @@ namespace ClassRoomRegistration
                 {
                     if (txtScoreLab.Text == "")
                     {
-                        MessageBox.Show("ใส่คะแนนด้วย");
+                        MessageBox.Show("กรุณาใส่คะแนน");
                         return;
                     }
                 }
 
-                MessageBox.Show("ใส่คะแนนด้วย");
+                MessageBox.Show("กรุณาใส่คะแนน");
                 return;
             }
 

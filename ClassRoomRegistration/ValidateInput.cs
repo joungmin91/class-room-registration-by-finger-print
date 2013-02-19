@@ -39,6 +39,11 @@ namespace ClassRoomRegistration
                 return true;
             }
 
+            if (value == 127 || value == 9 || value == 8)
+            {
+                return true;
+            }
+
             return false;
         }
     }

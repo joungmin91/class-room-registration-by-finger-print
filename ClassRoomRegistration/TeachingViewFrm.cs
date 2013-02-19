@@ -621,7 +621,7 @@ namespace ClassRoomRegistration
                 }
 
                 // Insert into DGV Score
-                dgvScore.Rows.Add(order, item.StdID, item.StdName, grade, totalScore, midScore, finalScore, checkinScore, score1, score2, score3, score4, score5, item.RegID, labScore);
+                dgvScore.Rows.Add(order, item.StdID, item.StdName, grade, Math.Round(totalScore, 2), midScore, finalScore, Math.Round(checkinScore, 2), score1, score2, score3, score4, score5, item.RegID, Math.Round(labScore, 2));
                 _lstPoint.Add(totalScore);
             }
         }
@@ -923,8 +923,8 @@ namespace ClassRoomRegistration
 
             if (_db.Result.HasRows == false)
             {
-                MessageBox.Show("ไม่มีรายการที่ต้องการแสดง", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                //MessageBox.Show("ไม่มีรายการที่ต้องการแสดง", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //return;
             }
 
             // Insert rows to DGV
@@ -1402,7 +1402,7 @@ namespace ClassRoomRegistration
                 }
                 else
                 {
-                    header_score1 = "เก็บ 1";
+                    header_score1 = "";
                 }
 
                 if (_db.Result["score2_title"].ToString() != "")
@@ -1411,7 +1411,7 @@ namespace ClassRoomRegistration
                 }
                 else
                 {
-                    header_score2 = "เก็บ 2";
+                    header_score2 = "";
                 }
 
                 if (_db.Result["score3_title"].ToString() != "")
@@ -1420,7 +1420,7 @@ namespace ClassRoomRegistration
                 }
                 else
                 {
-                    header_score3 = "เก็บ 3";
+                    header_score3 = "";
                 }
 
                 if (_db.Result["score4_title"].ToString() != "")
@@ -1429,7 +1429,7 @@ namespace ClassRoomRegistration
                 }
                 else
                 {
-                    header_score4 = "เก็บ 4";
+                    header_score4 = "";
                 }
 
                 if (_db.Result["score5_title"].ToString() != "")
@@ -1438,16 +1438,16 @@ namespace ClassRoomRegistration
                 }
                 else
                 {
-                    header_score5 = "เก็บ 5";
+                    header_score5 = "";
                 }
             }
             else
             {
-                header_score1 = "เก็บ 1";
-                header_score2 = "เก็บ 2";
-                header_score3 = "เก็บ 3";
-                header_score4 = "เก็บ 4";
-                header_score5 = "เก็บ 5";
+                header_score1 = "";
+                header_score2 = "";
+                header_score3 = "";
+                header_score4 = "";
+                header_score5 = "";
             }
 
             // Header
@@ -1499,30 +1499,45 @@ namespace ClassRoomRegistration
                     
                     xx = xx + 70;
                     double checkinScore = GetCheckinScore(Convert.ToString(dgvSubject.CurrentRow.Cells["TechID"].Value), reg_id);
-                    e.Graphics.DrawString(checkinScore.ToString(), font, Brushes.Black, x + 400 + xx, y);
+                    e.Graphics.DrawString(Math.Round(checkinScore, 2).ToString(), font, Brushes.Black, x + 400 + xx, y);
 
                     xx = xx + 70;
                     if (IsLecMode())
                     {
                         double labScore = GetLabScore(dgvStudent.Rows[idxRow].Cells[1].Value.ToString());
-                        e.Graphics.DrawString(labScore.ToString(), font, Brushes.Black, x + 400 + xx, y);
+                        e.Graphics.DrawString(Math.Round(labScore, 2).ToString(), font, Brushes.Black, x + 400 + xx, y);
                     }
                     
                     xx = xx + 70;
-                    e.Graphics.DrawString(_db.Result["score1"].ToString(), font, Brushes.Black, x + 400 + xx, y);
-                    
+                    if (header_score1 != "")
+                    {
+                        e.Graphics.DrawString(_db.Result["score1"].ToString(), font, Brushes.Black, x + 400 + xx, y);
+                    }
+
                     xx = xx + 70;
-                    e.Graphics.DrawString(_db.Result["score2"].ToString(), font, Brushes.Black, x + 400 + xx, y);
-                    
+                    if (header_score2 != "")
+                    {
+                        e.Graphics.DrawString(_db.Result["score2"].ToString(), font, Brushes.Black, x + 400 + xx, y);
+                    }
+
                     xx = xx + 70;
-                    e.Graphics.DrawString(_db.Result["score3"].ToString(), font, Brushes.Black, x + 400 + xx, y);
-                    
+                    if (header_score3 != "")
+                    {
+                        e.Graphics.DrawString(_db.Result["score3"].ToString(), font, Brushes.Black, x + 400 + xx, y);
+                    }
+
                     xx = xx + 70;
-                    e.Graphics.DrawString(_db.Result["score4"].ToString(), font, Brushes.Black, x + 400 + xx, y);
-                    
+                    if (header_score4 != "")
+                    {
+                        e.Graphics.DrawString(_db.Result["score4"].ToString(), font, Brushes.Black, x + 400 + xx, y);
+                    }
+
                     xx = xx + 70;
-                    e.Graphics.DrawString(_db.Result["score5"].ToString(), font, Brushes.Black, x + 400 + xx, y);
-                    
+                    if (header_score5 != "")
+                    {
+                        e.Graphics.DrawString(_db.Result["score5"].ToString(), font, Brushes.Black, x + 400 + xx, y);
+                    }
+
                     double sum = 0;
                     sum = sum + (int)_db.Result["mid"];
                     sum = sum + (int)_db.Result["final"];
@@ -1533,7 +1548,7 @@ namespace ClassRoomRegistration
                     sum = sum + (int)_db.Result["score5"];
                     sum = sum + checkinScore;
                     xx = xx + 70;
-                    e.Graphics.DrawString(sum.ToString(), font, Brushes.Black, x + 400 + xx, y);
+                    e.Graphics.DrawString(Math.Round(sum, 2).ToString(), font, Brushes.Black, x + 400 + xx, y);
                     string grade = "";
                     grade = GetGradeFromScore((int)sum);
                     xx = xx + 55;
@@ -1700,6 +1715,15 @@ namespace ClassRoomRegistration
             if (tabCtrlRegis.SelectedIndex == 1)
             {
                 dgvSubject_SelectionChanged(null, null);
+            }
+        }
+
+        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (ValidateInput.CheckAllowKeyNumber((int)e.KeyChar) == false)
+            {
+                MessageBox.Show("ใส่ได้แต่ตัวเลขเท่านั่น");
+                e.Handled = true;
             }
         }
     }

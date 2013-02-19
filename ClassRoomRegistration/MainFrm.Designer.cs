@@ -151,6 +151,7 @@
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(64, 36);
             this.toolStripButton1.Text = "นิสิต";
+            this.toolStripButton1.Visible = false;
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStripButton2
@@ -246,7 +247,7 @@
             this.MainMenuStrip = this.mainMenu;
             this.Name = "MainFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ระบบลงทะเบียนเข้าเรียนนิสิต";
+            this.Text = "ระบบตรวจสอบรายชื่อและจัดการคะแนนนิสิตด้วยการสแกนลายนิ้วมือ";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFrm_FormClosed);
             this.Load += new System.EventHandler(this.MainFrm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainFrm_KeyDown);

@@ -27,7 +27,7 @@ namespace ClassRoomRegistration
         {
             if (txtServer.Text == "" || txtUsername.Text == "" || txtPassword.Text == "" || txtDBName.Text == "")
             {
-                MessageBox.Show("ใส่ข้อมูลไม่ครบ", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("กรุณากรอกข้อมูลให้ครบถ้วน", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

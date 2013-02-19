@@ -90,7 +90,7 @@ namespace ClassRoomRegistration
         {
             if (txtScore.Text == "")
             {
-                MessageBox.Show("ไม่ได้ใส่คะแนน");
+                MessageBox.Show("กรุณาใส่คะแนน");
                 return;
             }
 
@@ -104,7 +104,7 @@ namespace ClassRoomRegistration
         {
             if (ValidateInput.CheckAllowKeyNumber((int)e.KeyChar) == false)
             {
-                MessageBox.Show("ใส่ได้แต่ตัวเลขเท่านั่น");
+                MessageBox.Show("ใส่ได้เฉพาะตัวเลขและตัวอักษรเท่านั้น");
                 e.Handled = true;
             }
         }

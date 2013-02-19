@@ -62,8 +62,8 @@ namespace ClassRoomRegistration
 
             if (_db.Result.HasRows == false)
             {
-                MessageBox.Show("ไม่มีรายการที่ต้องการแสดง", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                //MessageBox.Show("ไม่มีรายการที่ต้องการแสดง", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //return;
             }
 
             // Insert rows to DGV
@@ -87,7 +87,7 @@ namespace ClassRoomRegistration
         {
             if (txtSearch.Text == "")
             {
-                MessageBox.Show("ใส่ข้อมูลไม่ครบ", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("กรุณากรอกข้อมูลให้ครบถ้วน", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -137,7 +137,7 @@ namespace ClassRoomRegistration
                 return;
             }
 
-            if (MessageBox.Show("ต้องการลบข้อมูลหรือมั้ย", "", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+            if (MessageBox.Show("ต้องการลบข้อมูลหรือไม่", "", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
             {
                 return;
             }

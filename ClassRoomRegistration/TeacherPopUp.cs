@@ -14,7 +14,7 @@ namespace ClassRoomRegistration
     {
         public Form Parent { get; set; }
         private MySQLDatabase _db = null;
-        private string _sqlShowAll = "SELECT tech_id, tech_name FROM teacher";
+        private string _sqlShowAll = "SELECT t.tech_id, t.tech_name, t2.tech_brch_name FROM teacher t JOIN teacher_branch t2 ON t.tech_branch=t2.tech_brch_id";
         public int TechID { get; set; }
         public string TechName { get; set; }
 
@@ -38,6 +38,9 @@ namespace ClassRoomRegistration
             dgv.Columns[0].HeaderText = "รหัส";
             dgv.Columns[0].Visible = false;
             dgv.Columns[1].HeaderText = "ชื่อ-นามสกุล";
+            dgv.Columns[1].Width = 125;
+            dgv.Columns[2].HeaderText = "คณะ";
+            dgv.Columns[2].Width = 200;
 
             // Load data
             _db.SQLCommand = _sqlShowAll;
@@ -48,7 +51,7 @@ namespace ClassRoomRegistration
                 {
                     continue;
                 }
-                dgv.Rows.Add(_db.Result["tech_id"], _db.Result["tech_name"]);
+                dgv.Rows.Add(_db.Result["tech_id"], _db.Result["tech_name"], _db.Result["tech_brch_name"]);
             }
         }
 

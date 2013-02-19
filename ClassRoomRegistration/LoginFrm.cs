@@ -50,7 +50,7 @@ namespace ClassRoomRegistration
             // If no any rows return back, so login is failed.
             if (_db.Result.HasRows == false)
             {
-                MessageBox.Show("ล๊อกอินผิดพลาด", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtUsername.Text = "";
                 txtPassword.Text = "";
                 txtUsername.Focus();
@@ -86,7 +86,7 @@ namespace ClassRoomRegistration
         {
             if (ValidateInput.CheckAllowKeyCharNumber((int)e.KeyChar) == false)
             {
-                MessageBox.Show("ใส่ได้แต่ตัวเลขและตัวอักษรเท่านั่น");
+                MessageBox.Show("ใส่ได้เฉพาะตัวเลขและตัวอักษรเท่านั้น");
                 e.Handled = true;
             }
         }
@@ -95,7 +95,7 @@ namespace ClassRoomRegistration
         {
             if (ValidateInput.CheckAllowKeyCharNumber((int)e.KeyChar) == false)
             {
-                MessageBox.Show("ใส่ได้แต่ตัวเลขและตัวอักษรเท่านั่น");
+                MessageBox.Show("ใส่ได้เฉพาะตัวเลขและตัวอักษรเท่านั้น");
                 e.Handled = true;
             }
         }

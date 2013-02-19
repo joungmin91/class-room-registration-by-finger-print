@@ -67,8 +67,8 @@ namespace ClassRoomRegistration
         {
             if (dgv.CurrentRow == null)
             {
-                MessageBox.Show("ไม่มีรายการที่ต้องแสดง", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                //MessageBox.Show("ไม่มีรายการที่ต้องแสดง", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //return;
             }
 
             AssignTeacherToSubjectFrm frm = new AssignTeacherToSubjectFrm();
@@ -90,8 +90,8 @@ namespace ClassRoomRegistration
 
             if (_db.Result.HasRows == false)
             {
-                MessageBox.Show("ไม่มีรายการที่ต้องแสดง", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                //MessageBox.Show("ไม่มีรายการที่ต้องแสดง", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //return;
             }
 
             // Insert rows to DGV
@@ -129,7 +129,7 @@ namespace ClassRoomRegistration
                 return;
             }
 
-            if (MessageBox.Show("ต้องการลบข้อมูลหรือมั้ย", "", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+            if (MessageBox.Show("ต้องการลบข้อมูลหรือไม่", "", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
             {
                 return;
             }

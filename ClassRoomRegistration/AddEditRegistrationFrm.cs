@@ -134,7 +134,7 @@ namespace ClassRoomRegistration
             // Check required field.
             if (txtSubID.Text == "" || cmbSubName.Text == "" || txtStdID.Text == "" || txtStdName.Text == "" || cmbYear.Text == "")
             {
-                MessageBox.Show("ข้อมูลไม่ครบ", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("กรุณากรอกข้อมูลให้ครบถ้วน", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
