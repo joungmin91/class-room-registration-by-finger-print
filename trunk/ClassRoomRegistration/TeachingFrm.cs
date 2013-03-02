@@ -34,6 +34,7 @@ namespace ClassRoomRegistration
             dgv.ReadOnly = true;
             dgv.ColumnCount = 9;
             dgv.Columns[0].HeaderText = "รหัสวิชา";
+            dgv.Columns[0].Width = 70;
             dgv.Columns[1].HeaderText = "ชื่อวิชา";
             dgv.Columns[1].Width = 250;
             dgv.Columns[2].HeaderText = "ทฤษฏี";
@@ -41,8 +42,9 @@ namespace ClassRoomRegistration
             dgv.Columns[3].HeaderText = "ปฏิบัติ";
             dgv.Columns[3].Width = 50;
             dgv.Columns[4].HeaderText = "ชื่ออาจารย์";
-            dgv.Columns[4].Width = 300;
+            dgv.Columns[4].Width = 170;
             dgv.Columns[5].HeaderText = "ปีการศึกษา";
+            dgv.Columns[5].Width = 90;
             dgv.Columns[6].HeaderText = "รหัสอาจารย์";
             dgv.Columns[6].Visible = false;
             dgv.Columns[7].HeaderText = "ภาค";

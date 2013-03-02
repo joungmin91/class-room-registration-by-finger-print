@@ -73,13 +73,14 @@
             // 
             // btnBrowse
             // 
+            this.btnBrowse.BackColor = System.Drawing.SystemColors.Window;
             this.btnBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBrowse.Location = new System.Drawing.Point(697, 23);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(75, 23);
             this.btnBrowse.TabIndex = 2;
             this.btnBrowse.Text = "ค้นหา";
-            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.UseVisualStyleBackColor = false;
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
             // label2
@@ -116,7 +117,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label7.Location = new System.Drawing.Point(30, 182);
+            this.label7.Location = new System.Drawing.Point(27, 182);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(119, 13);
             this.label7.TabIndex = 8;
@@ -125,9 +126,9 @@
             // dgv
             // 
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv.Location = new System.Drawing.Point(33, 198);
+            this.dgv.Location = new System.Drawing.Point(30, 198);
             this.dgv.Name = "dgv";
-            this.dgv.Size = new System.Drawing.Size(739, 254);
+            this.dgv.Size = new System.Drawing.Size(742, 254);
             this.dgv.TabIndex = 9;
             // 
             // btnImport
@@ -173,13 +174,14 @@
             // 
             // btnSelect
             // 
+            this.btnSelect.BackColor = System.Drawing.SystemColors.Window;
             this.btnSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSelect.Location = new System.Drawing.Point(420, 146);
+            this.btnSelect.Location = new System.Drawing.Point(372, 146);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.Size = new System.Drawing.Size(75, 23);
             this.btnSelect.TabIndex = 19;
             this.btnSelect.Text = "เลือก";
-            this.btnSelect.UseVisualStyleBackColor = true;
+            this.btnSelect.UseVisualStyleBackColor = false;
             this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
             // label9

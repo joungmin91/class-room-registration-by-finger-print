@@ -46,22 +46,22 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(20, 13);
+            this.label1.Size = new System.Drawing.Size(26, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "ชื่อ";
+            this.label1.Text = "ชื่อ :";
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(76, 6);
+            this.txtName.Location = new System.Drawing.Point(76, 14);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(226, 20);
             this.txtName.TabIndex = 1;
             // 
             // txtUsername
             // 
-            this.txtUsername.Location = new System.Drawing.Point(76, 32);
+            this.txtUsername.Location = new System.Drawing.Point(76, 40);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(226, 20);
             this.txtUsername.TabIndex = 3;
@@ -69,15 +69,15 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 35);
+            this.label2.Location = new System.Drawing.Point(12, 43);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 13);
+            this.label2.Size = new System.Drawing.Size(64, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "ชื่อผู้ใช้งาน";
+            this.label2.Text = "ชื่อผู้ใช้งาน :";
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(76, 58);
+            this.txtPassword.Location = new System.Drawing.Point(76, 66);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(226, 20);
             this.txtPassword.TabIndex = 5;
@@ -85,24 +85,24 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 61);
+            this.label3.Location = new System.Drawing.Point(12, 69);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 13);
+            this.label3.Size = new System.Drawing.Size(52, 13);
             this.label3.TabIndex = 4;
-            this.label3.Text = "รหัสผ่าน";
+            this.label3.Text = "รหัสผ่าน :";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 106);
+            this.label4.Location = new System.Drawing.Point(12, 114);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(38, 13);
+            this.label4.Size = new System.Drawing.Size(44, 13);
             this.label4.TabIndex = 6;
-            this.label4.Text = "คำถาม";
+            this.label4.Text = "คำถาม :";
             // 
             // txtAnswer
             // 
-            this.txtAnswer.Location = new System.Drawing.Point(76, 129);
+            this.txtAnswer.Location = new System.Drawing.Point(76, 137);
             this.txtAnswer.Name = "txtAnswer";
             this.txtAnswer.Size = new System.Drawing.Size(226, 20);
             this.txtAnswer.TabIndex = 9;
@@ -110,16 +110,16 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 132);
+            this.label5.Location = new System.Drawing.Point(12, 140);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(39, 13);
+            this.label5.Size = new System.Drawing.Size(45, 13);
             this.label5.TabIndex = 8;
-            this.label5.Text = "คำตอบ";
+            this.label5.Text = "คำตอบ :";
             // 
             // btnCancel
             // 
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Location = new System.Drawing.Point(227, 168);
+            this.btnCancel.Location = new System.Drawing.Point(227, 176);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 15;
@@ -130,7 +130,7 @@
             // btnOK
             // 
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOK.Location = new System.Drawing.Point(146, 168);
+            this.btnOK.Location = new System.Drawing.Point(146, 176);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 14;
@@ -145,7 +145,7 @@
             "ชื่อเล่นชื่ออะไร",
             "ชอบสีอะไร",
             "งานอดิเรกทำอะไร"});
-            this.cmbQuestion.Location = new System.Drawing.Point(76, 103);
+            this.cmbQuestion.Location = new System.Drawing.Point(76, 111);
             this.cmbQuestion.Name = "cmbQuestion";
             this.cmbQuestion.Size = new System.Drawing.Size(226, 21);
             this.cmbQuestion.TabIndex = 37;
@@ -154,7 +154,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(316, 205);
+            this.ClientSize = new System.Drawing.Size(316, 213);
             this.Controls.Add(this.cmbQuestion);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);

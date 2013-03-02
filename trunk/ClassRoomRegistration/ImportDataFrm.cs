@@ -84,6 +84,9 @@ namespace ClassRoomRegistration
             // Check the record is already exist.
             _db.SQLCommand = "SELECT * FROM subject WHERE sub_id='" + txtSubjectID.Text + "' AND sub_lec='" + txtLecID.Text + "' AND sub_lab='" + txtLabID.Text + "'";
             _db.Query();
+
+
+
             if (_db.Result.HasRows)
             {
                 // Update
@@ -160,6 +163,12 @@ namespace ClassRoomRegistration
                 return;
             }
 
+            //if (txtTechName.Text == "")
+            //{
+            //    MessageBox.Show("กรุณาเลือกอาจารย์ผู้สอน", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
+
             MessageBox.Show("นำเข้าข้อมูลเสร็จเรียบร้อย", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -171,6 +180,13 @@ namespace ClassRoomRegistration
             _techID = frm.TechID;
             txtTechName.Text = frm.TechName;
             frm.Close();
+
+            //if (txtTechName.Text == "")
+            //{
+            //    MessageBox.Show("กรุณาเลือกอาจารย์ผู้สอน", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
+
         }
     }
 }

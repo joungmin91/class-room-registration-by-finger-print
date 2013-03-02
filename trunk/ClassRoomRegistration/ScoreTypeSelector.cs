@@ -38,7 +38,7 @@ namespace ClassRoomRegistration
             {
                 cmbType.Items.Add("กลางภาค");
                 cmbType.Items.Add("ปลายภาค");
-                
+
                 if (_db.Result["score1_title"].ToString() != "")
                 {
                     cmbType.Items.Add(_db.Result["score1_title"].ToString());

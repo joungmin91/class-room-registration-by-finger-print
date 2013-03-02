@@ -98,13 +98,13 @@ namespace ClassRoomRegistration
                 EnableMenu();
                 AdminLogin();
 
-                AdminScreenFrm frm = new AdminScreenFrm();
+            /*    AdminScreenFrm frm = new AdminScreenFrm();
                 frm.MdiParent = this;
                 frm.Server = _db.DBServer;
                 frm.Username = _db.DBUser;
                 frm.DBName = _db.DBName;
                 frm.Show();
-                _lstFrm.Add(frm);
+                _lstFrm.Add(frm);   */
             }
             else
             {
@@ -112,13 +112,13 @@ namespace ClassRoomRegistration
                 EnableMenu();
                 TeacherLogin();
 
-                TeacherScreenFrm frm = new TeacherScreenFrm();
+            /*    TeacherScreenFrm frm = new TeacherScreenFrm();
                 frm.MdiParent = this;
                 frm.Server = _db.DBServer;
                 frm.Username = _db.DBUser;
                 frm.DBName = _db.DBName;
                 frm.Show();
-                _lstFrm.Add(frm);
+                _lstFrm.Add(frm);      */
             }
         }
 
@@ -146,10 +146,6 @@ namespace ClassRoomRegistration
             Logout();
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
 
         private void ShowTeacherFrm()
         {
@@ -243,14 +239,9 @@ namespace ClassRoomRegistration
 
         private void toolStripButtonCheckin_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("รอการพัฒนา");
+            //MessageBox.Show("");
         }
 
-        private void configToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ConfigFrm frm = new ConfigFrm();
-            frm.ShowDialog();
-        }
 
         private void toolStripButtonRegister_Click(object sender, EventArgs e)
         {

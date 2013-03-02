@@ -63,13 +63,13 @@ namespace ClassRoomRegistration
             dgvSubject.Columns[2].Width = 250;
             dgvSubject.Columns[2].Name = "SubTitle";
             dgvSubject.Columns[3].HeaderText = "หมู่บรรยาย";
-            dgvSubject.Columns[3].Width = 100;
+            dgvSubject.Columns[3].Width = 85;
             dgvSubject.Columns[3].Name = "SubLec";
             dgvSubject.Columns[4].HeaderText = "หมู่ปฏิบัติ";
-            dgvSubject.Columns[4].Width = 100;
+            dgvSubject.Columns[4].Width =85;
             dgvSubject.Columns[4].Name = "SubLab";
             dgvSubject.Columns[5].HeaderText = "ปีการศึกษา";
-            dgvSubject.Columns[5].Width = 100;
+            dgvSubject.Columns[5].Width = 90;
             dgvSubject.Columns[5].Name = "SubYear";
             dgvSubject.Columns[6].HeaderText = "ภาคศึกษา";
             dgvSubject.Columns[6].Width = 100;
@@ -91,15 +91,15 @@ namespace ClassRoomRegistration
             dgvScore.EditMode = DataGridViewEditMode.EditOnEnter;
             dgvScore.ColumnCount = 15;
             dgvScore.Columns[0].HeaderText = "ลำดับ";
-            dgvScore.Columns[0].Width = 40;
+            dgvScore.Columns[0].Width = 35;
             dgvScore.Columns[0].ReadOnly = true;
             dgvScore.Columns[1].HeaderText = "รหัสนิสิต";
             dgvScore.Columns[1].Name = "StdID";
-            dgvScore.Columns[1].Width = 80;
+            dgvScore.Columns[1].Width = 90;
             dgvScore.Columns[1].ReadOnly = true;
             dgvScore.Columns[1].Frozen = true;
             dgvScore.Columns[2].HeaderText = "ชื่อนิสิต";
-            dgvScore.Columns[2].Width = 160;
+            dgvScore.Columns[2].Width = 150;
             dgvScore.Columns[2].ReadOnly = true;
             dgvScore.Columns[2].Frozen = true;
             dgvScore.Columns[3].HeaderText = "เกรด";
@@ -500,13 +500,13 @@ namespace ClassRoomRegistration
                     continue;
                 }
 
-                int midScore = (int)_db.Result["mid"];
-                int finalScore = (int)_db.Result["final"];
-                int score1 = (int)_db.Result["score1"];
-                int score2 = (int)_db.Result["score2"];
-                int score3 = (int)_db.Result["score3"];
-                int score4 = (int)_db.Result["score4"];
-                int score5 = (int)_db.Result["score5"];
+                double midScore = Convert.ToDouble(_db.Result["mid"]);
+                double finalScore = Convert.ToDouble(_db.Result["final"]);
+                double score1 = Convert.ToDouble(_db.Result["score1"]);
+                double score2 = Convert.ToDouble(_db.Result["score2"]);
+                double score3 = Convert.ToDouble(_db.Result["score3"]);
+                double score4 = Convert.ToDouble(_db.Result["score4"]);
+                double score5 = Convert.ToDouble(_db.Result["score5"]);
 
                 // Calculate checkin's score, the fomular is (15/10) = (20/x)
                 double checkinScore = 0;   // This will calculate later.
@@ -608,7 +608,7 @@ namespace ClassRoomRegistration
 
                 // Convert raw score to A - F grade
                 string grade = "";
-                grade = GetGradeFromScore((int)totalScore);
+                grade = GetGradeFromScore(totalScore);
 
                 // If Std's checkin is not over 80% then force F grade.
                 if (IsForce80Checkin(dgvSubject.CurrentRow.Cells["TechID"].Value.ToString()))
@@ -784,7 +784,7 @@ namespace ClassRoomRegistration
             return true;
         }
 
-        private string GetGradeFromScore(int score)
+        private string GetGradeFromScore(double score)
         {
             MySQLDatabase db = new MySQLDatabase();
             db.DBServer = _db.DBServer;
@@ -1183,15 +1183,15 @@ namespace ClassRoomRegistration
         private void dgvScore_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             // Check each score must not over the setting value in score_rating
-            int value = Convert.ToInt16(dgvScore.CurrentCell.Value);
+            double value = Convert.ToDouble(dgvScore.CurrentCell.Value);
             _db.SQLCommand = "SELECT * FROM score_rating";
             _db.Query();
             if (_db.Result.Read() == true)
             {
-                int scoreSetting = 0;
+                double scoreSetting = 0;
                 if (e.ColumnIndex == 5) // Mid
                 {
-                    scoreSetting = (int)_db.Result["mid"];
+                    scoreSetting = Convert.ToDouble(_db.Result["mid"]);
                     if (value > scoreSetting)
                     {
                         MessageBox.Show("ไม่สามารถใส่คะแนนเกิน " + scoreSetting.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1201,7 +1201,7 @@ namespace ClassRoomRegistration
                 }
                 else if (e.ColumnIndex == 6) // final
                 {
-                    scoreSetting = (int)_db.Result["final"];
+                    scoreSetting = Convert.ToDouble(_db.Result["final"]);
                     if (value > scoreSetting)
                     {
                         MessageBox.Show("ไม่สามารถใส่คะแนนเกิน " + scoreSetting.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1211,54 +1211,54 @@ namespace ClassRoomRegistration
                 }
                 else if (e.ColumnIndex == 8) // score1
                 {
-                    scoreSetting = (int)_db.Result["score1"];
-                    if (value > scoreSetting)
-                    {
-                        MessageBox.Show("ไม่สามารถใส่คะแนนเกิน " + scoreSetting.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        dgvScore.CurrentCell.Value = 0;
-                        dgvScore.CurrentCell.Value = 0;
-                        return;
-                    }
+                    scoreSetting = Convert.ToDouble(_db.Result["score1"]);
+                   //if (value > scoreSetting)
+                   // {
+                   //     MessageBox.Show("ไม่สามารถใส่คะแนนเกิน " + scoreSetting.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                   //     dgvScore.CurrentCell.Value = 0;
+                   //     dgvScore.CurrentCell.Value = 0;
+                   //     return;
+                   // }
                 }
                 else if (e.ColumnIndex == 9) // score2
                 {
-                    scoreSetting = (int)_db.Result["score2"];
-                    if (value > scoreSetting)
-                    {
-                        MessageBox.Show("ไม่สามารถใส่คะแนนเกิน " + scoreSetting.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        dgvScore.CurrentCell.Value = 0;
-                        return;
-                    }
+                    scoreSetting = Convert.ToDouble(_db.Result["score2"]);
+                   //if (value > scoreSetting)
+                   // {
+                   //     MessageBox.Show("ไม่สามารถใส่คะแนนเกิน " + scoreSetting.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                   //     dgvScore.CurrentCell.Value = 0;
+                   //     return;
+                   // }
                 }
                 else if (e.ColumnIndex == 10) // score3
                 {
-                    scoreSetting = (int)_db.Result["score3"];
-                    if (value > scoreSetting)
-                    {
-                        MessageBox.Show("ไม่สามารถใส่คะแนนเกิน " + scoreSetting.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        dgvScore.CurrentCell.Value = 0;
-                        return;
-                    }
+                    scoreSetting = Convert.ToDouble(_db.Result["score3"]);
+                    //if (value > scoreSetting)
+                    //{
+                    //    MessageBox.Show("ไม่สามารถใส่คะแนนเกิน " + scoreSetting.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //    dgvScore.CurrentCell.Value = 0;
+                    //    return;
+                    //}
                 }
                 else if (e.ColumnIndex == 11) // score4
                 {
-                    scoreSetting = (int)_db.Result["score4"];
-                    if (value > scoreSetting)
-                    {
-                        MessageBox.Show("ไม่สามารถใส่คะแนนเกิน " + scoreSetting.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        dgvScore.CurrentCell.Value = 0;
-                        return;
-                    }
+                    scoreSetting = Convert.ToDouble(_db.Result["score4"]);
+                    //if (value > scoreSetting)
+                    //{
+                    //    MessageBox.Show("ไม่สามารถใส่คะแนนเกิน " + scoreSetting.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //    dgvScore.CurrentCell.Value = 0;
+                    //    return;
+                    //}
                 }
                 else if (e.ColumnIndex == 12) // score5
                 {
-                    scoreSetting = (int)_db.Result["score5"];
-                    if (value > scoreSetting)
-                    {
-                        MessageBox.Show("ไม่สามารถใส่คะแนนเกิน " + scoreSetting.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        dgvScore.CurrentCell.Value = 0;
-                        return;
-                    }
+                    scoreSetting = Convert.ToDouble(_db.Result["score5"]);
+                    //if (value > scoreSetting)
+                    //{
+                    //    MessageBox.Show("ไม่สามารถใส่คะแนนเกิน " + scoreSetting.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //    dgvScore.CurrentCell.Value = 0;
+                    //    return;
+                    //}
                 }
             }
         }
@@ -1394,7 +1394,7 @@ namespace ClassRoomRegistration
             Font font = new Font("Arial", 14);
 
             // Title
-            e.Graphics.DrawString("คะแนนวิชา " + (string)dgvSubject.CurrentRow.Cells["SubTitle"].Value + " หมู่บรรยาย " + (string)dgvSubject.CurrentRow.Cells["SubLec"].Value + " หมู่ปฏิบัติ " + (string)dgvSubject.CurrentRow.Cells["SubLab"].Value + " ปีการศึกษา " + (string)dgvSubject.CurrentRow.Cells["SubYear"].Value + " ภาค " + (string)dgvSubject.CurrentRow.Cells["SubTerm"].Value, fontTitle, Brushes.Black, x, y);
+            e.Graphics.DrawString("คะแนนวิชา " + (string)dgvSubject.CurrentRow.Cells["SubTitle"].Value + " หมู่บรรยาย " + (string)dgvSubject.CurrentRow.Cells["SubLec"].Value + " หมู่ปฏิบัติ " + (string)dgvSubject.CurrentRow.Cells["SubLab"].Value + " ปีการศึกษา " + (string)dgvSubject.CurrentRow.Cells["SubYear"].Value + "  " + (string)dgvSubject.CurrentRow.Cells["SubTerm"].Value, fontTitle, Brushes.Black, x, y);
             y = y + 40;
             e.Graphics.DrawLine(Pens.Gray, x, y, x + 1120, y);
 
@@ -1553,18 +1553,18 @@ namespace ClassRoomRegistration
                     }
 
                     double sum = 0;
-                    sum = sum + (int)_db.Result["mid"];
-                    sum = sum + (int)_db.Result["final"];
-                    sum = sum + (int)_db.Result["score1"];
-                    sum = sum + (int)_db.Result["score2"];
-                    sum = sum + (int)_db.Result["score3"];
-                    sum = sum + (int)_db.Result["score4"];
-                    sum = sum + (int)_db.Result["score5"];
+                    sum = sum + Convert.ToDouble(_db.Result["mid"]);
+                    sum = sum + Convert.ToDouble(_db.Result["final"]);
+                    sum = sum + Convert.ToDouble(_db.Result["score1"]);
+                    sum = sum + Convert.ToDouble(_db.Result["score2"]);
+                    sum = sum + Convert.ToDouble(_db.Result["score3"]);
+                    sum = sum + Convert.ToDouble(_db.Result["score4"]);
+                    sum = sum + Convert.ToDouble(_db.Result["score5"]);
                     sum = sum + checkinScore;
                     xx = xx + 70;
                     e.Graphics.DrawString(Math.Round(sum, 2).ToString(), font, Brushes.Black, x + 400 + xx, y);
                     string grade = "";
-                    grade = GetGradeFromScore((int)sum);
+                    grade = GetGradeFromScore(sum);
                     xx = xx + 55;
                     e.Graphics.DrawString(grade, font, Brushes.Black, x + 400 + xx, y);
                 }
@@ -1604,7 +1604,7 @@ namespace ClassRoomRegistration
             Font font = new Font("Arial", 14);
 
             // Title
-            e.Graphics.DrawString("คะแนนวิชา " + (string)dgvSubject.CurrentRow.Cells["SubTitle"].Value + " หมู่บรรยาย " + (string)dgvSubject.CurrentRow.Cells["SubLec"].Value + " หมู่ปฏิบัติ " + (string)dgvSubject.CurrentRow.Cells["SubLab"].Value + " ปีการศึกษา " + (string)dgvSubject.CurrentRow.Cells["SubYear"].Value + " ภาค " + (string)dgvSubject.CurrentRow.Cells["SubTerm"].Value, fontTitle, Brushes.Black, x, y);
+            e.Graphics.DrawString("คะแนนวิชา " + (string)dgvSubject.CurrentRow.Cells["SubTitle"].Value + " หมู่บรรยาย " + (string)dgvSubject.CurrentRow.Cells["SubLec"].Value + " หมู่ปฏิบัติ " + (string)dgvSubject.CurrentRow.Cells["SubLab"].Value + " ปีการศึกษา " + (string)dgvSubject.CurrentRow.Cells["SubYear"].Value + "  " + (string)dgvSubject.CurrentRow.Cells["SubTerm"].Value, fontTitle, Brushes.Black, x, y);
             y = y + 40;
             e.Graphics.DrawLine(Pens.Gray, x, y, x + 1120, y);
 
@@ -1663,18 +1663,18 @@ namespace ClassRoomRegistration
                     //xx = xx + 80;
                     //e.Graphics.DrawString(_db.Result["score5"].ToString(), font, Brushes.Black, x + 350 + xx, y);
                     double sum = 0;
-                    sum = sum + (int)_db.Result["mid"];
-                    sum = sum + (int)_db.Result["final"];
-                    sum = sum + (int)_db.Result["score1"];
-                    sum = sum + (int)_db.Result["score2"];
-                    sum = sum + (int)_db.Result["score3"];
-                    sum = sum + (int)_db.Result["score4"];
-                    sum = sum + (int)_db.Result["score5"];
+                    sum = sum + Convert.ToDouble(_db.Result["mid"]);
+                    sum = sum + Convert.ToDouble(_db.Result["final"]);
+                    sum = sum + Convert.ToDouble(_db.Result["score1"]);
+                    sum = sum + Convert.ToDouble(_db.Result["score2"]);
+                    sum = sum + Convert.ToDouble(_db.Result["score3"]);
+                    sum = sum + Convert.ToDouble(_db.Result["score4"]);
+                    sum = sum + Convert.ToDouble(_db.Result["score5"]);
                     sum = sum + checkinScore;
                     //xx = xx + 60;
                     //e.Graphics.DrawString(sum.ToString(), font, Brushes.Black, x + 350 + xx, y);
                     string grade = "";
-                    grade = GetGradeFromScore((int)sum);
+                    grade = GetGradeFromScore(sum);
                     xx = xx + 70;
                     e.Graphics.DrawString(grade, font, Brushes.Black, x + 350 + xx, y);
                 }
@@ -1696,20 +1696,38 @@ namespace ClassRoomRegistration
         {
             if (txtSearch.Text == "")
             {
-                MessageBox.Show("ใส่รหัสนิสิตด้วยค่ะ");
+                MessageBox.Show("กรุณาใส่รหัสนิสิต");
                 return;
             }
 
-            foreach (DataGridViewRow item in dgvScore.Rows)
+            if (cmbType.Text == "รหัส")
             {
-                if ((string)item.Cells[1].Value == txtSearch.Text)
+                foreach (DataGridViewRow item in dgvScore.Rows)
                 {
-                    item.Selected = true;
-                    if (dgvScore.CurrentRow != null)
+                    if ((string)item.Cells[1].Value == txtSearch.Text)
                     {
-                        dgvScore.CurrentRow.Selected = false;
+                        item.Selected = true;
+                        if (dgvScore.CurrentRow != null)
+                        {
+                            dgvScore.CurrentRow.Selected = false;
+                        }
+                        return;
                     }
-                    return;
+                }
+            }
+            else
+            {
+                foreach (DataGridViewRow item in dgvScore.Rows)
+                {
+                    if (item.Cells[2].Value.ToString().IndexOf(txtSearch.Text) != -1)
+                    {
+                        item.Selected = true;
+                        if (dgvScore.CurrentRow != null)
+                        {
+                            dgvScore.CurrentRow.Selected = false;
+                        }
+                        return;
+                    }
                 }
             }
 
@@ -1734,11 +1752,21 @@ namespace ClassRoomRegistration
 
         private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (ValidateInput.CheckAllowKeyNumber((int)e.KeyChar) == false)
-            {
-                MessageBox.Show("ใส่ได้แต่ตัวเลขเท่านั่น");
-                e.Handled = true;
-            }
+            //if (ValidateInput.CheckAllowKeyNumber((int)e.KeyChar) == false)
+            //{
+            //    MessageBox.Show("ใส่ได้แต่ตัวเลขเท่านั่น");
+            //    e.Handled = true;
+            //}
+        }
+
+        private void dtLate_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
