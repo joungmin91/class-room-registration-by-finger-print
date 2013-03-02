@@ -43,7 +43,7 @@ namespace ClassRoomRegistration
             dgv.Columns[0].Visible = false;
             dgv.Columns[1].HeaderText = "ชื่อ-นามสกุล";
             dgv.Columns[2].HeaderText = "คณะ";
-            dgv.Columns[2].Width = 200;
+            dgv.Columns[2].Width = 215;
             dgv.Columns[3].HeaderText = "ชื่อผู้ใช้";
             dgv.Columns[4].HeaderText = "รหัสผ่าน";
             dgv.Columns[5].HeaderText = "คำถาม";

@@ -270,7 +270,8 @@
             this.cmbQuestion.Items.AddRange(new object[] {
             "ชื่อเล่นชื่ออะไร",
             "ชอบสีอะไร",
-            "งานอดิเรกทำอะไร"});
+            "งานอดิเรกทำอะไร",
+            "ชอบกินอะไร"});
             this.cmbQuestion.Location = new System.Drawing.Point(75, 202);
             this.cmbQuestion.Name = "cmbQuestion";
             this.cmbQuestion.Size = new System.Drawing.Size(351, 21);

@@ -36,20 +36,20 @@ namespace ClassRoomRegistration
             dgv.Columns[0].HeaderText = "รหัส";
             dgv.Columns[0].Visible = false;
             dgv.Columns[1].HeaderText = "รหัสวิชา";
-            dgv.Columns[1].Width = 100;
+            dgv.Columns[1].Width = 70;
             dgv.Columns[2].HeaderText = "ชื่อวิชา";
-            dgv.Columns[2].Width = 150;
+            dgv.Columns[2].Width = 180;
             dgv.Columns[3].HeaderText = "ทฤษฏี";
             dgv.Columns[3].Width = 50;
             dgv.Columns[4].HeaderText = "ปฏิบัติ";
             dgv.Columns[4].Width = 50;
             dgv.Columns[5].HeaderText = "รหัสนิสิต";
-            dgv.Columns[5].Width = 100;
+            dgv.Columns[5].Width = 90;
             dgv.Columns[6].HeaderText = "ชื่อนิสิต";
-            dgv.Columns[6].Width = 250;
+            dgv.Columns[6].Width = 200;
             dgv.Columns[7].HeaderText = "ปีการศึกษา";
-            dgv.Columns[7].Width = 100;
-
+            dgv.Columns[7].Width = 90;
+            
             LoadRegisterToDGV(_sqlShowAll);
         }
 

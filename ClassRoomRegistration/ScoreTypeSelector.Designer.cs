@@ -41,7 +41,7 @@
             this.cmbType.FormattingEnabled = true;
             this.cmbType.Location = new System.Drawing.Point(73, 10);
             this.cmbType.Name = "cmbType";
-            this.cmbType.Size = new System.Drawing.Size(169, 21);
+            this.cmbType.Size = new System.Drawing.Size(121, 21);
             this.cmbType.TabIndex = 0;
             // 
             // label1
@@ -49,31 +49,31 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "ประเภท";
+            this.label1.Text = "ประเภท :";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 43);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 13);
+            this.label2.Size = new System.Drawing.Size(49, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "คะแนน";
+            this.label2.Text = "คะแนน :";
             // 
             // txtScore
             // 
             this.txtScore.Location = new System.Drawing.Point(73, 40);
             this.txtScore.Name = "txtScore";
-            this.txtScore.Size = new System.Drawing.Size(169, 20);
+            this.txtScore.Size = new System.Drawing.Size(121, 20);
             this.txtScore.TabIndex = 3;
             this.txtScore.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtScore_KeyPress);
             // 
             // btnOK
             // 
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOK.Location = new System.Drawing.Point(167, 66);
+            this.btnOK.Location = new System.Drawing.Point(119, 66);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 4;
@@ -85,7 +85,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(262, 102);
+            this.ClientSize = new System.Drawing.Size(212, 102);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.txtScore);
             this.Controls.Add(this.label2);

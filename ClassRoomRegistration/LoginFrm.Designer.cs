@@ -44,53 +44,53 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label1.Location = new System.Drawing.Point(12, 13);
+            this.label1.Location = new System.Drawing.Point(12, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(222, 16);
+            this.label1.Size = new System.Drawing.Size(229, 16);
             this.label1.TabIndex = 0;
-            this.label1.Text = "ท่านสามารถล๊อกอินเข้าระบบได้ด้วยชื่อบัญชีผู้ใช้";
+            this.label1.Text = "ท่านสามารถล๊อกอินเข้าสู่ระบบได้ด้วยชื่อบัญชีผู้ใช้";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label2.Location = new System.Drawing.Point(94, 50);
+            this.label2.Location = new System.Drawing.Point(94, 57);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 16);
+            this.label2.Size = new System.Drawing.Size(67, 16);
             this.label2.TabIndex = 1;
-            this.label2.Text = "ชื่อผู้ใช้";
+            this.label2.Text = "ชื่อผู้ใช้        :";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label3.Location = new System.Drawing.Point(94, 76);
+            this.label3.Location = new System.Drawing.Point(94, 83);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(48, 16);
+            this.label3.Size = new System.Drawing.Size(66, 16);
             this.label3.TabIndex = 2;
-            this.label3.Text = "รหัสผ่าน";
+            this.label3.Text = "รหัสผ่าน     :";
             // 
             // txtUsername
             // 
-            this.txtUsername.Location = new System.Drawing.Point(171, 49);
+            this.txtUsername.Location = new System.Drawing.Point(161, 56);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(240, 20);
+            this.txtUsername.Size = new System.Drawing.Size(180, 20);
             this.txtUsername.TabIndex = 3;
             this.txtUsername.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUsername_KeyPress);
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(171, 75);
+            this.txtPassword.Location = new System.Drawing.Point(161, 82);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(240, 20);
+            this.txtPassword.Size = new System.Drawing.Size(180, 20);
             this.txtPassword.TabIndex = 4;
             this.txtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPassword_KeyPress);
             // 
             // btnLogin
             // 
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogin.Location = new System.Drawing.Point(336, 101);
+            this.btnLogin.Location = new System.Drawing.Point(266, 108);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(75, 23);
             this.btnLogin.TabIndex = 5;
@@ -102,7 +102,7 @@
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 36);
+            this.pictureBox1.Location = new System.Drawing.Point(19, 47);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(69, 71);
             this.pictureBox1.TabIndex = 7;
@@ -111,7 +111,7 @@
             // txtForgetPassword
             // 
             this.txtForgetPassword.AutoSize = true;
-            this.txtForgetPassword.Location = new System.Drawing.Point(94, 106);
+            this.txtForgetPassword.Location = new System.Drawing.Point(94, 113);
             this.txtForgetPassword.Name = "txtForgetPassword";
             this.txtForgetPassword.Size = new System.Drawing.Size(59, 13);
             this.txtForgetPassword.TabIndex = 8;
@@ -123,7 +123,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(429, 142);
+            this.BackColor = System.Drawing.SystemColors.Window;
+            this.ClientSize = new System.Drawing.Size(359, 153);
             this.Controls.Add(this.txtForgetPassword);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnLogin);

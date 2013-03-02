@@ -32,11 +32,6 @@
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.configToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainToolbar = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonTeacher = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -57,9 +52,7 @@
             // 
             this.mainMenu.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.setupToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.fileToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Size = new System.Drawing.Size(784, 25);
@@ -69,9 +62,7 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.logoutToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.exitToolStripMenuItem});
+            this.logoutToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 21);
             this.fileToolStripMenuItem.Text = "ไฟล์";
@@ -79,42 +70,9 @@
             // logoutToolStripMenuItem
             // 
             this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
-            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.logoutToolStripMenuItem.Text = "ล๊อกเอาท์";
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.logoutToolStripMenuItem.Text = "ออกจากระบบ";
             this.logoutToolStripMenuItem.Click += new System.EventHandler(this.logoutToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(129, 6);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.exitToolStripMenuItem.Text = "จบโปรแกรม";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // setupToolStripMenuItem
-            // 
-            this.setupToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.configToolStripMenuItem});
-            this.setupToolStripMenuItem.Name = "setupToolStripMenuItem";
-            this.setupToolStripMenuItem.Size = new System.Drawing.Size(45, 21);
-            this.setupToolStripMenuItem.Text = "ตั้งค่า";
-            // 
-            // configToolStripMenuItem
-            // 
-            this.configToolStripMenuItem.Name = "configToolStripMenuItem";
-            this.configToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.configToolStripMenuItem.Text = "ตั้งค่าโปรแกรม";
-            this.configToolStripMenuItem.Click += new System.EventHandler(this.configToolStripMenuItem_Click);
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(62, 21);
-            this.helpToolStripMenuItem.Text = "ช่วยเหลือ";
             // 
             // mainToolbar
             // 
@@ -229,8 +187,8 @@
             this.toolStripButtonSetting.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonSetting.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonSetting.Name = "toolStripButtonSetting";
-            this.toolStripButtonSetting.Size = new System.Drawing.Size(105, 36);
-            this.toolStripButtonSetting.Text = "ตั้งค่าผู้ใช้งาน";
+            this.toolStripButtonSetting.Size = new System.Drawing.Size(130, 36);
+            this.toolStripButtonSetting.Text = "แก้ไขข้อมูลส่วนตัว";
             this.toolStripButtonSetting.Click += new System.EventHandler(this.toolStripButtonSetting_Click);
             // 
             // MainFrm
@@ -266,10 +224,7 @@
 
         private System.Windows.Forms.MenuStrip mainMenu;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem logoutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStrip mainToolbar;
         private System.Windows.Forms.ToolStripButton toolStripButtonTeacher;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
@@ -281,8 +236,6 @@
         private System.Windows.Forms.ToolStrip teachToolbar;
         private System.Windows.Forms.ToolStripButton toolStripButtonTechSubject;
         private System.Windows.Forms.ToolStripButton toolStripButtonSetting;
-        private System.Windows.Forms.ToolStripMenuItem setupToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem configToolStripMenuItem;
     }
 }
 
